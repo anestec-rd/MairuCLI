@@ -111,8 +111,9 @@ See [LIMITATIONS.md](LIMITATIONS.md) (coming soon) for detailed information.
 ## Development Timeline
 
 - **November 16, 2025:** Specification phase complete
-- **November 17-19, 2025:** Implementation phase
-- **November 20, 2025:** Demo video and submission
+- **November 22-24, 2025:** Implementation phase
+- **November 29, 2025:** Quality Improvement
+- **November 30, 2025:** Demo video and submission
 - **December 5, 2025:** Hackathon submission deadline
 
 ## Contributing
