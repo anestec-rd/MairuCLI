@@ -1,0 +1,26 @@
+Manual Test Commands for REPL
+==============================
+
+Run: python -m src.main
+
+Then try these commands:
+
+1. help
+2. pwd
+3. echo Hello MairuCLI!
+4. rm -rf /
+5. rm -rf /
+6. rm -rf /
+7. chmod 777 test.txt
+8. DROP DATABASE prod
+9. sl
+10. cd..
+11. stats
+12. history
+13. exit
+
+Expected:
+- Different warning messages each time
+- Achievements unlock at 1, 3, and 5 dangerous commands
+- Stats show correct counts
+- All features work smoothly

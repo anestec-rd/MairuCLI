@@ -1,0 +1,10 @@
+pwd
+echo Hello MairuCLI!
+cd ..
+pwd
+cd -
+pwd
+history
+rm -rf /
+chmod 777 test.txt
+exit
