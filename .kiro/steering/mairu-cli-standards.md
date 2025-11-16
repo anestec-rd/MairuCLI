@@ -89,6 +89,13 @@ use a trash utility like 'trash-cli' instead of rm.
 
 ## Documentation Standards
 
+### Language Requirements
+- **All documentation files (*.md) must be written in English**
+- Exception: `private_talk.md` can contain any language
+- When quoting user input in Japanese, translate it to English before including in documentation
+- Code comments should be in English
+- Commit messages should be in English
+
 ### README.md
 - Include installation instructions for multiple platforms
 - Provide usage examples with screenshots
@@ -99,6 +106,7 @@ use a trash utility like 'trash-cli' instead of rm.
 - Explain WHY, not just WHAT
 - Reference CLI_Troubled.md sections for context
 - Include links to incident reports when relevant
+- All comments must be in English
 
 ## File Organization
 ```

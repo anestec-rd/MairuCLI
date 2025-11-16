@@ -170,15 +170,15 @@ Each pattern has 4-5 different warning messages that display randomly:
 
 ## 🎓 Lessons Learned
 
-1. **実際に動くものを見るからこそ分かること、浮かんでくるアイデアがある**
+1. **Ideas Emerge from Seeing Things Work**
    - Working prototypes unlock creativity
    - Visual feedback sparks new ideas
 
-2. **着手はたやすく、拡張はしやすいネタを考えておくと、後あと細かく動きやすくなる**
-   - Design for easy start, easy extension
+2. **Design for Easy Start, Easy Extension**
+   - Choose ideas that are easy to begin and expand
    - Modular architecture pays off
 
-3. **AIとの会話は自分との対話でもある**
+3. **AI Conversation as Self-Dialogue**
    - Your knowledge shapes AI's responses
    - Refined answers generate refined questions
    - Passion and domain knowledge are crucial

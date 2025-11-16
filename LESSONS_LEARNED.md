@@ -6,7 +6,7 @@ These are the key lessons learned during the development of MairuCLI using Kiro 
 
 ---
 
-## 1. 実際に動くものを見るからこそ分かること、浮かんでくるアイデアがある
+## 1. Ideas Emerge from Seeing Things Work
 
 ### The Power of Working Prototypes
 
@@ -20,8 +20,7 @@ These are the key lessons learned during the development of MairuCLI using Kiro 
   - "What if we gamify it with achievements?"
 
 **Key Insight:**
-> だからこそモックを早めに開発することは大事である
-> (That's why developing a working mock early is crucial)
+> That's why developing a working mock early is crucial
 
 **Practical Application:**
 - Phase 1 took only 4 hours instead of planned 12 hours
@@ -36,9 +35,9 @@ These are the key lessons learned during the development of MairuCLI using Kiro 
 
 ---
 
-## 2. 着手はたやすく、拡張はしやすいネタを考えておくと、後あと細かく動きやすくなる
+## 2. Design for Easy Start, Easy Extension
 
-### Design for Easy Start, Easy Extension
+### Choose Ideas That Are Easy to Begin and Easy to Expand
 
 **Lesson:** Choose ideas that are easy to start and easy to extend.
 
@@ -49,8 +48,7 @@ These are the key lessons learned during the development of MairuCLI using Kiro 
 - Pattern matching → Easy to add new patterns
 
 **Key Insight:**
-> 着手はたやすく、拡張はしやすいネタを考えておくと、後あと細かく動きやすくなる
-> (When you think of ideas that are easy to start and easy to extend, you can move more flexibly later)
+> When you think of ideas that are easy to start and easy to extend, you can move more flexibly later
 
 **Examples from MairuCLI:**
 
@@ -93,19 +91,16 @@ These are the key lessons learned during the development of MairuCLI using Kiro 
 
 ---
 
-## 3. AIとの会話は自分との対話でもある
+## 3. AI Conversation as Self-Dialogue
 
-### AI Conversation as Self-Dialogue
+### Conversation with AI is Also a Dialogue with Yourself
 
 **Lesson:** Conversation with AI is also a dialogue with yourself. Your knowledge shapes AI's responses, which in turn shapes your questions.
 
 **Key Insight:**
-> 自分の知識量に応じてAIはより洗練された受け答えを行う。
-> 洗練された答えがまた、洗練された問いを生む。
-> そうやって良い開発体験が生まれる。
-> (AI provides more refined responses based on your knowledge level.
+> AI provides more refined responses based on your knowledge level.
 > Refined answers generate refined questions.
-> This creates a good development experience.)
+> This creates a good development experience.
 
 **The Virtuous Cycle:**
 
@@ -146,13 +141,9 @@ Deeper Knowledge
    - "What about random variations?"
 
 **Important Distinction:**
-> AIの開発をうまくやるのなら、自分の知識、熱量を高めておくこと。
-> （それはコーディング／システムの知識というわけではなく、
-> ＡＩに作ってもらいたい要件に関する知識・熱意ということ）
->
-> (To work well with AI development, increase your knowledge and passion.
+> To work well with AI development, increase your knowledge and passion.
 > This doesn't mean coding/system knowledge,
-> but knowledge and enthusiasm about the requirements you want AI to build.)
+> but knowledge and enthusiasm about the requirements you want AI to build.
 
 **Examples:**
 
@@ -310,7 +301,7 @@ The best development experience comes from the synergy between:
 ### Question 1: Why Was This Development So Smooth?
 
 **The Question:**
-> どうしてここまで順調に開発が進んだのだろう。Kiroでしか成し遂げられないことだったのかな。他のAIエージェントではどういった点で差があったのだろう。
+> Why did development proceed so smoothly? Was this something only achievable with Kiro? What are the differences compared to other AI agents?
 
 **Analysis:**
 
@@ -376,7 +367,7 @@ The success was a **combination** of Kiro's structured workflow, excellent prepa
 ### Question 2: Is It Acceptable to Not Review the Source Code?
 
 **The Question:**
-> 私はさっき実現したいドメインへの熱意があれば開発はできるといっていた。しかし、実際のところソースを見てはいない。有識者がちょこっと設計段階で指摘をしたものの、これは許される態度なんだろうか。
+> I said earlier that development is possible with passion for the domain you want to realize. However, I haven't actually reviewed the source code. An expert made a few comments during the design phase, but is this an acceptable attitude?
 
 **This is a profoundly important question.**
 
@@ -673,14 +664,10 @@ Without proper safeguards:
 - **But**: We must be honest about limitations
 
 **The Meta-Lesson:**
-> AI開発の成功は、AIの能力だけでなく、人間の判断力、準備、そして批判的思考に依存する。
->
-> (Success in AI-assisted development depends not just on AI capabilities, but on human judgment, preparation, and critical thinking.)
+> Success in AI-assisted development depends not just on AI capabilities, but on human judgment, preparation, and critical thinking.
 
 **The Uncomfortable Question We Must Keep Asking:**
-> どこまでAIに任せて良いのか？その境界線は、プロジェクトの性質、リスク、そして私たちの責任感によって決まる。
->
-> (How much can we delegate to AI? That boundary is determined by the project's nature, risk, and our sense of responsibility.)
+> How much can we delegate to AI? That boundary is determined by the project's nature, risk, and our sense of responsibility.
 
 ---
 
