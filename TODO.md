@@ -95,6 +95,33 @@
 - [ ] Project description for Devpost
 - [ ] Kiro workflow documentation
 
+### Award Category Decision (To Be Determined)
+**Status:** Pending final version review
+
+**Candidates:**
+1. **Costume Award** (Most likely)
+   - Strong Halloween theme consistency
+   - Visual impact
+   - Concern: High competition
+
+2. **Frankenstein Award** (Possible)
+   - Fusion of different domains (security + entertainment + education)
+   - Unexpected combination
+   - Concern: "Tech mashup" interpretation unclear
+
+3. **Best Entertainment** (Dark horse)
+   - Pure fun factor
+   - Interactive humor
+   - Memorable experience
+
+**Decision Process:**
+- Day 2: Test thoroughly, identify strongest aspects
+- Day 3: Review final version, watch demo video
+- Day 3: Decide based on what shines most
+- Day 3: Write tailored submission description
+
+**Strategy:** Keep options open, decide after seeing complete project in action
+
 ### Optional (Bonus Prizes)
 - [ ] Blog post on dev.to (#kiro hashtag)
 - [ ] Social media post (@kirodotdev, #hookedonkiro)
