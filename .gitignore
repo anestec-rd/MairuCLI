@@ -56,3 +56,6 @@ Thumbs.db
 # Project specific
 *.pyc
 .env
+
+# Private conversations
+private_talk.md
