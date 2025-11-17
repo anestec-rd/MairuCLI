@@ -19,11 +19,11 @@
 **Command:** `python -m src.main`
 
 **Expected:**
-- [✓] Halloween-themed banner displays
-- [✓] Orange/purple colors work
-- [✓] Emoji display correctly (🎃👻🔥)
+- [ ] Halloween-themed banner displays
+- [ ] Orange/purple colors work
+- [ ] Emoji display correctly (🎃👻🔥)
 - [ ] Instructions are clear
-- [✓] Prompt appears: `mairu>`
+- [ ] Prompt appears: `mairu>`
 
 **Notes:**
 ```
