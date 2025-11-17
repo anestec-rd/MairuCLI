@@ -91,21 +91,17 @@ def display_welcome_banner() -> None:
     """
     Display Halloween-themed welcome banner on startup.
     """
-    orange_line = colorize(
-        "╔═══════════════════════════════════════════════════════════╗",
-        "orange"
-    )
-    orange_bar = colorize("║", "orange")
     pumpkin = EMOJI['pumpkin']
     title = colorize("Welcome to MairuCLI", "red")
     subtitle = colorize(
         "Your friendly CLI safety wrapper with a spooky twist!",
         "chocolate"
     )
-    bottom_line = colorize(
-        "╚═══════════════════════════════════════════════════════════╝",
-        "orange"
-    )
+
+    # Simple separator line (no box to avoid emoji alignment issues)
+    separator = colorize("=" * 65, "orange")
+
+    # Instructions
     instruction1 = colorize(
         "Type commands as usual. I'll keep you safe from scary mistakes!",
         "green"
@@ -120,12 +116,11 @@ def display_welcome_banner() -> None:
         "chocolate"
     )
 
-    spaces = " " * 18
     banner = f"""
-{orange_line}
-{orange_bar}  {pumpkin} {title} {pumpkin}{spaces}{orange_bar}
-{orange_bar}  {subtitle}  {orange_bar}
-{bottom_line}
+{separator}
+  {pumpkin} {title} {pumpkin}
+  {subtitle}
+{separator}
 
 {instruction1}
 {instruction2}

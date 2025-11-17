@@ -67,6 +67,39 @@
 
 ## Low Priority (If Time Permits)
 
+### Project Organization
+- [ ] **Reorganize folder structure** (Optional polish)
+
+  **Current Issue:** Root directory has many documentation files
+
+  **Proposed Structure:**
+  ```
+  Root (keep):
+  - README.md (required)
+  - LICENSE (required)
+  - LESSONS_LEARNED.md (important - show to judges)
+  - TODO.md (development management)
+
+  Move to docs/hackathon/:
+  - DAY1_SUMMARY.md
+  - DEMO_SCRIPT.md
+  - DEVELOPMENT_TIMELINE.md
+  - PROGRESS.md
+  - QUICK_TEST.md
+
+  Move to tests/:
+  - manual_test_commands.txt
+  - test_session.txt
+  ```
+
+  **Rationale:**
+  - Keep important docs visible in root (LESSONS_LEARNED.md)
+  - Organize development docs in docs/hackathon/
+  - Cleaner root directory
+  - GitHub-friendly structure
+
+  **Decision:** Deferred - focus on functionality first
+
 ### Code Improvements
 - [ ] Add unit tests for core functionality
 - [ ] Add integration tests
