@@ -53,19 +53,22 @@ WARNING_VARIATIONS = {
         ("GAME OVER!", "(No continues, no save points)"),
         ("NOPE. JUST NOPE.", "(Not today, Satan)"),
         ("ABORT! ABORT!", "(This is not a drill!)"),
-        ("DENIED!", "(Your filesystem thanks me)")
+        ("DENIED!", "(Your filesystem thanks me)"),
+        ("WHOA THERE...", "(Turning workplace into land of the dead?)")
     ],
     "chmod_777": [
         ("PERMISSION DENIED!", "(By your future self)"),
         ("SECURITY BREACH ALERT!", "(This is how hacks happen)"),
         ("WIDE OPEN DOORS!", "(Might as well remove the locks)"),
-        ("EVERYONE'S INVITED!", "(Including the bad guys)")
+        ("EVERYONE'S INVITED!", "(Including the bad guys)"),
+        ("NEED A CHECKLIST?", "(This definitely shouldn't be on it)")
     ],
     "data_destroyer": [
         ("DATA DESTROYER DETECTED!", "(This will not end well)"),
         ("DISK ANNIHILATOR!", "(Say goodbye to your data)"),
         ("POINT OF NO RETURN!", "(Backups? Anyone?)"),
-        ("CAREER ENDER!", "(Update your resume now)")
+        ("CAREER ENDER!", "(Update your resume now)"),
+        ("TRICK AND TRIAGE!", "(You pranked, now we handle the incident)")
     ]
 }
 
@@ -204,7 +207,7 @@ def show_repeat_warning(command: str, count: int) -> None:
         print(colorize("I told you so...", "orange"))
         print()
         print("This is the THIRD time you've tried this!")
-        print("Are you testing me, or just not listening?")
+        print("How about trying something different?")
 
     elif count == 4:
         # Third repeat - exasperated
@@ -216,12 +219,19 @@ def show_repeat_warning(command: str, count: int) -> None:
         print("You clearly want to learn the hard way.")
         print("But I'm STILL not letting you run this command.")
 
-    else:
-        # Fourth+ repeat - just disappointed
+    elif count == 5:
+        # Fourth repeat - creative complaint
         print(f"{EMOJI['ghost']} {colorize('*sigh*', 'purple')}")
         print()
+        print("Dracula is crying because his scene never came...")
         print(f"Attempt #{count}. Still blocked.")
-        print("I'm not mad, just... disappointed.")
+
+    else:
+        # Fifth+ repeat - just show the log
+        print(f"{colorize('...', 'chocolate')}")
+        print()
+        print(f"[Command log: '{command}' - Attempt #{count}]")
+        print("[No comment.]")
 
     print("=" * 60)
     print()

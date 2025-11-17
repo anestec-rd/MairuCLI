@@ -126,7 +126,9 @@ def execute_in_system_shell(command: str) -> None:
         )
         # Exit code is automatically handled by subprocess
     except FileNotFoundError:
-        print(f"Command not found: {command.split()[0]}")
+        cmd_name = command.split()[0] if command.split() else command
+        print(f"🍬 Sorry, we don't sell '{cmd_name}' at the candy store.")
+        print("   (Command not found)")
     except Exception as e:
         print(f"Error executing command: {e}")
 
