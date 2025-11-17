@@ -6,6 +6,7 @@ and message formatting.
 """
 
 import random
+import time
 from pathlib import Path
 from typing import Dict, List
 
@@ -262,49 +263,67 @@ def show_danger_warning(pattern_name: str, command: str) -> None:
     title_text, subtitle_text = random.choice(variations)
 
     if pattern_name == "rm_root":
-        print(colorize(art, "red"))
+        # Display ASCII art slowly for dramatic effect
+        display_ascii_art_slowly(art, "red", delay=0.05)
+        time.sleep(0.3)  # Pause after art
+
         fire = EMOJI['fire']
         title = colorize(title_text, 'red')
         print(f"{fire} {title} {fire}")
         subtitle = colorize(subtitle_text, "orange")
         print(subtitle)
         print()
+        time.sleep(0.5)  # Pause before explanation
+
         print("The command 'rm -rf /' attempts to delete EVERYTHING.")
         print("This is unrecoverable without backups.")
         print()
         print(f"{EMOJI['lightbulb']} {colorize('Safe alternative:', 'green')}")
         print("  - Use 'rm -i' for interactive confirmation")
         print("  - Use 'trash-cli' instead of rm")
+        time.sleep(0.3)  # Pause before achievement
 
     elif pattern_name == "chmod_777":
-        print(colorize(art, "purple"))
+        # Display ASCII art slowly for dramatic effect
+        display_ascii_art_slowly(art, "purple", delay=0.05)
+        time.sleep(0.3)  # Pause after art
+
         skull = EMOJI['skull']
         title = colorize(title_text, 'red')
         print(f"{skull} {title} {skull}")
         subtitle = colorize(subtitle_text, "orange")
         print(subtitle)
         print()
+        time.sleep(0.5)  # Pause before explanation
+
         print("chmod 777 gives EVERYONE full access to your files.")
         print("This is a major security risk!")
         print()
         print(f"{EMOJI['lightbulb']} {colorize('Safe alternative:', 'green')}")
         print("  - Use specific permissions like 'chmod 755' or 'chmod 644'")
         print("  - Only give write access when necessary")
+        time.sleep(0.3)  # Pause before achievement
 
     elif pattern_name in ["dd_zero", "drop_database", "sudo_rm_var"]:
-        print(colorize(art, "red"))
+        # Display ASCII art slowly for dramatic effect
+        display_ascii_art_slowly(art, "red", delay=0.05)
+        time.sleep(0.3)  # Pause after art
+
         fire = EMOJI['fire']
         title = colorize(title_text, 'red')
         print(f"{fire} {title} {fire}")
         subtitle = colorize(subtitle_text, "orange")
         print(subtitle)
         print()
+        time.sleep(0.5)  # Pause before explanation
+
         print(f"The command '{command}' is extremely dangerous.")
         print("It can cause irreversible data loss.")
         print()
         print(f"{EMOJI['lightbulb']} {colorize('Safe alternative:', 'green')}")
         print("  - Always backup before destructive operations")
         print("  - Test commands in a safe environment first")
+        time.sleep(0.3)  # Pause before achievement
 
     print()
     print(colorize(f"Blocked command: {command}", "chocolate"))
@@ -389,6 +408,7 @@ def show_achievement(title: str, description: str) -> None:
         title: Achievement title
         description: Achievement description
     """
+    time.sleep(0.5)  # Pause before achievement (dramatic timing)
     print()
     print("=" * 60)
     print(f"🏆 {colorize('ACHIEVEMENT UNLOCKED!', 'orange')} 🏆")
@@ -397,6 +417,24 @@ def show_achievement(title: str, description: str) -> None:
     print(f"  {description}")
     print("=" * 60)
     print()
+    time.sleep(0.3)  # Brief pause after achievement
+
+
+def display_ascii_art_slowly(
+    art: str, color: str, delay: float = 0.05
+) -> None:
+    """
+    Display ASCII art line by line with dramatic effect.
+
+    Args:
+        art: ASCII art string
+        color: Color name for the art
+        delay: Delay between lines in seconds
+    """
+    lines = art.split('\n')
+    for line in lines:
+        print(colorize(line, color))
+        time.sleep(delay)
 
 
 def get_stats() -> Dict[str, int]:

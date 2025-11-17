@@ -112,6 +112,12 @@
 - [ ] Configuration file support
 - [ ] Command logging to file
 - [ ] Multi-language support (Japanese)
+- [ ] **Echo command variable expansion** (Optional enhancement)
+  - Current: Simple text display only (`echo Hello` → "Hello")
+  - Enhancement: Add basic variable expansion (`echo $HOME` → actual path)
+  - Implementation: ~5-10 minutes
+  - Priority: Low (not essential for core functionality)
+  - Note: Current simple implementation is sufficient for educational tool
 
 ### Visual Improvements
 - [ ] More elaborate ASCII art

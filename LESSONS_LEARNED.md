@@ -675,10 +675,49 @@ Without proper safeguards:
 
 ---
 
+## Practical Challenges: Working with AI in Long Sessions
+
+### Challenge: Session Length and Response Quality
+
+**Observation (Day 2, 2025-11-17):**
+As development sessions grow longer, AI responses occasionally become truncated:
+- Early in session: Full, detailed responses
+- After extended interaction: Sometimes just "Understood" without action
+- Workaround: Re-submit the request → works normally
+
+**Root Cause:**
+- Long conversation history increases context size
+- Token usage accumulates (77% used in this session)
+- Processing time increases with context length
+- Timeout or resource limits may trigger abbreviated responses
+
+**Impact:**
+- Minor inconvenience (requires re-submission)
+- Does not block development
+- Actually demonstrates real-world AI usage
+
+**Solutions:**
+1. **Start new session** when token usage is high (>80%)
+2. **Re-submit request** if response is truncated
+3. **Break work into phases** with natural session boundaries
+4. **Accept as normal behavior** of current AI systems
+
+**Lesson:**
+> AI-assisted development is powerful but not perfect. Understanding limitations and working around them is part of the skill.
+
+**Why This Matters for Contest:**
+- Shows honest, real-world experience
+- Demonstrates problem-solving
+- Proves we actually used Kiro extensively
+- Provides useful feedback for Kiro team
+
+---
+
 **Project:** MairuCLI
-**Date:** 2025-11-16
+**Date:** 2025-11-16 - 2025-11-17
 **Developer:** [Your Name]
 **AI Partner:** Kiro
-**Time:** 4 hours (Phase 1 + Bonus Features)
+**Time:** Day 1: 4 hours, Day 2: In progress
 **Result:** Fully functional, demo-ready, fun CLI safety wrapper
 **Critical Reflection:** Added to ensure honest assessment of AI development practices
+**Real-World Experience:** Includes both successes and challenges
