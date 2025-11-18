@@ -150,12 +150,12 @@
     - _Requirements: 5.2, 7.4_
 
 - [ ] 8. Verify backward compatibility and integration
-  - [ ] 8.1 Run existing tests
+  - [x] 8.1 Run existing tests
     - Execute all existing display tests
     - Verify no test failures
     - _Requirements: 7.5_
 
-  - [ ] 8.2 Manual testing of warning displays
+  - [x] 8.2 Manual testing of warning displays
     - Test rm -rf / warning displays correctly
     - Test chmod 777 warning displays correctly
     - Test typo warnings display correctly
@@ -164,7 +164,7 @@
     - Verify timing effects work as before
     - _Requirements: 7.1, 7.3, 7.4_
 
-  - [ ] 8.3 Test error handling
+  - [x] 8.3 Test error handling
     - Test with missing warning_catalog.json
     - Test with invalid JSON in data files
     - Test with missing ASCII art files
@@ -172,14 +172,14 @@
     - _Requirements: 6.6_
 
 - [ ] 9. Documentation and cleanup
-  - [ ] 9.1 Update documentation
+  - [x] 9.1 Update documentation
     - Add architecture diagram to README.md
     - Document content file formats
     - Add guide for adding new warnings
     - Update CHANGELOG.md with refactoring notes
     - _Requirements: 8.1, 8.2, 8.3_
 
-  - [ ] 9.2 Add inline documentation
+  - [x] 9.2 Add inline documentation
     - Add docstrings to all new classes and methods
     - Add type hints to all functions
     - Add comments explaining complex logic

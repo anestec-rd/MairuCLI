@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **Display Module Refactoring (v2.0)** - Major architectural improvement
+  - Modular component-based architecture
+  - Data-driven content management with JSON files
+  - Separate components: AsciiRenderer, MessageFormatter, ContentLoader
+  - Warning components: DangerWarning, TypoWarning, RepeatWarning
+  - Statistics and AchievementTracker as standalone classes
+  - Content catalog system for managing warnings and variations
 - Creative warning message variations
 - "I told you so" escalating sarcasm feature
 - Achievement system (5 achievements)
@@ -16,17 +23,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Random warning variations for each pattern type
 - Candy store message for unknown commands
 - Comprehensive manual test plan
+- Dramatic timing effects for warning displays
 
 ### Changed
+- **Refactored display system** from monolithic to modular architecture
+  - Reduced display.py from 400+ lines to clean component-based structure
+  - Moved display.py to display/__init__.py for proper module organization
+  - Extracted 200+ lines of old code into focused components
+  - Maintained 100% backward compatibility with existing API
 - Moved all test files to `tests/` directory
 - Simplified welcome banner design to fix alignment issues
 - Organized comment management system (Japanese source + English translations)
+- Warning messages now loaded from JSON files instead of hardcoded
+- ASCII art files moved to data/ascii_art/ directory
 
 ### Fixed
 - Welcome banner border alignment issue (emoji width problem)
   - Issue: Box borders didn't align properly due to emoji display width
   - Solution: Replaced box design with simple separator lines
   - Impact: Banner now displays correctly on all terminals
+- Content loader error handling when catalog file is missing
+  - Added fallback catalog for graceful degradation
 
 ---
 

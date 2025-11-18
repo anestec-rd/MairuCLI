@@ -65,7 +65,7 @@ class ContentLoader:
             Dictionary with warning content
         """
         if self._catalog is None:
-            self.load_catalog()
+            self._catalog = self.load_catalog()
 
         warnings = self._catalog.get("warnings", {})
         return warnings.get(pattern_name, self._get_fallback_warning(pattern_name))
