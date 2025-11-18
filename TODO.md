@@ -87,6 +87,24 @@
 
 ## Low Priority (If Time Permits)
 
+### Display Refactoring - Optional Tasks
+- [ ] **Unit tests for display components** (Optional - core functionality tested manually)
+  - ContentLoader unit tests (2.3)
+  - AsciiRenderer unit tests (3.2)
+  - MessageFormatter unit tests (4.3)
+  - Statistics/Achievements unit tests (5.3)
+  - WarningComponents unit tests (6.5)
+  - Implementation: ~30-60 minutes
+  - Value: Improved test coverage, easier future maintenance
+  - Note: All components already tested manually and working correctly
+
+- [ ] **Developer guide for display system** (Optional - for future contributors)
+  - Guide for adding new warning types (9.3)
+  - Document content file structure
+  - Provide examples of custom variations
+  - Implementation: ~20-30 minutes
+  - Value: Easier onboarding for future contributors
+
 ### Project Organization
 - [ ] **Reorganize folder structure** (Optional polish)
 
