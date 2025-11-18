@@ -1,0 +1,12 @@
+{
+  "sl": {
+    "message": "🚂 Choo choo! All aboard the typo train!",
+    "correct": "ls",
+    "ascii_art": null
+  },
+  "cd_stuck": {
+    "message": "🎃 Stuck together? Let me help you separate!",
+    "correct": "cd ..",
+    "ascii_art": null
+  }
+}

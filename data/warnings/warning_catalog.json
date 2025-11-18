@@ -1,0 +1,105 @@
+{
+  "version": "1.0",
+  "warnings": {
+    "rm_root": {
+      "category": "deletion",
+      "severity": "critical",
+      "variation_set": "rm_root",
+      "ascii_art": "fired.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "The command 'rm -rf /' attempts to delete EVERYTHING.",
+      "consequence": "This is unrecoverable without backups.",
+      "advice": [
+        "Use 'rm -i' for interactive confirmation",
+        "Use 'trash-cli' instead of rm"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "chmod_777": {
+      "category": "permission",
+      "severity": "high",
+      "variation_set": "chmod_777",
+      "ascii_art": "permission_denied.txt",
+      "color": "purple",
+      "emoji": "skull",
+      "explanation": "chmod 777 gives EVERYONE full access to your files.",
+      "consequence": "This is a major security risk!",
+      "advice": [
+        "Use specific permissions like 'chmod 755' or 'chmod 644'",
+        "Only give write access when necessary"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "dd_zero": {
+      "category": "disk",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "The command 'dd if=/dev/zero' can destroy disk data.",
+      "consequence": "It can cause irreversible data loss.",
+      "advice": [
+        "Always backup before destructive operations",
+        "Test commands in a safe environment first"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "drop_database": {
+      "category": "database",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "fired.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "DROP DATABASE permanently deletes an entire database.",
+      "consequence": "It can cause irreversible data loss.",
+      "advice": [
+        "Always backup before destructive operations",
+        "Test commands in a safe environment first"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "sudo_rm_var": {
+      "category": "deletion",
+      "severity": "high",
+      "variation_set": "data_destroyer",
+      "ascii_art": "fired.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "This command attempts to delete system files with elevated privileges.",
+      "consequence": "It can cause irreversible data loss.",
+      "advice": [
+        "Always backup before destructive operations",
+        "Test commands in a safe environment first"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    }
+  }
+}

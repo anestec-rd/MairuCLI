@@ -1,0 +1,50 @@
+{
+  "2": {
+    "emoji": "eyes",
+    "title": "Wait...",
+    "lines": [
+      "Haven't we been here before?",
+      "",
+      "I JUST warned you about this!",
+      "Did you think I was joking?"
+    ]
+  },
+  "3": {
+    "emoji": "facepalm",
+    "title": "Seriously?",
+    "lines": [
+      "I told you so...",
+      "",
+      "This is the THIRD time you've tried this!",
+      "How about trying something different?"
+    ]
+  },
+  "4": {
+    "emoji": "facepalm",
+    "title": "REALLY?!",
+    "lines": [
+      "",
+      "Okay, I give up.",
+      "You clearly want to learn the hard way.",
+      "But I'm STILL not letting you run this command."
+    ]
+  },
+  "5": {
+    "emoji": "ghost",
+    "title": "*sigh*",
+    "lines": [
+      "",
+      "Dracula is crying because his scene never came...",
+      "Attempt #{count}. Still blocked."
+    ]
+  },
+  "default": {
+    "emoji": null,
+    "title": "...",
+    "lines": [
+      "",
+      "[Command log: '{command}' - Attempt #{count}]",
+      "[No comment.]"
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "rm_root": [
+    {
+      "title": "YOU'RE FIRED!",
+      "subtitle": "(And so is your entire filesystem!)"
+    },
+    {
+      "title": "GAME OVER!",
+      "subtitle": "(No continues, no save points)"
+    },
+    {
+      "title": "NOPE. JUST NOPE.",
+      "subtitle": "(Not today, Satan)"
+    },
+    {
+      "title": "ABORT! ABORT!",
+      "subtitle": "(This is not a drill!)"
+    },
+    {
+      "title": "DENIED!",
+      "subtitle": "(Your filesystem thanks me)"
+    },
+    {
+      "title": "WHOA THERE...",
+      "subtitle": "(Turning workplace into land of the dead?)"
+    }
+  ],
+  "chmod_777": [
+    {
+      "title": "PERMISSION DENIED!",
+      "subtitle": "(By your future self)"
+    },
+    {
+      "title": "SECURITY BREACH ALERT!",
+      "subtitle": "(This is how hacks happen)"
+    },
+    {
+      "title": "WIDE OPEN DOORS!",
+      "subtitle": "(Might as well remove the locks)"
+    },
+    {
+      "title": "EVERYONE'S INVITED!",
+      "subtitle": "(Including the bad guys)"
+    },
+    {
+      "title": "NEED A CHECKLIST?",
+      "subtitle": "(This definitely shouldn't be on it)"
+    }
+  ],
+  "data_destroyer": [
+    {
+      "title": "DATA DESTROYER DETECTED!",
+      "subtitle": "(This will not end well)"
+    },
+    {
+      "title": "DISK ANNIHILATOR!",
+      "subtitle": "(Say goodbye to your data)"
+    },
+    {
+      "title": "POINT OF NO RETURN!",
+      "subtitle": "(Backups? Anyone?)"
+    },
+    {
+      "title": "CAREER ENDER!",
+      "subtitle": "(Update your resume now)"
+    },
+    {
+      "title": "TRICK AND TRIAGE!",
+      "subtitle": "(You pranked, now we handle the incident)"
+    }
+  ]
+}
