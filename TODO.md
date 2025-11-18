@@ -145,6 +145,24 @@
 - [ ] Sound effects (terminal beep)
 - [ ] Custom color schemes
 
+### Kiro-Specific Features (Contest Showcase)
+- [ ] **Agent Hooks integration** (Low priority - showcase Kiro features)
+  - Hook: On file save → Auto-update CHANGELOG.md
+  - Hook: On dangerous pattern added → Auto-update documentation
+  - Hook: Manual "spell-check" hook for documentation files
+  - Purpose: Demonstrate Kiro's Agent Hooks capability
+  - Implementation: ~30-60 minutes
+  - Value: Shows advanced Kiro workflow automation
+
+- [ ] **MCP Server integration** (Low priority - showcase Kiro features)
+  - Potential use: CLI command documentation lookup
+  - Potential use: Security best practices database
+  - Potential use: Real-world incident examples lookup
+  - Purpose: Demonstrate Kiro's MCP integration
+  - Implementation: ~30-60 minutes
+  - Value: Shows Kiro's extensibility with external tools
+  - Note: Only if natural fit exists, don't force it
+
 ## Submission Checklist
 
 ### Required Materials
