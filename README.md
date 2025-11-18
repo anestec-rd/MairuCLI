@@ -342,7 +342,7 @@ For now:
 
 ## 📄 License
 
-[MIT License](LICENSE)
+[Apache License 2.0](LICENSE)
 
 ## 🙏 Acknowledgments
 
