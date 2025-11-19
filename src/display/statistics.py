@@ -14,9 +14,11 @@ class Statistics:
         """Initialize statistics counters."""
         self._stats = {
             "dangerous_blocked": 0,
-            "typos_caught": 0
+            "typos_caught": 0,
+            "safe_commands_used": 0
         }
         self._warned_commands: Dict[str, int] = {}
+        self._safe_commands_used: set = set()
 
     def increment_dangerous_blocked(self) -> None:
         """Increment dangerous command counter."""
@@ -59,7 +61,9 @@ class Statistics:
         Returns:
             Maximum number of repeats, or 0 if no repeats
         """
-        return max(self._warned_commands.values()) if self._warned_commands else 0
+        if self._warned_commands:
+            return max(self._warned_commands.values())
+        return 0
 
     def get_total_blocks(self) -> int:
         """
@@ -78,3 +82,24 @@ class Statistics:
             Total typos count
         """
         return self._stats["typos_caught"]
+
+    def track_safe_command(self, command: str) -> None:
+        """
+        Track safe command usage.
+
+        Args:
+            command: The safe command being used
+        """
+        self._safe_commands_used.add(command)
+        self._stats["safe_commands_used"] = (
+            len(self._safe_commands_used)
+        )
+
+    def get_safe_commands_count(self) -> int:
+        """
+        Get number of unique safe commands used.
+
+        Returns:
+            Number of unique safe commands
+        """
+        return len(self._safe_commands_used)

@@ -12,7 +12,8 @@ from src.display import (
     colorize,
     display_goodbye_message,
     display_welcome_banner,
-    show_warning
+    show_warning,
+    track_safe_command
 )
 from src.interceptor import check_command
 
@@ -93,6 +94,8 @@ def process_command(command: str) -> str:
     # Layer 1: Check if builtin command
     if BuiltinCommands.is_builtin(cmd_name):
         BuiltinCommands.execute_builtin(cmd_name, args)
+        # Track safe command usage for achievements
+        track_safe_command(cmd_name)
         return ""
 
     # Layer 2: Check if dangerous command
@@ -103,6 +106,8 @@ def process_command(command: str) -> str:
 
     # Layer 3: Execute in system shell (safe command)
     execute_in_system_shell(command)
+    # Track safe command usage for achievements
+    track_safe_command(cmd_name)
     return ""
 
 
@@ -132,14 +137,20 @@ def execute_in_system_shell(command: str) -> None:
         # Check if command was not found (Windows/Unix)
         if result.returncode != 0 and result.stderr:
             stderr_lower = result.stderr.lower()
-            # Windows: "は、内部コマンドまたは外部コマンド..." or "'xxx' is not recognized..."
+            # Windows: "は、内部コマンドまたは外部コマンド..."
+            # or "'xxx' is not recognized..."
             # Unix: "command not found"
             if ('not recognized' in stderr_lower or
-                'command not found' in stderr_lower or
-                '内部コマンドまたは外部コマンド' in result.stderr or
-                'not found' in stderr_lower):
-                cmd_name = command.split()[0] if command.split() else command
-                print(f"🍬 Sorry, we don't sell '{cmd_name}' at the candy store.")
+                    'command not found' in stderr_lower or
+                    '内部コマンドまたは外部コマンド' in result.stderr or
+                    'not found' in stderr_lower):
+                cmd_name = (
+                    command.split()[0] if command.split() else command
+                )
+                print(
+                    f"🍬 Sorry, we don't sell '{cmd_name}' "
+                    "at the candy store."
+                )
                 print("   (Command not found)")
             else:
                 # Other errors - print as is

@@ -32,6 +32,7 @@ class AchievementTracker:
         total_blocks = self.statistics.get_total_blocks()
         total_typos = self.statistics.get_total_typos()
         max_repeats = self.statistics.get_max_repeats()
+        safe_commands = self.statistics.get_safe_commands_count()
 
         # Achievement: First Blood
         if total_blocks == 1 and "first_blood" not in self._unlocked:
@@ -71,6 +72,31 @@ class AchievementTracker:
             self.show_achievement(
                 "Stubborn",
                 "Tried the same command 3 times. I admire your persistence!"
+            )
+
+        # Achievement: Explorer
+        if safe_commands >= 5 and "explorer" not in self._unlocked:
+            self._unlocked.append("explorer")
+            self.show_achievement(
+                "Explorer",
+                "Used 5 different safe commands. You're learning the ropes!"
+            )
+
+        # Achievement: Command Master
+        if safe_commands >= 10 and "command_master" not in self._unlocked:
+            self._unlocked.append("command_master")
+            self.show_achievement(
+                "Command Master",
+                "Used 10 different safe commands. You're a CLI wizard!"
+            )
+
+        # Achievement: Balanced User
+        if (safe_commands >= 8 and total_blocks >= 3 and
+                "balanced" not in self._unlocked):
+            self._unlocked.append("balanced")
+            self.show_achievement(
+                "Balanced User",
+                "Explored both safe and dangerous commands. Perfect balance!"
             )
 
     def show_achievement(self, title: str, description: str) -> None:

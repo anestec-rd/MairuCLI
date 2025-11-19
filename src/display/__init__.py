@@ -145,3 +145,14 @@ def get_stats() -> Dict[str, int]:
         Dictionary with statistics
     """
     return _statistics.get_stats()
+
+
+def track_safe_command(command: str) -> None:
+    """
+    Track safe command usage for achievements.
+
+    Args:
+        command: The safe command being used
+    """
+    _statistics.track_safe_command(command)
+    _achievement_tracker.check_achievements()
