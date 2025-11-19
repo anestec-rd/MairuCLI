@@ -11,8 +11,11 @@ from typing import Dict, Tuple
 # Dangerous command patterns
 # Reference: docs/reference/cli-dangers.md
 DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
-    "rm_root": {
-        "pattern": r"rm\s+(-rf|-fr|-r\s+-f|-f\s+-r)\s+(/|~|\$HOME)",
+    "rm_dangerous": {
+        "pattern": (
+            r"rm\s+(-rf|-fr|-r\s+-f|-f\s+-r)\s+"
+            r"(/|~|\$HOME|\*|\.(?:\s|$)|\$\w+)"
+        ),
         "category": "deletion",
         "severity": "critical",
         "art_file": "fired.txt"
@@ -33,13 +36,49 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "pattern": r"DROP\s+DATABASE",
         "category": "database",
         "severity": "critical",
-        "art_file": "fired.txt"  # Reuse fired art
+        "art_file": "fired.txt"
     },
-    "sudo_rm_var": {
-        "pattern": r"sudo\s+rm\s+(-rf|-fr)\s+\$\w+",
+    "fork_bomb": {
+        "pattern": r":\(\)\{:\|:&\};:",
+        "category": "system",
+        "severity": "critical",
+        "art_file": "data_destroyer.txt"
+    },
+    "redirect_to_disk": {
+        "pattern": r">\s*/dev/sd[a-z]",
+        "category": "disk",
+        "severity": "critical",
+        "art_file": "data_destroyer.txt"
+    },
+    "mkfs_disk": {
+        "pattern": r"mkfs\.\w+\s+/dev/sd[a-z]",
+        "category": "disk",
+        "severity": "critical",
+        "art_file": "data_destroyer.txt"
+    },
+    "mv_to_null": {
+        "pattern": r"mv\s+.+\s+/dev/null",
         "category": "deletion",
         "severity": "high",
-        "art_file": "fired.txt"  # Reuse fired art
+        "art_file": "fired.txt"
+    },
+    "overwrite_file": {
+        "pattern": r"^\s*>\s+/\w+",
+        "category": "deletion",
+        "severity": "medium",
+        "art_file": "permission_denied.txt"
+    },
+    "dd_random": {
+        "pattern": r"dd\s+if=/dev/random\s+of=/dev/sd[a-z]",
+        "category": "disk",
+        "severity": "critical",
+        "art_file": "data_destroyer.txt"
+    },
+    "kernel_panic": {
+        "pattern": r"echo\s+c\s*>\s*/proc/sysrq-trigger",
+        "category": "system",
+        "severity": "critical",
+        "art_file": "data_destroyer.txt"
     }
 }
 

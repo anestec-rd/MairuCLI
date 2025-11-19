@@ -1,18 +1,19 @@
 {
   "version": "1.0",
   "warnings": {
-    "rm_root": {
+    "rm_dangerous": {
       "category": "deletion",
       "severity": "critical",
       "variation_set": "rm_root",
       "ascii_art": "fired.txt",
       "color": "red",
       "emoji": "fire",
-      "explanation": "The command 'rm -rf /' attempts to delete EVERYTHING.",
-      "consequence": "This is unrecoverable without backups.",
+      "explanation": "This 'rm -rf' command targets critical system locations!",
+      "consequence": "Could delete root (/), home (~), current dir (*), or variables.",
       "advice": [
         "Use 'rm -i' for interactive confirmation",
-        "Use 'trash-cli' instead of rm"
+        "Always specify exact file/folder names",
+        "Use 'trash-cli' instead of rm for safety"
       ],
       "timing": {
         "art_delay": 0.05,
@@ -81,18 +82,139 @@
         "pause_before_achievement": 0.3
       }
     },
-    "sudo_rm_var": {
+
+    "fork_bomb": {
+      "category": "system",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "This is a FORK BOMB - a DOS attack that freezes your system!",
+      "consequence": "Your system will become unresponsive and require reboot.",
+      "advice": [
+        "Never run code you don't understand",
+        "This is a malicious command, not a mistake"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "redirect_to_disk": {
+      "category": "disk",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "Redirecting output to /dev/sda overwrites your disk directly!",
+      "consequence": "This will destroy all data on the disk.",
+      "advice": [
+        "Never redirect to /dev/sd* devices",
+        "Use proper disk tools for disk operations"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "mkfs_disk": {
+      "category": "disk",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "mkfs formats the disk, erasing EVERYTHING on it!",
+      "consequence": "All data on the disk will be permanently lost.",
+      "advice": [
+        "Always verify the device name before formatting",
+        "Use 'lsblk' to check disk layout first"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "mv_to_null": {
       "category": "deletion",
       "severity": "high",
       "variation_set": "data_destroyer",
       "ascii_art": "fired.txt",
       "color": "red",
       "emoji": "fire",
-      "explanation": "This command attempts to delete system files with elevated privileges.",
-      "consequence": "It can cause irreversible data loss.",
+      "explanation": "Moving files to /dev/null makes them disappear forever!",
+      "consequence": "Files sent to /dev/null cannot be recovered.",
       "advice": [
-        "Always backup before destructive operations",
-        "Test commands in a safe environment first"
+        "Use 'rm' if you want to delete (at least it's explicit)",
+        "Consider using a trash utility instead"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "overwrite_file": {
+      "category": "deletion",
+      "severity": "medium",
+      "variation_set": "chmod_777",
+      "ascii_art": "permission_denied.txt",
+      "color": "purple",
+      "emoji": "skull",
+      "explanation": "Redirecting nothing to a file overwrites it with 0 bytes!",
+      "consequence": "The file will be empty - all content lost.",
+      "advice": [
+        "Use 'echo \"\" > file' if you want to clear a file",
+        "Better yet, use a text editor to modify files"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "dd_random": {
+      "category": "disk",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "This command fills your disk with random data!",
+      "consequence": "All data will be overwritten and unrecoverable.",
+      "advice": [
+        "Only use dd for legitimate disk operations",
+        "Always triple-check the 'of=' parameter"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "kernel_panic": {
+      "category": "system",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "This command triggers a Kernel Panic - instant system crash!",
+      "consequence": "Your system will crash immediately and require reboot.",
+      "advice": [
+        "Never write to /proc/sysrq-trigger unless debugging",
+        "This is a system debugging feature, not for normal use"
       ],
       "timing": {
         "art_delay": 0.05,
