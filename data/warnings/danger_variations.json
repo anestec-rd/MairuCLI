@@ -10,11 +10,11 @@
     },
     {
       "title": "NOPE. JUST NOPE.",
-      "subtitle": "(Not today, Satan)"
+      "subtitle": "(Not today, SATA!)"
     },
     {
       "title": "ABORT! ABORT!",
-      "subtitle": "(This is not a drill!)"
+      "subtitle": "(Ctrl+C won't save you now!)"
     },
     {
       "title": "DENIED!",
@@ -26,7 +26,7 @@
     },
     {
       "title": "MEMORY LOSS!",
-      "subtitle": "(Who are you again? I don't remember you...)"
+      "subtitle": "(RAM not found... Who are you again?)"
     },
     {
       "title": "SCARIER THAN GHOSTS!",
@@ -40,7 +40,7 @@
   "chmod_777": [
     {
       "title": "PERMISSION DENIED!",
-      "subtitle": "(By your future self)"
+      "subtitle": "(Error 403: Forbidden by your future self)"
     },
     {
       "title": "SECURITY BREACH ALERT!",
