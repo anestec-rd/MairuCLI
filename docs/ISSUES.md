@@ -6,7 +6,54 @@ This document tracks bugs, issues, and enhancement requests discovered during de
 
 ## Active Issues
 
-### None currently
+### Issue #2: dd Command Pattern Too Strict
+**Date:** 2025-11-19 13:20
+**Severity:** Major (Functionality)
+**Status:** 🔴 OPEN
+
+**Problem:**
+- Command `dd if=/dev/zero` is not detected as dangerous
+- Falls through to system shell
+- On Windows: "Command not found" error
+- Expected: Should be blocked with danger warning
+
+**Root Cause:**
+- Pattern in `src/interceptor.py` line 31: `r"dd\s+if=/dev/zero\s+of="`
+- Requires `of=` parameter to match
+- User command `dd if=/dev/zero` doesn't include `of=`
+- Pattern doesn't match → not detected as dangerous
+
+**Solution:**
+- Change pattern to: `r"dd\s+if=/dev/zero"`
+- Make `of=` parameter optional
+- This will catch both:
+  - `dd if=/dev/zero` (incomplete but dangerous)
+  - `dd if=/dev/zero of=/dev/sda` (complete and dangerous)
+
+**Code Changes:**
+- File: `src/interceptor.py`
+- Line: 31
+- Pattern: `dd_zero`
+- Change: Remove `\s+of=` requirement
+
+**Testing:**
+- [ ] Test `dd if=/dev/zero` → Should block
+- [ ] Test `dd if=/dev/zero of=/dev/sda` → Should block
+- [ ] Test `dd if=file of=file2` → Should allow (not /dev/zero)
+
+**Impact:**
+- Users: Dangerous command not being caught
+- Severity: Major (core safety functionality)
+- Workaround: None (pattern doesn't match)
+
+**Lessons Learned:**
+- Test patterns with variations of commands
+- Don't require all parameters in dangerous command patterns
+- Partial dangerous commands should still be caught
+
+**Discovered By:** User testing (2025-11-19)
+
+---
 
 ---
 
@@ -104,7 +151,7 @@ When adding new issues, use this format:
 
 ### Bug Severity Distribution
 - Critical: 0
-- Major: 0
+- Major: 1 (open)
 - Minor: 1 (resolved)
 
 ### Testing Coverage

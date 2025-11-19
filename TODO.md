@@ -2,19 +2,16 @@
 
 ## High Priority (Before Demo)
 
-### Feature Enhancement
-- [ ] **Implement caution-level warnings (educational)**
-  - Add CAUTION_PATTERNS for risky but not critical commands
-  - Display lighter warnings without ASCII art
-  - Provide educational advice: "Think carefully before proceeding"
-  - Examples:
-    - `sudo su` / `sudo -i` - Root shell access
-    - `chmod 666` - Overly permissive (but not 777)
-    - `iptables -F` / `ufw disable` - Firewall disable
-    - `setenforce 0` - SELinux disable
-  - Implementation: ~30-45 minutes
-  - Educational value: Teaches "gray area" commands
-  - User experience: Less scary, more thoughtful
+### Bug Fixes
+- [ ] **Fix dd command pattern detection (Issue #2)**
+  - Current pattern: `r"dd\s+if=/dev/zero\s+of="` (requires `of=`)
+  - Problem: `dd if=/dev/zero` without `of=` is not detected
+  - Result: Falls through to system shell → "Command not found" on Windows
+  - Fix: Change pattern to `r"dd\s+if=/dev/zero"` (make `of=` optional)
+  - File: `src/interceptor.py` line 31
+  - Priority: High (core functionality)
+  - Discovered: 2025-11-19 (Day 4, user testing)
+  - See: docs/ISSUES.md Issue #2
 
 ## High Priority (Before Demo)
 
