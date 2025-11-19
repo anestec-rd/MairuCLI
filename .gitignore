@@ -62,3 +62,6 @@ private_talk.md
 
 # Japanese source comments (for developer use only)
 docs/comments/comments_ja.txt
+
+# Private StockTask
+MairuCLI_StockTask.md
