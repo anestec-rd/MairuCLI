@@ -2,6 +2,22 @@
 
 ## High Priority (Before Demo)
 
+### Feature Enhancement
+- [ ] **Implement caution-level warnings (educational)**
+  - Add CAUTION_PATTERNS for risky but not critical commands
+  - Display lighter warnings without ASCII art
+  - Provide educational advice: "Think carefully before proceeding"
+  - Examples:
+    - `sudo su` / `sudo -i` - Root shell access
+    - `chmod 666` - Overly permissive (but not 777)
+    - `iptables -F` / `ufw disable` - Firewall disable
+    - `setenforce 0` - SELinux disable
+  - Implementation: ~30-45 minutes
+  - Educational value: Teaches "gray area" commands
+  - User experience: Less scary, more thoughtful
+
+## High Priority (Before Demo)
+
 ### Documentation
 - [ ] **Create final README.md for submission**
   - Project overview and purpose
