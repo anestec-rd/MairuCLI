@@ -23,6 +23,18 @@
     {
       "title": "WHOA THERE...",
       "subtitle": "(Turning workplace into land of the dead?)"
+    },
+    {
+      "title": "MEMORY LOSS!",
+      "subtitle": "(Who are you again? I don't remember you...)"
+    },
+    {
+      "title": "SCARIER THAN GHOSTS!",
+      "subtitle": "(Even monsters are afraid of this)"
+    },
+    {
+      "title": "ECONOMIC STIMULUS!",
+      "subtitle": "(This creates jobs... for disaster recovery teams)"
     }
   ],
   "chmod_777": [
@@ -45,6 +57,14 @@
     {
       "title": "NEED A CHECKLIST?",
       "subtitle": "(This definitely shouldn't be on it)"
+    },
+    {
+      "title": "WANT ME TO LAUGH?",
+      "subtitle": "(HAHAHA... 😐)"
+    },
+    {
+      "title": "REMOVE THE ENTER KEY!",
+      "subtitle": "(Big buttons are tempting, aren't they?)"
     }
   ],
   "data_destroyer": [
@@ -67,6 +87,14 @@
     {
       "title": "TRICK AND TRIAGE!",
       "subtitle": "(You pranked, now we handle the incident)"
+    },
+    {
+      "title": "HALLOWEEN ISN'T HERE!",
+      "subtitle": "(The party venue is somewhere else!)"
+    },
+    {
+      "title": "SCARIER THAN GHOSTS!",
+      "subtitle": "(Even monsters fear this command)"
     }
   ]
 }

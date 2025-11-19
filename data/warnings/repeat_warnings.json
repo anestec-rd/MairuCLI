@@ -38,6 +38,15 @@
       "Attempt #{count}. Still blocked."
     ]
   },
+  "6": {
+    "emoji": "bug",
+    "title": "That's a Big Bug",
+    "lines": [
+      "",
+      "This is quite a large bug we have here...",
+      "The bug is you. Attempt #{count}."
+    ]
+  },
   "default": {
     "emoji": null,
     "title": "...",
