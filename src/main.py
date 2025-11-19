@@ -13,6 +13,7 @@ from src.display import (
     display_goodbye_message,
     display_welcome_banner,
     show_warning,
+    show_caution_warning,
     track_safe_command
 )
 from src.interceptor import check_command
@@ -98,13 +99,21 @@ def process_command(command: str) -> str:
         track_safe_command(cmd_name)
         return ""
 
-    # Layer 2: Check if dangerous command
-    is_dangerous, pattern_name = check_command(command)
-    if is_dangerous:
+    # Layer 2: Check if dangerous or caution command
+    level, pattern_name = check_command(command)
+
+    if level == "critical":
+        # Critical: Block with warning
         show_warning(pattern_name, command)
         return ""
+    elif level == "caution":
+        # Caution: Warn and ask for confirmation
+        if not show_caution_warning(pattern_name, command):
+            print(colorize("Command cancelled.", "chocolate"))
+            return ""
+        # User confirmed - proceed to execute
 
-    # Layer 3: Execute in system shell (safe command)
+    # Layer 3: Execute in system shell (safe or confirmed caution command)
     execute_in_system_shell(command)
     # Track safe command usage for achievements
     track_safe_command(cmd_name)

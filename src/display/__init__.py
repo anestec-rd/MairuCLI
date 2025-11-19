@@ -17,6 +17,7 @@ from src.display.warning_components import (
     RepeatWarning,
     EMOJI
 )
+from src.display.caution_warning import CautionWarning
 
 # Initialize components
 _renderer = AsciiRenderer()
@@ -29,6 +30,7 @@ _achievement_tracker = AchievementTracker(_statistics)
 _danger_warning = DangerWarning(_renderer, _formatter, _content_loader)
 _typo_warning = TypoWarning(_renderer, _formatter, _content_loader)
 _repeat_warning = RepeatWarning(_renderer, _formatter, _content_loader)
+_caution_warning = CautionWarning(_renderer)
 
 
 def colorize(text: str, color_name: str) -> str:
@@ -156,3 +158,32 @@ def track_safe_command(command: str) -> None:
     """
     _statistics.track_safe_command(command)
     _achievement_tracker.check_achievements()
+
+
+def show_caution_warning(pattern_name: str, command: str) -> bool:
+    """
+    Display caution-level warning and get user confirmation.
+
+    Args:
+        pattern_name: Name of matched caution pattern
+        command: The command being executed
+
+    Returns:
+        True if user wants to proceed, False to cancel
+    """
+    # Update statistics
+    _statistics.increment_caution_shown()
+
+    # Show warning and get confirmation
+    proceed = _caution_warning.display(pattern_name, command)
+
+    # Track user decision
+    if proceed:
+        _statistics.increment_caution_proceeded()
+    else:
+        _statistics.increment_caution_cancelled()
+
+    # Check for achievements
+    _achievement_tracker.check_achievements()
+
+    return proceed

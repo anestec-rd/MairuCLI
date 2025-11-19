@@ -15,7 +15,10 @@ class Statistics:
         self._stats = {
             "dangerous_blocked": 0,
             "typos_caught": 0,
-            "safe_commands_used": 0
+            "safe_commands_used": 0,
+            "caution_shown": 0,
+            "caution_proceeded": 0,
+            "caution_cancelled": 0
         }
         self._warned_commands: Dict[str, int] = {}
         self._safe_commands_used: set = set()
@@ -103,3 +106,28 @@ class Statistics:
             Number of unique safe commands
         """
         return len(self._safe_commands_used)
+
+    def increment_caution_shown(self) -> None:
+        """Increment caution warning counter."""
+        self._stats["caution_shown"] += 1
+
+    def increment_caution_proceeded(self) -> None:
+        """Increment caution proceeded counter."""
+        self._stats["caution_proceeded"] += 1
+
+    def increment_caution_cancelled(self) -> None:
+        """Increment caution cancelled counter."""
+        self._stats["caution_cancelled"] += 1
+
+    def get_caution_stats(self) -> Dict[str, int]:
+        """
+        Get caution warning statistics.
+
+        Returns:
+            Dictionary with caution stats
+        """
+        return {
+            "shown": self._stats["caution_shown"],
+            "proceeded": self._stats["caution_proceeded"],
+            "cancelled": self._stats["caution_cancelled"]
+        }
