@@ -30,7 +30,8 @@ class BuiltinCommands:
         """
         return cmd_name in [
             'cd', 'pwd', 'exit', 'quit', 'echo', 'export',
-            'history', 'help', 'stats'
+            'history', 'help', 'stats', 'ls', 'dir', 'clear',
+            'cls', 'env', 'alias'
         ]
 
     @classmethod
@@ -179,9 +180,13 @@ class BuiltinCommands:
         print(colorize("Safe Commands (Go ahead, try these!):", "green"))
         print("  cd [path]    - Change directory")
         print("  pwd          - Print working directory")
+        print("  ls / dir     - List directory contents")
+        print("  clear / cls  - Clear terminal screen")
         print("  echo [text]  - Print text to screen")
         print("  export VAR=value - Set environment variable")
+        print("  env          - Show environment variables")
         print("  history      - Show command history")
+        print("  alias        - Show available command aliases")
         print("  stats        - Show how many times I saved you")
         print("  help         - Show this help message")
         print("  exit/quit    - Exit MairuCLI")
@@ -266,6 +271,127 @@ class BuiltinCommands:
 
         print()
         print("=" * 60 + "\n")
+
+        return True
+
+    @classmethod
+    def _cmd_ls(cls, args: List[str]) -> bool:
+        """
+        List directory contents (cross-platform).
+
+        Args:
+            args: Command arguments (path, flags)
+
+        Returns:
+            True (always handled)
+        """
+        import subprocess
+        import sys
+
+        # Determine which command to use based on platform
+        if sys.platform == "win32":
+            # Windows: use dir
+            cmd = ["cmd", "/c", "dir"] + args
+        else:
+            # Unix: use ls
+            cmd = ["ls", "--color=auto"] + args
+
+        try:
+            subprocess.run(cmd, check=False)
+        except Exception as e:
+            print(f"ls: error: {e}")
+
+        return True
+
+    @classmethod
+    def _cmd_dir(cls, args: List[str]) -> bool:
+        """
+        List directory contents (Windows style).
+        Alias for ls command.
+
+        Args:
+            args: Command arguments
+
+        Returns:
+            True (always handled)
+        """
+        return cls._cmd_ls(args)
+
+    @classmethod
+    def _cmd_clear(cls, args: List[str]) -> bool:
+        """
+        Clear the terminal screen.
+
+        Args:
+            args: Command arguments (ignored)
+
+        Returns:
+            True (always handled)
+        """
+        import sys
+
+        if sys.platform == "win32":
+            os.system("cls")
+        else:
+            os.system("clear")
+
+        return True
+
+    @classmethod
+    def _cmd_cls(cls, args: List[str]) -> bool:
+        """
+        Clear the terminal screen (Windows style).
+        Alias for clear command.
+
+        Args:
+            args: Command arguments (ignored)
+
+        Returns:
+            True (always handled)
+        """
+        return cls._cmd_clear(args)
+
+    @classmethod
+    def _cmd_env(cls, args: List[str]) -> bool:
+        """
+        Display environment variables.
+        Alias for export command without arguments.
+
+        Args:
+            args: Command arguments (ignored)
+
+        Returns:
+            True (always handled)
+        """
+        return cls._cmd_export([])
+
+    @classmethod
+    def _cmd_alias(cls, args: List[str]) -> bool:
+        """
+        Display available command aliases.
+
+        Args:
+            args: Command arguments (ignored)
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        print()
+        print(colorize("Available Aliases:", "orange"))
+        print()
+        print(f"  {colorize('ls', 'green')} / {colorize('dir', 'green')}   "
+              "- List directory contents")
+        print(f"  {colorize('clear', 'green')} / {colorize('cls', 'green')} "
+              "- Clear terminal screen")
+        print(f"  {colorize('env', 'green')}         "
+              "- Show environment variables (same as export)")
+        print(f"  {colorize('exit', 'green')} / {colorize('quit', 'green')} "
+              "- Exit MairuCLI")
+        print()
+        print(f"{EMOJI['pumpkin']} Tip: These work on both Windows and Unix!")
+        print()
 
         return True
 
