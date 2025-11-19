@@ -85,12 +85,14 @@ Available commands:
 ## ✨ Features
 
 ### Core Functionality
-- **8 Built-in Commands:** cd, pwd, echo, export, history, help, stats, exit
-- **5 Dangerous Pattern Detection:** rm -rf /, chmod 777, dd, DROP DATABASE, sudo rm
+- **12 Built-in Commands:** cd, pwd, ls/dir, clear/cls, echo, export, env, alias, history, help, stats, exit
+- **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
+- **4 Caution-Level Warnings:** sudo su, chmod 666/755, firewall disable, SELinux disable
 - **2 Typo Entertainment:** sl → ls, cd.. → cd ..
-- **Achievement System:** 5 unlockable achievements
-- **Statistics Tracking:** Track dangerous commands blocked and typos caught
+- **Achievement System:** 8 unlockable achievements (including safe command usage)
+- **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
+- **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
 
 ### Display System (v2.0 - Refactored Architecture)
 - **Modular Components:** Separated concerns for maintainability
@@ -147,11 +149,19 @@ mairu> sl               # Typo entertainment
 
 ### Unlock Achievements
 
+**Danger-Related:**
 - **First Blood:** Block your first dangerous command
 - **Persistent Troublemaker:** Try 5 dangerous commands
-- **Typo Master:** Make 3 typos
 - **Danger Addict:** Block 10 dangerous commands
 - **Stubborn:** Try the same command 3 times
+
+**Safe Command Usage:**
+- **Explorer:** Use 5 different safe commands
+- **Command Master:** Use 10 different safe commands
+- **Balanced User:** Use 8 safe + 3 dangerous commands
+
+**Typos:**
+- **Typo Master:** Make 3 typos
 
 ## 🏗️ Architecture
 
@@ -299,13 +309,27 @@ python tests/test_dangerous.py
 
 ## 📚 Documentation
 
-- **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** - Development insights and philosophy
+### Core Documentation
+- **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** - Development insights, AI collaboration, and philosophy
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
 - **[TODO.md](TODO.md)** - Planned features and improvements
-- **[docs/DAY1_SUMMARY.md](docs/DAY1_SUMMARY.md)** - Day 1 development summary
-- **[docs/DAY2-1_SUMMARY.md](docs/DAY2-1_SUMMARY.md)** - Day 2 Session 1 summary
-- **[docs/DAY2-2_SUMMARY.md](docs/DAY2-2_SUMMARY.md)** - Day 2 Session 2 summary (spec creation)
-- **[docs/DAY3_SUMMARY.md](docs/DAY3_SUMMARY.md)** - Day 3 summary (20-minute refactoring)
+
+### Development Summaries
+- **[docs/DAY1_SUMMARY.md](docs/DAY1_SUMMARY.md)** - Day 1: Initial development (4 hours)
+- **[docs/DAY2-1_SUMMARY.md](docs/DAY2-1_SUMMARY.md)** - Day 2 Session 1: Feature additions
+- **[docs/DAY2-2_SUMMARY.md](docs/DAY2-2_SUMMARY.md)** - Day 2 Session 2: Spec creation
+- **[docs/DAY3_SUMMARY.md](docs/DAY3_SUMMARY.md)** - Day 3: 20-minute refactoring miracle
+- **[docs/DAY4_SUMMARY.md](docs/DAY4_SUMMARY.md)** - Day 4: Content expansion and quality review
+
+### Design Documents
+- **[docs/CAUTION_WARNINGS_DESIGN.md](docs/CAUTION_WARNINGS_DESIGN.md)** - Three-tier warning system design
+- **[docs/ISSUES.md](docs/ISSUES.md)** - Known issues and limitations
+
+### Kiro Steering Files
+- **[.kiro/steering/it-wordplay.md](.kiro/steering/it-wordplay.md)** - IT wordplay guidelines
+- **[.kiro/steering/halloween-theme.md](.kiro/steering/halloween-theme.md)** - Halloween theme design
+- **[.kiro/steering/test-organization.md](.kiro/steering/test-organization.md)** - Test structure standards
+- **[.kiro/steering/data-driven-content.md](.kiro/steering/data-driven-content.md)** - Content management approach
 
 ## 🎬 Demo
 
@@ -359,7 +383,38 @@ For now:
 
 ---
 
+## 🎨 Special Features
+
+### Three-Tier Warning System
+
+**CRITICAL (Blocks immediately):**
+- Dangerous commands that cause immediate data loss
+- ASCII art + dramatic warnings
+- Examples: `rm -rf /`, `dd`, `DROP DATABASE`
+
+**CAUTION (Asks for confirmation):**
+- Risky commands with legitimate uses
+- Educational considerations
+- User choice to proceed or cancel
+- Examples: `sudo su`, `chmod 666`, `ufw disable`
+
+**SAFE (No warning):**
+- Normal commands pass through
+- Tracked for achievement system
+
+### IT Wordplay
+
+MairuCLI uses technical humor to make warnings engaging:
+- **"Not today, SATA!"** - Storage interface pun (Satan → SATA)
+- **"RAM not found..."** - Memory loss metaphor
+- **"Error 403: Forbidden"** - HTTP status code humor
+- **"Ctrl+C won't save you!"** - Process control reference
+
+See [IT Wordplay Guidelines](.kiro/steering/it-wordplay.md) for more examples.
+
+---
+
 **Built with ❤️ and 🎃 using Kiro AI**
 
-*Version 1.0 - November 18, 2025*
+*Version 1.1 - November 19, 2025*
 
