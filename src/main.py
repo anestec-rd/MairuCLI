@@ -118,13 +118,33 @@ def execute_in_system_shell(command: str) -> None:
         This is safe because dangerous commands are already filtered.
     """
     try:
-        subprocess.run(
+        result = subprocess.run(
             command,
             shell=True,
-            capture_output=False,
+            capture_output=True,
             text=True
         )
-        # Exit code is automatically handled by subprocess
+
+        # Print stdout if any
+        if result.stdout:
+            print(result.stdout, end='')
+
+        # Check if command was not found (Windows/Unix)
+        if result.returncode != 0 and result.stderr:
+            stderr_lower = result.stderr.lower()
+            # Windows: "は、内部コマンドまたは外部コマンド..." or "'xxx' is not recognized..."
+            # Unix: "command not found"
+            if ('not recognized' in stderr_lower or
+                'command not found' in stderr_lower or
+                '内部コマンドまたは外部コマンド' in result.stderr or
+                'not found' in stderr_lower):
+                cmd_name = command.split()[0] if command.split() else command
+                print(f"🍬 Sorry, we don't sell '{cmd_name}' at the candy store.")
+                print("   (Command not found)")
+            else:
+                # Other errors - print as is
+                print(result.stderr, end='')
+
     except FileNotFoundError:
         cmd_name = command.split()[0] if command.split() else command
         print(f"🍬 Sorry, we don't sell '{cmd_name}' at the candy store.")
