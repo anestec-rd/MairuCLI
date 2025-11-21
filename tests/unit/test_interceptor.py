@@ -6,8 +6,8 @@ Tests core features and generates a report.
 import sys
 import os
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add project root to path (tests/unit -> tests -> root)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from src.interceptor import check_command, DANGEROUS_PATTERNS, CAUTION_PATTERNS, TYPO_PATTERNS
 from datetime import datetime

@@ -87,15 +87,36 @@ See `TEST_STRUCTURE.md` for:
 - Test templates
 - Best practices
 
+## Quick Test Execution
+
+### Pattern Detection Test (Day 5 - Automated)
+```bash
+python tests/unit/test_interceptor.py
+```
+
+**What it tests:**
+- All 11 dangerous patterns
+- All 4 caution patterns
+- All 2 typo patterns
+- Safe command pass-through
+- Bug fix verification (Issue #2)
+
+**Expected:** 35 tests, 100% pass rate, <5 seconds
+
 ## Current Status
+
+**Day 5 (2025-11-21):**
+- ✅ Automated pattern detection test (`test_interceptor.py`)
+- ✅ 35 test cases, 100% pass rate
+- ✅ Bug fix verified (Issue #2)
+- ✅ Test structure compliance
 
 **Day 3 (2025-11-18):**
 - ✅ Test structure designed
 - ✅ Directories created
 - ✅ Existing tests organized
-- ⚠️ Unit tests for new components (optional, Day 4+)
 
-**Next Steps (Day 4+):**
+**Next Steps (Future):**
 - Create unit tests for display components (if time permits)
 - Add missing integration tests
 - Continuous maintenance as project grows

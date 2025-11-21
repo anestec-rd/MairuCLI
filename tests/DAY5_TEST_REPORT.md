@@ -227,10 +227,9 @@ This test suite demonstrates **Kiro's CI/CD capabilities** by:
 
 ## Test Artifacts
 
-- **Test Script:** `tests/quick_test.py`
-- **Test Output:** `tests/test_results.txt`
+- **Test Script:** `tests/unit/test_interceptor.py`
 - **Test Report:** `tests/DAY5_TEST_REPORT.md` (this file)
-- **Test Session Plan:** `tests/DAY5_MANUAL_TEST_SESSION.md`
+- **Archived Files:** `tests/bk/` (obsolete test files)
 
 ---
 

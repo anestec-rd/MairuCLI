@@ -117,7 +117,7 @@ tests/
 | Source Module | Unit Test | Integration Test | Status |
 |---------------|-----------|------------------|--------|
 | `src/main.py` | N/A (entry point) | `test_repl_flow.py` | ⚠️ Missing |
-| `src/interceptor.py` | `test_interceptor.py` | `test_dangerous_commands.py` | ⚠️ Partial |
+| `src/interceptor.py` | `test_interceptor.py` | `test_dangerous_commands.py` | ✅ Complete |
 | `src/builtins.py` | `test_builtins.py` | `test_builtin_commands.py` | ⚠️ Missing |
 | `src/display/__init__.py` | `test_display_api.py` | `test_warning_display.py` | ⚠️ Missing |
 | `src/display/ascii_renderer.py` | `test_ascii_renderer.py` | N/A | ⚠️ Missing |
