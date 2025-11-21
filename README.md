@@ -165,19 +165,23 @@ mairu> sl               # Typo entertainment
 
 ### Unlock Achievements
 
-**Danger-Related:**
-- **First Blood:** Block your first dangerous command
-- **Persistent Troublemaker:** Try 5 dangerous commands
-- **Danger Addict:** Block 10 dangerous commands
-- **Stubborn:** Try the same command 3 times
+**Multiple achievements to discover:**
 
-**Safe Command Usage:**
-- **Explorer:** Use 5 different safe commands
-- **Command Master:** Use 10 different safe commands
-- **Balanced User:** Use 8 safe + 3 dangerous commands
+🔥 **Danger-Related**
+- Unlock by trying dangerous commands
+- Some require persistence...
+- Try the same command multiple times!
 
-**Typos:**
-- **Typo Master:** Make 3 typos
+✅ **Safe Explorer**
+- Unlock by using safe commands
+- Try different commands!
+- Balance is key...
+
+🚂 **Typo Master**
+- Unlock by making typos
+- We all make mistakes!
+
+**Hint:** Use `stats` to see your progress and unlocked achievements!
 
 ## 🏗️ Architecture
 
