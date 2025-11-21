@@ -124,6 +124,8 @@ chmod +x run.sh
 
 No external dependencies required - uses Python standard library only!
 
+**Want to try it out quickly?** See [QUICKSTART.md](QUICKSTART.md) for a fun guided tour! 🎃
+
 ## 📖 Usage
 
 ### Basic Commands
