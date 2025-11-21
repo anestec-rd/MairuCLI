@@ -89,7 +89,7 @@ Available commands:
 - **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
 - **4 Caution-Level Warnings:** sudo su, chmod 666/755, firewall disable, SELinux disable
 - **2 Typo Entertainment:** sl → ls, cd.. → cd ..
-- **Achievement System:** 8 unlockable achievements (including safe command usage)
+- **Achievement System:** Multiple unlockable achievements (danger-related, safe exploration, typos)
 - **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
 - **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
