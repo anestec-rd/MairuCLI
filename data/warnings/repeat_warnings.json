@@ -31,11 +31,13 @@
   },
   "5": {
     "emoji": "ghost",
-    "title": "*sigh*",
+    "title": "Meanwhile, backstage...",
     "lines": [
       "",
-      "Dracula is crying because his scene never came...",
-      "Attempt #{count}. Still blocked."
+      "🧛 Dracula: 'When is MY turn?!'",
+      "🧟 Zombie: 'Get in line, pal.'",
+      "",
+      "Try exploring other commands! (Attempt #{count})"
     ]
   },
   "6": {

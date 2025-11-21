@@ -31,7 +31,7 @@ class BuiltinCommands:
         return cmd_name in [
             'cd', 'pwd', 'exit', 'quit', 'echo', 'export',
             'history', 'help', 'stats', 'ls', 'dir', 'clear',
-            'cls', 'env', 'alias'
+            'cls', 'env', 'alias', 'cat'
         ]
 
     @classmethod
@@ -181,6 +181,7 @@ class BuiltinCommands:
         print("  cd [path]    - Change directory")
         print("  pwd          - Print working directory")
         print("  ls / dir     - List directory contents")
+        print("  cat [file]   - Display file contents 🐈‍⬛")
         print("  clear / cls  - Clear terminal screen")
         print("  echo [text]  - Print text to screen")
         print("  export VAR=value - Set environment variable")
@@ -392,6 +393,56 @@ class BuiltinCommands:
         print()
         print(f"{EMOJI['pumpkin']} Tip: These work on both Windows and Unix!")
         print()
+
+        return True
+
+    @classmethod
+    def _cmd_cat(cls, args: List[str]) -> bool:
+        """
+        Display file contents (with a Halloween twist!).
+
+        Args:
+            args: File paths to display
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize
+
+        if not args:
+            print()
+            print("🐈‍⬛ Meow! Black cat here!")
+            print()
+            print(colorize("Usage:", "orange"), "cat <filename>")
+            print()
+            print("🎃 Halloween tip: Black cats are good luck in some "
+                  "cultures!")
+            print()
+            return True
+
+        for filename in args:
+            try:
+                with open(filename, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    print()
+                    print(f"🐈‍⬛ {colorize(filename, 'orange')}:")
+                    print()
+                    print(content)
+                    if not content.endswith('\n'):
+                        print()
+            except FileNotFoundError:
+                print()
+                print(f"🐈‍⬛ Meow? File not found: {colorize(filename, 'red')}")
+                print()
+            except PermissionError:
+                print()
+                print(f"🐈‍⬛ Hiss! Permission denied: "
+                      f"{colorize(filename, 'red')}")
+                print()
+            except Exception as e:
+                print()
+                print(f"🐈‍⬛ *confused meow* Error reading {filename}: {e}")
+                print()
 
         return True
 
