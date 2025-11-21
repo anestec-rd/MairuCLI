@@ -181,7 +181,7 @@ class BuiltinCommands:
         print("  cd [path]    - Change directory")
         print("  pwd          - Print working directory")
         print("  ls / dir     - List directory contents")
-        print("  cat [file]   - Display file contents 🐈‍⬛")
+        print("  cat [file]   - Display file contents =^.^=")
         print("  clear / cls  - Clear terminal screen")
         print("  echo [text]  - Print text to screen")
         print("  export VAR=value - Set environment variable")
@@ -411,7 +411,7 @@ class BuiltinCommands:
 
         if not args:
             print()
-            print("🐈‍⬛ Meow! Black cat here!")
+            print(colorize("=^.^= Meow! Cat here!", "purple"))
             print()
             print(colorize("Usage:", "orange"), "cat <filename>")
             print()
@@ -425,23 +425,26 @@ class BuiltinCommands:
                 with open(filename, 'r', encoding='utf-8') as f:
                     content = f.read()
                     print()
-                    print(f"🐈‍⬛ {colorize(filename, 'orange')}:")
+                    print(f"{colorize('=^.^=', 'purple')} "
+                          f"{colorize(filename, 'orange')}:")
                     print()
                     print(content)
                     if not content.endswith('\n'):
                         print()
             except FileNotFoundError:
                 print()
-                print(f"🐈‍⬛ Meow? File not found: {colorize(filename, 'red')}")
+                print(f"{colorize('=^.^=', 'purple')} Meow? File not found: "
+                      f"{colorize(filename, 'red')}")
                 print()
             except PermissionError:
                 print()
-                print(f"🐈‍⬛ Hiss! Permission denied: "
-                      f"{colorize(filename, 'red')}")
+                print(f"{colorize('=^.^=', 'purple')} Hiss! Permission "
+                      f"denied: {colorize(filename, 'red')}")
                 print()
             except Exception as e:
                 print()
-                print(f"🐈‍⬛ *confused meow* Error reading {filename}: {e}")
+                print(f"{colorize('=^.^=', 'purple')} *confused meow* "
+                      f"Error reading {filename}: {e}")
                 print()
 
         return True
