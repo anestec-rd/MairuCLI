@@ -3,15 +3,11 @@
 ## High Priority (Before Demo)
 
 ### Bug Fixes
-- [ ] **Fix dd command pattern detection (Issue #2)**
-  - Current pattern: `r"dd\s+if=/dev/zero\s+of="` (requires `of=`)
-  - Problem: `dd if=/dev/zero` without `of=` is not detected
-  - Result: Falls through to system shell → "Command not found" on Windows
-  - Fix: Change pattern to `r"dd\s+if=/dev/zero"` (make `of=` optional)
+- [x] **Fix dd command pattern detection (Issue #2)** ✅ 2025-11-21
+  - Fixed pattern to `r"dd\s+if=/dev/zero"` (made `of=` optional)
+  - Now catches both `dd if=/dev/zero` and `dd if=/dev/zero of=/dev/sda`
   - File: `src/interceptor.py` line 31
-  - Priority: High (core functionality)
-  - Discovered: 2025-11-19 (Day 4, user testing)
-  - See: docs/ISSUES.md Issue #2
+  - Resolved: 2025-11-21 (Day 5)
 
 ## High Priority (Before Demo)
 
@@ -48,6 +44,23 @@
 
 ### Demo Preparation
 - [ ] **Improve ASCII art** (if time permits)
+
+### Content Enhancement (Future)
+- [ ] **Create individual variation sets for all dangerous patterns**
+  - Currently: 8 patterns share `data_destroyer` variation set
+  - Goal: Each pattern gets unique, contextual variations
+  - Patterns needing individual sets:
+    - fork_bomb (DOS attack context)
+    - redirect_to_disk (direct disk write context)
+    - mkfs_disk (disk formatting context)
+    - mv_to_null (/dev/null context)
+    - overwrite_file (zero-byte overwrite context)
+    - dd_random (random data context)
+    - kernel_panic (system crash context)
+    - drop_database (database deletion context)
+  - Estimated time: 45-60 minutes
+  - Priority: Low (current shared variations work well)
+  - Added: 2025-11-21 (Day 5)
   - Make them more elaborate
   - Add more variations
   - Test rendering on different terminals

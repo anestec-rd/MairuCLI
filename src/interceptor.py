@@ -27,7 +27,7 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "art_file": "permission_denied.txt"
     },
     "dd_zero": {
-        "pattern": r"dd\s+if=/dev/zero\s+of=",
+        "pattern": r"dd\s+if=/dev/zero",
         "category": "disk",
         "severity": "critical",
         "art_file": "data_destroyer.txt"

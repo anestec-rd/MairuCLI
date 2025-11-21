@@ -4,7 +4,7 @@
 
 [![Hackathon](https://img.shields.io/badge/Hackathon-Kiroween%202025-orange)](https://kiroween.devpost.com/)
 [![Built with Kiro](https://img.shields.io/badge/Built%20with-Kiro%20AI-blue)](https://kiro.dev/)
-[![Version](https://img.shields.io/badge/Version-1.0-green)](https://github.com/yourusername/mairu-cli)
+[![Version](https://img.shields.io/badge/Version-1.1-green)](https://github.com/yourusername/mairu-cli)
 
 ## 🎉 What is MairuCLI?
 
@@ -94,7 +94,7 @@ Available commands:
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
 - **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
 
-### Display System (v2.0 - Refactored Architecture)
+### Display System (Refactored Architecture)
 - **Modular Components:** Separated concerns for maintainability
 - **Data-Driven Content:** JSON-based warning messages and variations
 - **ASCII Art Rendering:** Dramatic timing effects for impact
@@ -173,7 +173,7 @@ mairu-cli/
 │   ├── main.py                    # Entry point and REPL loop
 │   ├── builtins.py                # Built-in command implementations
 │   ├── interceptor.py             # Pattern matching for dangerous commands
-│   └── display/                   # Modular display system (v2.0)
+│   └── display/                   # Modular display system
 │       ├── __init__.py            # Public API
 │       ├── ascii_renderer.py      # ASCII art loading and rendering
 │       ├── message_formatter.py   # Template-based message formatting
@@ -200,7 +200,7 @@ mairu-cli/
     └── steering/                  # Development standards
 ```
 
-### Display System Architecture (v2.0)
+### Display System Architecture
 
 The display system was refactored from a monolithic 400-line file into a modular architecture:
 
@@ -416,5 +416,5 @@ See [IT Wordplay Guidelines](.kiro/steering/it-wordplay.md) for more examples.
 
 **Built with ❤️ and 🎃 using Kiro AI**
 
-*Version 1.1 - November 19, 2025*
+*Version 1.1 - November 21, 2025*
 
