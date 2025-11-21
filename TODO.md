@@ -46,21 +46,51 @@
 - [ ] **Improve ASCII art** (if time permits)
 
 ### Content Enhancement (Future)
-- [ ] **Create individual variation sets for all dangerous patterns**
-  - Currently: 8 patterns share `data_destroyer` variation set
-  - Goal: Each pattern gets unique, contextual variations
-  - Patterns needing individual sets:
-    - fork_bomb (DOS attack context)
-    - redirect_to_disk (direct disk write context)
-    - mkfs_disk (disk formatting context)
-    - mv_to_null (/dev/null context)
-    - overwrite_file (zero-byte overwrite context)
-    - dd_random (random data context)
-    - kernel_panic (system crash context)
-    - drop_database (database deletion context)
-  - Estimated time: 45-60 minutes
-  - Priority: Low (current shared variations work well)
-  - Added: 2025-11-21 (Day 5)
+- [ ] **Implement flexible variation system (Option 2 approach)**
+  - **Goal:** Avoid duplication while allowing shared + unique variations
+  - **Approach:** Allow `variation_set` to be an array of sets
+  - **Example:** `"variation_set": ["fork_bomb", "common", "data_destroyer"]`
+
+  **Phase 1: ASCII Art Expansion**
+  - Create unique ASCII art for each of 11 dangerous patterns:
+    - ✅ rm_dangerous → fired.txt (existing)
+    - ✅ chmod_777 → permission_denied.txt (existing)
+    - ✅ dd_zero → data_destroyer.txt (existing)
+    - ⬜ drop_database → database_drop.txt (new)
+    - ⬜ fork_bomb → fork_bomb.txt (new)
+    - ⬜ redirect_to_disk → disk_redirect.txt (new)
+    - ⬜ mkfs_disk → disk_format.txt (new)
+    - ⬜ mv_to_null → dev_null.txt (new)
+    - ⬜ overwrite_file → file_overwrite.txt (new)
+    - ⬜ dd_random → random_data.txt (new)
+    - ⬜ kernel_panic → kernel_panic.txt (new)
+  - Estimated time: 30-40 minutes (8 new ASCII arts)
+
+  **Phase 2: Variation Structure Refactoring**
+  - Modify `ContentLoader` to support array-based `variation_set`
+  - Create new variation sets in `danger_variations.json`:
+    - `common` - Shared across all patterns
+    - `fork_bomb` - DOS attack specific
+    - `redirect_to_disk` - Direct disk write specific
+    - `mkfs_disk` - Disk formatting specific
+    - `mv_to_null` - /dev/null specific
+    - `overwrite_file` - Zero-byte overwrite specific
+    - `dd_random` - Random data specific
+    - `kernel_panic` - System crash specific
+    - `drop_database` - Database deletion specific
+  - Update `warning_catalog.json` to use array format
+  - Estimated time: 15-20 minutes
+
+  **Phase 3: Testing**
+  - Test all 11 patterns display correctly
+  - Verify variation selection works
+  - Ensure backward compatibility
+  - Estimated time: 10-15 minutes
+
+  **Total Estimated Time:** 55-75 minutes
+  **Priority:** Low (current shared variations work well)
+  **Added:** 2025-11-21 (Day 5)
+  **Benefit:** Eliminates duplication, more contextual warnings, easier maintenance
   - Make them more elaborate
   - Add more variations
   - Test rendering on different terminals

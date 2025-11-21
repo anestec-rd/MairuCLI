@@ -35,6 +35,26 @@
     {
       "title": "ECONOMIC STIMULUS!",
       "subtitle": "(This creates jobs... for disaster recovery teams)"
+    },
+    {
+      "title": "WATCH OUT!",
+      "subtitle": "(Your precious files are about to elope!)"
+    },
+    {
+      "title": "OOPS!",
+      "subtitle": "(Not the trash bin... the ocean voyage!)"
+    },
+    {
+      "title": "NO NO NO!",
+      "subtitle": "(The system will cry, so let's not do this)"
+    },
+    {
+      "title": "THAT'S A GOOD ERASER!",
+      "subtitle": "(It erases really well... too well)"
+    },
+    {
+      "title": "NO USE CRYING!",
+      "subtitle": "(It's no use crying over spilt milk)"
     }
   ],
   "chmod_777": [
@@ -65,6 +85,14 @@
     {
       "title": "REMOVE THE ENTER KEY!",
       "subtitle": "(Big buttons are tempting, aren't they?)"
+    },
+    {
+      "title": "A BIT TOO TIDY!",
+      "subtitle": "(Maybe a little too clean?)"
+    },
+    {
+      "title": "PARTY TIME?",
+      "subtitle": "(Did you throw a party? There's a wolf at the door)"
     }
   ],
   "data_destroyer": [
@@ -95,6 +123,14 @@
     {
       "title": "SCARIER THAN GHOSTS!",
       "subtitle": "(Even monsters fear this command)"
+    },
+    {
+      "title": "BBQ DATA!",
+      "subtitle": "(The taste of barbecued data is terrible)"
+    },
+    {
+      "title": "NO USE CRYING!",
+      "subtitle": "(It's no use crying over spilt milk)"
     }
   ]
 }
