@@ -74,15 +74,19 @@ This directory contains daily development reports and summaries from the MairuCL
 ---
 
 ### Day 5 (2025-11-21)
-**File:** [DAY5_TEST_REPORT.md](DAY5_TEST_REPORT.md)
+**Files:**
+- [DAY5_SUMMARY.md](DAY5_SUMMARY.md) - Complete day summary
+- [DAY5_TEST_REPORT.md](DAY5_TEST_REPORT.md) - Automated test report
 
-**Summary:** Bug fixes and automated testing
-- Fixed dd command pattern detection (Issue #2)
+**Summary:** Bug fixes, testing, and documentation
+- Fixed 2 bugs (dd command, fork bomb pattern)
 - Created automated test suite (35 tests, 100% pass)
 - Added 8 new warning variations
 - Test strategy steering file
-- Version update (v1.1)
-- Time: ~90 minutes
+- Documentation organization (docs/reports/)
+- Comprehensive pattern reference
+- Version 1.1 release
+- Time: 65 minutes
 
 ---
 
