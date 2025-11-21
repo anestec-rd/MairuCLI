@@ -314,12 +314,13 @@ python tests/test_dangerous.py
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
 - **[TODO.md](TODO.md)** - Planned features and improvements
 
-### Development Summaries
-- **[docs/DAY1_SUMMARY.md](docs/DAY1_SUMMARY.md)** - Day 1: Initial development (4 hours)
-- **[docs/DAY2-1_SUMMARY.md](docs/DAY2-1_SUMMARY.md)** - Day 2 Session 1: Feature additions
-- **[docs/DAY2-2_SUMMARY.md](docs/DAY2-2_SUMMARY.md)** - Day 2 Session 2: Spec creation
-- **[docs/DAY3_SUMMARY.md](docs/DAY3_SUMMARY.md)** - Day 3: 20-minute refactoring miracle
-- **[docs/DAY4_SUMMARY.md](docs/DAY4_SUMMARY.md)** - Day 4: Content expansion and quality review
+### Development Reports
+- **[docs/reports/](docs/reports/)** - Daily development reports and summaries
+  - Day 1: Initial development (4 hours)
+  - Day 2: Feature additions and spec creation
+  - Day 3: 20-minute refactoring miracle
+  - Day 4: Content expansion and quality review
+  - Day 5: Bug fixes and automated testing
 
 ### Design Documents
 - **[docs/CAUTION_WARNINGS_DESIGN.md](docs/CAUTION_WARNINGS_DESIGN.md)** - Three-tier warning system design

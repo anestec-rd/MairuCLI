@@ -103,6 +103,8 @@ python tests/unit/test_interceptor.py
 
 **Expected:** 35 tests, 100% pass rate, <5 seconds
 
+**Report:** See [docs/reports/DAY5_TEST_REPORT.md](../docs/reports/DAY5_TEST_REPORT.md)
+
 ## Current Status
 
 **Day 5 (2025-11-21):**
