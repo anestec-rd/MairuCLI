@@ -8,29 +8,183 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Planned
+- Demo video recording
+- Kiro workflow documentation
+- Contest submission preparation
+
+---
+
+## [1.1.0] - 2025-11-21 (Day 5)
+
 ### Added
-- **Display Module Refactoring (v2.0)** - Major architectural improvement
+- **Automated Test Suite** - Production-ready testing
+  - 35 automated tests for pattern detection
+  - 100% pass rate, < 5 seconds execution
+  - Tests for all 11 dangerous patterns, 4 caution patterns, 2 typo patterns
+  - Safe command pass-through verification
+  - Bug fix verification (Issue #2)
+- **Test Strategy Framework** - Steering file for consistent testing
+  - Decision tree for which tests to add
+  - Templates for unit/integration/manual tests
+  - Examples from MairuCLI history
+  - Quick reference table
+  - Integration with Kiro workflow
+- **8 New Warning Variations** - Japanese-inspired messages
+  - 5 new rm_root variations (total: 14)
+  - 2 new chmod_777 variations (total: 9)
+  - 2 new data_destroyer variations (total: 9)
+  - Cultural context preservation ("spilt milk" = 覆水盆に返らず)
+- **Comprehensive Pattern Reference** - docs/DANGEROUS_PATTERNS.md
+  - Detailed explanation of all 11 dangerous patterns
+  - Real-world incidents for each pattern
+  - Why they're dangerous and safe alternatives
+  - Caution-level patterns with guidance
+  - Summary table with severity and recovery info
+- **User-Friendly Quickstart Guide** - QUICKSTART.md
+  - Exploratory approach with hints
+  - Encourages discovery without spoiling
+  - Fun, engaging tone
+- **Documentation Organization**
+  - Created docs/reports/ directory
+  - Moved all daily summaries to reports/
+  - Created reports/README.md with index
+  - Clean separation: reports vs design docs
+- **User Testing Guide** - docs/USER_TESTING_GUIDE.md
+  - Complete guide for conducting user tests
+  - Session structure and timing
+  - Observation checklist
+  - Feedback form template
+  - Tips for effective testing
+
+### Changed
+- **Version numbering** - Corrected from v2.0 to v1.1
+  - Refactoring doesn't warrant major version bump
+  - Consistent versioning across all files
+- **README.md** - Simplified and focused
+  - Replaced long pattern list with concise summary
+  - Added link to DANGEROUS_PATTERNS.md
+  - Keeps README focused on project overview
+- **Test Organization** - Proper structure
+  - Moved test files to tests/unit/, tests/manual/
+  - Created tests/manual/README.md
+  - Clear separation: user guide vs developer tests
+- **Root Directory** - Cleaned and organized
+  - Deleted duplicate files (QUICK_TEST.md, ascii_art/)
+  - Moved DEVELOPMENT_TIMELINE.md to docs/reports/
+  - Professional, clean structure
+
+### Fixed
+- **dd Command Pattern Detection (Issue #2)** - Critical bug
+  - Problem: `dd if=/dev/zero` without `of=` parameter was not detected
+  - Root cause: Pattern required `of=` parameter
+  - Solution: Made `of=` optional in regex pattern
+  - Impact: Now catches both incomplete and complete dangerous dd commands
+  - Verification: Automated tests confirm fix
+- **Fork Bomb Pattern Detection** - Pattern bug
+  - Problem: `:(){ :|:& };:` was not detected
+  - Root cause: Regex too strict, didn't allow whitespace
+  - Solution: Updated pattern to allow whitespace variations
+  - Impact: Pattern now detects correctly
+  - Discovery: Caught immediately by automated tests
+
+### Documentation
+- Added Day 5 summary (docs/reports/DAY5_SUMMARY.md)
+- Updated docs/reports/README.md with Day 5 entry
+- Created comprehensive test report (docs/reports/DAY5_TEST_REPORT.md)
+- Added test strategy steering file (.kiro/steering/test-strategy.md)
+
+---
+
+## [1.0.0] - 2025-11-19 (Day 4)
+
+### Added
+- **Three-Tier Warning System** - Nuanced safety education
+  - CRITICAL: Blocks immediately with ASCII art (11 patterns)
+  - CAUTION: Warns and asks for confirmation (4 patterns)
+  - SAFE: Passes through normally
+- **4 Caution-Level Patterns** - Risky but legitimate commands
+  - sudo_shell: Root shell access warnings
+  - chmod_permissive: Permissive permission warnings
+  - firewall_disable: Firewall disable warnings
+  - selinux_disable: SELinux disable warnings
+- **9 New Dangerous Patterns** - Expanded coverage
+  - fork_bomb: DOS attack detection
+  - redirect_to_disk: Direct disk write detection
+  - mkfs_disk: Disk formatting detection
+  - mv_to_null: /dev/null deletion detection
+  - overwrite_file: Zero-byte overwrite detection
+  - dd_random: Random data overwrite detection
+  - kernel_panic: Kernel panic trigger detection
+  - Consolidated rm patterns (rm_root, rm_star, rm_dot → rm_dangerous)
+- **4 New Builtin Commands** - Cross-platform support
+  - ls/dir: List directory contents (Windows/Unix compatible)
+  - clear/cls: Clear terminal screen (Windows/Unix compatible)
+  - env: Show environment variables
+  - alias: Display available command aliases
+- **3 New Achievements** - Safe command encouragement
+  - Explorer: Used 5 different safe commands
+  - Command Master: Used 10 different safe commands
+  - Balanced User: Used 8 safe + 3 dangerous commands
+- **IT Wordplay** - Technical humor integration
+  - "Not today, SATA!" (Satan → Storage interface)
+  - "RAM not found..." (Memory loss metaphor)
+  - "Error 403: Forbidden" (HTTP status code)
+  - "Ctrl+C won't save you!" (Process control)
+- **Content Quality Review** - Systematic verification
+  - Back-translation check
+  - Native speaker perspective review
+  - Offensive content check
+  - IT wordplay implementation
+
+### Changed
+- **Statistics Tracking** - Enhanced metrics
+  - Added safe command usage tracking
+  - Added caution warning statistics (shown/proceeded/cancelled)
+  - Updated stats display with new metrics
+- **Documentation Structure** - Scalability improvements
+  - Reorganized LESSONS_LEARNED.md into docs/lessons/
+  - Created topic-based navigation
+  - Moved original to FULL_ARCHIVE.md
+  - Prevents future readability issues
+
+### Documentation
+- Added Day 4 summary (docs/reports/DAY4_SUMMARY.md)
+- Created CAUTION_WARNINGS_DESIGN.md
+- Created IT wordplay steering file (.kiro/steering/it-wordplay.md)
+- Updated README.md for v1.1 features
+
+---
+
+## [0.2.0] - 2025-11-18 (Day 3)
+
+### Added
+- **Display Module Refactoring** - Major architectural improvement
   - Modular component-based architecture
   - Data-driven content management with JSON files
   - Separate components: AsciiRenderer, MessageFormatter, ContentLoader
-  - Warning components: DangerWarning, TypoWarning, RepeatWarning
+  - Warning components: DangerWarning, TypoWarning, RepeatWarning, CautionWarning
   - Statistics and AchievementTracker as standalone classes
   - Content catalog system for managing warnings and variations
+- **Test Structure Design** - Professional test organization
+  - Created tests/TEST_STRUCTURE.md
+  - Defined unit/integration/manual test categories
+  - Test coverage map
+  - Migration plan for future tests
 - Creative warning message variations
 - "I told you so" escalating sarcasm feature
-- Achievement system (5 achievements)
-- Statistics tracking command
-- Random warning variations for each pattern type
-- Candy store message for unknown commands
 - Comprehensive manual test plan
 - Dramatic timing effects for warning displays
 
 ### Changed
-- **Refactored display system** from monolithic to modular architecture
+- **Refactored display system** - From monolithic to modular
   - Reduced display.py from 400+ lines to clean component-based structure
   - Moved display.py to display/__init__.py for proper module organization
   - Extracted 200+ lines of old code into focused components
   - Maintained 100% backward compatibility with existing API
+  - 7 new Python modules (900+ lines)
+  - 4 JSON data files
+  - Zero breaking changes
 - Moved all test files to `tests/` directory
 - Simplified welcome banner design to fix alignment issues
 - Organized comment management system (Japanese source + English translations)
@@ -44,6 +198,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Impact: Banner now displays correctly on all terminals
 - Content loader error handling when catalog file is missing
   - Added fallback catalog for graceful degradation
+
+### Performance
+- **Refactoring Speed**: 20 minutes (estimated 2.5-3 hours)
+- **Productivity Gain**: 7.5-9x faster than estimated
+- **Demonstrates**: Kiro + Spec-Driven Development effectiveness
+
+### Documentation
+- Added Day 3 summary (docs/reports/DAY3_SUMMARY.md)
+- Created display refactoring spec (.kiro/specs/display-refactoring/)
+- Added TEST_STRUCTURE.md
 
 ---
 
@@ -95,19 +259,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Development Metrics
 
+### Summary (Day 1-5)
+- **Total Time**: ~7 hours active development
+- **Total Commits**: 58 commits
+- **Total Files**: 35+ files
+- **Total Lines**: ~3,500+ lines
+- **Features**: 20+ features
+- **Test Coverage**: 35 automated tests (100% pass)
+- **Average Productivity**: 3-5x faster than traditional development
+
+### Day 5 (2025-11-21)
+- **Time**: 65 minutes
+- **Focus**: Bug fixes, testing, documentation
+- **Commits**: 9
+- **Key Achievement**: Automated test suite (35 tests, 100% pass)
+- **Efficiency**: 1.8x faster than estimated
+
+### Day 4 (2025-11-19)
+- **Time**: 65 minutes
+- **Focus**: Content expansion, quality review
+- **Commits**: 12
+- **Key Achievement**: Three-tier warning system
+- **Efficiency**: ~4x faster on average
+
+### Day 3 (2025-11-18)
+- **Time**: 20 minutes
+- **Focus**: Display system refactoring
+- **Commits**: 10+
+- **Key Achievement**: Modular architecture (900+ lines)
+- **Efficiency**: 7.5-9x faster than estimated (20 min vs 2.5-3 hours)
+
+### Day 2 (2025-11-17)
+- **Time**: ~1 hour
+- **Focus**: Feature additions, spec creation
+- **Commits**: 15+
+- **Key Achievement**: Spec-Driven Development methodology
+
 ### Day 1 (2025-11-16)
 - **Time**: ~4 hours (implementation) + 8 hours (specification)
 - **Code**: ~2,000 lines
 - **Features**: 20+
 - **Efficiency**: 12x faster than estimated
-
-### Day 2 (2025-11-17)
-- **Start Time**: 9:00
-- **Tasks Completed**:
-  - Test organization
-  - Creative messages
-  - Bug fixes (banner alignment)
-- **Status**: In progress
 
 ---
 
