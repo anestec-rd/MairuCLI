@@ -101,6 +101,20 @@ Available commands:
 - **Template-Based Messages:** Consistent formatting across warning types
 - **Graceful Error Handling:** Fallbacks for missing content
 
+### Dangerous Patterns
+
+MairuCLI detects **11 dangerous command patterns** including:
+- `rm -rf /` - Recursive deletion
+- `chmod 777` - Permission chaos
+- `dd if=/dev/zero` - Disk destruction
+- `DROP DATABASE` - Database annihilation
+- `:(){ :|:& };:` - Fork bomb
+- And 6 more...
+
+**See full details:** [docs/DANGEROUS_PATTERNS.md](docs/DANGEROUS_PATTERNS.md)
+
+Each pattern includes real-world incidents, why it's dangerous, and safe alternatives.
+
 ## 🚀 Installation
 
 ### Prerequisites
