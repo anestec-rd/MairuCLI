@@ -4,6 +4,16 @@ This directory contains daily development reports and summaries from the MairuCL
 
 ## Report Index
 
+### Development Timeline
+**File:** [DEVELOPMENT_TIMELINE.md](DEVELOPMENT_TIMELINE.md)
+
+**Summary:** Complete development timeline from specification to implementation
+- Session-by-session breakdown
+- Time estimates vs actual
+- Productivity analysis
+
+---
+
 ### Day 1 (2025-11-17)
 **File:** [DAY1_SUMMARY.md](DAY1_SUMMARY.md)
 
