@@ -39,7 +39,7 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "art_file": "fired.txt"
     },
     "fork_bomb": {
-        "pattern": r":\(\)\{:\|:&\};:",
+        "pattern": r":\(\)\s*\{\s*:\s*\|\s*:\s*&\s*\}\s*;?\s*:",
         "category": "system",
         "severity": "critical",
         "art_file": "data_destroyer.txt"
