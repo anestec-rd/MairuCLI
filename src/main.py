@@ -4,6 +4,7 @@ Main entry point for MairuCLI.
 This module provides the REPL loop and command processing logic.
 """
 
+import random
 import subprocess
 import sys
 
@@ -17,6 +18,67 @@ from src.display import (
     track_safe_command
 )
 from src.interceptor import check_command
+
+
+# Command not found message variations (Halloween-themed)
+COMMAND_NOT_FOUND_MESSAGES = [
+    {
+        "emoji": "🍬",
+        "message": "Sorry, we don't sell '{cmd}' at the candy store.",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "👻",
+        "message": "Boo! '{cmd}' vanished into thin air!",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "🎃",
+        "message": "'{cmd}' is not in my trick-or-treat bag!",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "🦇",
+        "message": "'{cmd}' flew away with the bats!",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "🕷️",
+        "message": (
+            "'{cmd}' got caught in a spider web... and disappeared!"
+        ),
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "🧙",
+        "message": "Even my magic can't summon '{cmd}'!",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "💀",
+        "message": "'{cmd}' is dead... because it never existed!",
+        "subtitle": "(Command not found)"
+    },
+    {
+        "emoji": "🌙",
+        "message": (
+            "'{cmd}' only appears on a full moon... which is not today!"
+        ),
+        "subtitle": "(Command not found)"
+    }
+]
+
+
+def show_command_not_found(cmd_name: str) -> None:
+    """
+    Display a random Halloween-themed 'command not found' message.
+
+    Args:
+        cmd_name: Name of the command that was not found
+    """
+    variation = random.choice(COMMAND_NOT_FOUND_MESSAGES)
+    print(f"{variation['emoji']} {variation['message'].format(cmd=cmd_name)}")
+    print(f"   {variation['subtitle']}")
 
 
 def main() -> None:
@@ -158,19 +220,14 @@ def execute_in_system_shell(command: str) -> None:
                 cmd_name = (
                     command.split()[0] if command.split() else command
                 )
-                print(
-                    f"🍬 Sorry, we don't sell '{cmd_name}' "
-                    "at the candy store."
-                )
-                print("   (Command not found)")
+                show_command_not_found(cmd_name)
             else:
                 # Other errors - print as is
                 print(result.stderr, end='')
 
     except FileNotFoundError:
         cmd_name = command.split()[0] if command.split() else command
-        print(f"🍬 Sorry, we don't sell '{cmd_name}' at the candy store.")
-        print("   (Command not found)")
+        show_command_not_found(cmd_name)
     except Exception as e:
         print(f"Error executing command: {e}")
 

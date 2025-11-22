@@ -15,12 +15,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Danger-related achievements: First Blood, Persistent Troublemaker, Danger Addict, Stubborn
   - Other achievements: Explorer, Command Master, Balanced User, Typo Master
   - Displays between statistics and final message for better visibility
+- **Command Not Found Message Variations** - GitHub Issue #1 (Day 6)
+  - 8 Halloween-themed variations for "command not found" messages
+  - Randomly selected for variety and entertainment
+  - Includes: candy store, ghost, pumpkin, bat, spider, wizard, skull, moon themes
+  - Maintains educational value while adding personality
 
 ### Changed
 - **Language Standards** - English-only CLI output
   - Added steering rule: All CLI output must be in English
   - Ensures consistency and international accessibility
   - Documentation can be multilingual, but user-facing text is English-only
+
+### Fixed
+- **Unicode Decode Error** - System command execution (Day 6)
+  - Fixed crash when executing commands with non-UTF-8 output (e.g., sudo on Windows)
+  - Added explicit UTF-8 encoding with error replacement
+  - Handles cp932 (Japanese) and other encodings gracefully
 
 ### Planned
 - Demo video recording
