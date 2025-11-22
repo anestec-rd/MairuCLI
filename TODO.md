@@ -45,6 +45,213 @@
 ### Demo Preparation
 - [ ] **Improve ASCII art** (if time permits)
 
+### New Feature Ideas (Post-Demo)
+
+**⚠️ Note:** Both features below require Spec creation before implementation (not simple pattern extensions)
+
+- [ ] **System Directory Protection** - User feedback (Day 6) 🔴 **PRIORITY 1**
+  - **⚙️ Requires:** Spec creation (.kiro/specs/system-directory-protection/)
+  - **Goal:** Prevent accidental damage to critical system directories and files
+  - **Target Users:** Curious children and beginners learning CLI
+  - **Educational Focus:** Teach which directories are dangerous to modify
+  - **Implementation Order:** Implement FIRST (safety critical)
+
+- [ ] **Custom Alias/Shortcut Command System** - User suggestion (Day 6) 🟡 **PRIORITY 2**
+  - **⚙️ Requires:** Spec creation (.kiro/specs/custom-alias-system/)
+  - **Goal:** Allow users to register custom shortcuts for frequently used commands
+  - **Educational Focus:** Teach safe command composition while preventing dangerous aliases
+  - **Implementation Order:** Implement AFTER system directory protection
+
+  **Core Features:**
+  - `setalias <name> <command>` - Register new alias
+  - `unalias <name>` - Remove alias
+  - `aliases` - List all custom aliases (extends current `alias` builtin)
+  - Persistent storage in `~/.mairu/aliases.json`
+
+  **Safety Features:**
+  - Check alias command against dangerous patterns before registration
+  - If dangerous: Show warning and refuse registration
+  - Example: `setalias nuke "rm -rf /"` → 🎃 "Nice try! I won't help you create a self-destruct button!"
+  - If caution-level: Show warning but allow with confirmation
+  - Example: `setalias rootshell "sudo bash"` → ⚠️ "This is risky. Are you sure? (y/n)"
+
+  **Educational Messages:**
+  - Dangerous alias attempt: "🧙 My magic won't help you create dangerous shortcuts!"
+  - Caution alias: "⚠️ This alias could be risky. Use with caution!"
+  - Safe alias created: "✅ Alias '{name}' created! Type '{name}' to run it."
+  - Alias already exists: "🎃 '{name}' already exists. Use 'unalias {name}' first."
+
+  **Implementation Details:**
+  - Add to `BuiltinCommands` class: `setalias`, `unalias` commands
+  - Extend existing `alias` command to show custom aliases
+  - Load aliases on startup from `~/.mairu/aliases.json`
+  - Check aliases before dangerous pattern check (Layer 0.5)
+  - Expand alias to full command, then run through normal safety checks
+
+  **Example Usage:**
+  ```
+  mairu> setalias ll "ls -la"
+  ✅ Alias 'll' created! Type 'll' to run it.
+
+  mairu> ll
+  [executes: ls -la]
+
+  mairu> setalias boom "rm -rf /"
+  🧙 Nice try! I won't help you create a self-destruct button!
+  Creating dangerous aliases defeats the purpose of MairuCLI's safety features.
+
+  mairu> aliases
+  Custom Aliases:
+    ll → ls -la
+
+  mairu> unalias ll
+  ✅ Alias 'll' removed.
+  ```
+
+  **Benefits:**
+  - Teaches command composition and shortcuts
+  - Reinforces safety awareness (can't alias dangerous commands)
+  - Improves CLI usability for power users
+  - Maintains educational mission
+
+  **Estimated Time:** 45-60 minutes (implementation only, after spec)
+  - Spec creation: 20-30 min
+  - Alias storage/loading: 15 min
+  - setalias/unalias commands: 15 min
+  - Safety checking integration: 15 min
+  - Testing and polish: 15 min
+  - **Total with Spec:** 65-90 minutes
+
+  **Priority:** Medium (nice-to-have for v1.2) - PRIORITY 2
+  **Implementation:** Requires Spec-Driven Development approach
+  **Added:** 2025-11-22 (Day 6 - User suggestion)
+
+- [ ] **System Directory Protection** - User feedback (Day 6)
+  - **Goal:** Prevent accidental damage to critical system directories and files
+  - **Target Users:** Curious children and beginners learning CLI
+  - **Educational Focus:** Teach which directories are dangerous to modify
+
+  **Protected Directories (Cross-Platform):**
+
+  **Windows:**
+  - `C:\Windows\` - Windows system directory
+  - `C:\Windows\System32\` - Core system files
+  - `C:\Program Files\` - Installed programs
+  - `C:\Program Files (x86)\` - 32-bit programs
+  - `C:\ProgramData\` - Application data
+  - `C:\Users\<user>\AppData\` - User application data
+
+  **Unix/Linux/Mac:**
+  - `/bin/`, `/sbin/` - Essential system binaries
+  - `/boot/` - Boot loader files
+  - `/dev/` - Device files
+  - `/etc/` - System configuration
+  - `/lib/`, `/lib64/` - System libraries
+  - `/proc/`, `/sys/` - Kernel interfaces
+  - `/root/` - Root user home
+  - `/usr/bin/`, `/usr/sbin/` - System binaries
+  - `/var/log/` - System logs
+
+  **Dangerous Operations to Block:**
+  - `rm`, `rmdir` targeting protected directories
+  - `mv` moving files from/to protected directories
+  - `chmod`, `chown` on protected directories
+  - `>` (redirect) to protected files
+  - `dd` targeting protected devices
+
+  **Detection Strategy:**
+  - Parse command to extract target paths
+  - Resolve relative paths to absolute paths
+  - Check if path starts with protected directory
+  - Block if match found
+
+  **Educational Messages:**
+  ```
+  mairu> rm -rf C:\Windows\System32\important.dll
+  🛑 STOP RIGHT THERE!
+
+  You're trying to modify the Windows System32 directory!
+  This directory contains critical files that Windows needs to run.
+
+  💡 What you should know:
+  - System32 contains essential Windows components
+  - Deleting files here can make Windows unbootable
+  - Even with admin rights, this is extremely dangerous
+
+  🎃 Safe alternative:
+  - Only modify files in your user directory (C:\Users\YourName\)
+  - Use 'Documents', 'Downloads', or 'Desktop' folders
+  - When in doubt, ask an adult or experienced user!
+
+  Command blocked for your safety.
+  ```
+
+  **Warning Levels:**
+  1. **Critical Block** - System directories (Windows, System32, /etc, /bin)
+     - Immediate block with educational message
+     - No confirmation option
+
+  2. **Caution Warning** - Program Files, /usr
+     - Warning with confirmation
+     - Explain risks clearly
+
+  3. **Safe** - User directories, /home, /tmp
+     - Normal dangerous pattern checks apply
+
+  **Implementation Details:**
+  - Add `PROTECTED_DIRECTORIES` dict in `interceptor.py`
+  - Create `check_system_directory()` function
+  - Parse command to extract file paths
+  - Check before dangerous pattern matching (highest priority)
+  - Platform detection using `sys.platform`
+
+  **Example Detection:**
+  ```python
+  PROTECTED_DIRECTORIES = {
+      "win32": [
+          r"C:\\Windows",
+          r"C:\\Program Files",
+          r"C:\\ProgramData"
+      ],
+      "linux": [
+          "/bin", "/sbin", "/boot", "/etc",
+          "/lib", "/proc", "/sys", "/root"
+      ],
+      "darwin": [  # macOS
+          "/System", "/Library", "/bin",
+          "/sbin", "/etc", "/var"
+      ]
+  }
+  ```
+
+  **Benefits:**
+  - Prevents catastrophic system damage
+  - Teaches system directory structure
+  - Protects curious learners from mistakes
+  - Reinforces "safe zones" concept
+  - Platform-aware protection
+
+  **Edge Cases to Handle:**
+  - Symbolic links to system directories
+  - Relative paths (../../Windows)
+  - Environment variables ($WINDIR, $HOME)
+  - Wildcards in system directories (C:\Windows\*.dll)
+
+  **Estimated Time:** 60-90 minutes (implementation only, after spec)
+  - Spec creation: 30-40 min
+  - Directory list definition: 15 min
+  - Path parsing and resolution: 20 min
+  - Protection logic: 20 min
+  - Educational messages: 15 min
+  - Testing (Windows/Linux): 20 min
+  - **Total with Spec:** 90-130 minutes
+
+  **Priority:** High (critical safety feature for educational tool) - PRIORITY 1
+  **Implementation:** Requires Spec-Driven Development approach
+  **Added:** 2025-11-22 (Day 6 - User feedback)
+  **Rationale:** Protects children and beginners from irreversible system damage
+  **Next Step:** Create spec at .kiro/specs/system-directory-protection/
+
 ### Content Enhancement (Future)
 - [ ] **Implement flexible variation system (Option 2 approach)**
   - **Goal:** Avoid duplication while allowing shared + unique variations
