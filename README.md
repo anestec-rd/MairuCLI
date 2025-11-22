@@ -86,6 +86,7 @@ Available commands:
 
 ### Core Functionality
 - **12 Built-in Commands:** cd, pwd, ls/dir, clear/cls, echo, export, env, alias, history, help, stats, exit
+- **System Directory Protection:** Prevents accidental modification of critical system directories (Windows, Linux, macOS)
 - **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
 - **4 Caution-Level Warnings:** sudo su, chmod 666/755, firewall disable, SELinux disable
 - **2 Typo Entertainment:** sl → ls, cd.. → cd ..

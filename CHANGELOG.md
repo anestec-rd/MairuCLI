@@ -9,6 +9,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **System Directory Protection** - Safety feature (Day 6)
+  - Protects critical system directories from accidental modification
+  - Platform-specific protection: Windows, Linux, macOS
+  - Two-tier protection: Critical (block) and Caution (confirm)
+  - Path resolution: Handles relative paths, environment variables, ~
+  - Command parsing: Extracts paths from rm, mv, chmod, dd, redirects
+  - Educational warnings explain risks and safe alternatives
+  - Integration tests: 10+ test cases covering all platforms
+  - Unit tests: 35+ tests for path resolution and command parsing
+  - Tasks 1-9 complete (manual testing and docs pending)
 - **Achievement Display in Stats Command** - User testing feedback (Day 6)
   - Stats command now displays unlocked achievements
   - Achievements categorized into "Your Troublemaking History" (danger-related) and "Unlocked Achievements" (others)

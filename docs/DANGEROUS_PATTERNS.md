@@ -1,15 +1,16 @@
 # Dangerous Command Patterns Reference
 
-This document provides detailed information about all 11 dangerous command patterns that MairuCLI detects and blocks.
+This document provides detailed information about all dangerous patterns that MairuCLI detects and blocks.
 
 ---
 
 ## Overview
 
 MairuCLI protects you from commands that could cause:
-- 💥 Data loss (deletion, overwriting)
-- 🔓 Security vulnerabilities (permission issues)
-- 💻 System crashes (kernel panic, fork bombs)
+- �  System directory damage (Windows, Linux, macOS)
+- � SData loss (deletion, overwriting)
+- � Syecurity vulnerabilities (permission issues)
+- � SDystem crashes (kernel panic, fork bombs)
 - 🗄️ Database destruction
 
 Each pattern below includes:
@@ -17,6 +18,86 @@ Each pattern below includes:
 - Why they're dangerous
 - Real-world incidents
 - Safe alternatives
+
+---
+
+## System Directory Protection
+
+**Protection Level:** CRITICAL / CAUTION (platform-specific)
+
+**What It Protects:**
+
+**Windows:**
+- `C:\Windows\` - Windows system directory (CRITICAL)
+- `C:\Windows\System32\` - Core system files (CRITICAL)
+- `C:\Program Files\` - Installed programs (CAUTION)
+- `C:\Program Files (x86)\` - 32-bit programs (CAUTION)
+- `C:\ProgramData\` - Application data (CAUTION)
+
+**Linux/Unix:**
+- `/bin/`, `/sbin/` - Essential system binaries (CRITICAL)
+- `/boot/` - Boot loader files (CRITICAL)
+- `/etc/` - System configuration (CRITICAL)
+- `/lib/`, `/lib64/` - System libraries (CRITICAL)
+- `/proc/`, `/sys/` - Kernel interfaces (CRITICAL)
+- `/root/` - Root user home (CRITICAL)
+- `/usr/bin/`, `/usr/sbin/` - System binaries (CAUTION)
+- `/var/log/` - System logs (CAUTION)
+
+**macOS:**
+- `/System/` - macOS system files (CRITICAL)
+- `/bin/`, `/sbin/` - System binaries (CRITICAL)
+- `/Library/` - System libraries (CAUTION)
+- `/Applications/` - Installed applications (CAUTION)
+
+**Why It's Dangerous:**
+System directories contain critical files that the operating system needs to function. Modifying or deleting these files can:
+- Make the system unbootable
+- Break essential system services
+- Require OS reinstallation
+- Cause data loss
+
+**Detection Features:**
+- Resolves relative paths (e.g., `../../Windows`)
+- Expands environment variables (e.g., `$WINDIR`, `$HOME`)
+- Handles path shortcuts (e.g., `~`)
+- Detects wildcards in system directories
+- Works with all file operations (rm, mv, chmod, dd, redirects)
+
+**Educational Message Example:**
+```
+🛑 STOP RIGHT THERE!
+
+You're trying to modify: C:\Windows\System32\kernel32.dll
+
+💡 What you should know:
+  - System32 contains essential Windows components
+  - Deleting files here can make Windows unbootable
+  - Even with admin rights, this is extremely dangerous
+
+🎃 Safe alternative:
+  - Work in your user directory: C:\Users\YourName\
+  - Use Documents, Downloads, or Desktop folders
+  - Ask an experienced user if you need to modify system files
+
+Command blocked for your safety.
+```
+
+**Safe Alternatives:**
+- Work in user directories: `C:\Users\<username>\` (Windows) or `/home/<username>/` (Linux)
+- Use Documents, Downloads, or Desktop folders
+- Create project directories in safe locations
+- Ask for help before modifying system files
+
+**Implementation:**
+- Path resolution module (`src/path_resolver.py`)
+- Command parser module (`src/command_parser.py`)
+- System directory checker (`src/interceptor.py`)
+- Educational warnings (`src/display/system_protection_warning.py`)
+
+---
+
+## Dangerous Command Patterns
 
 ---
 

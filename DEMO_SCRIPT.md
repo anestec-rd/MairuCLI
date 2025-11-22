@@ -32,7 +32,23 @@ pwd
 
 **Show:** Normal commands work fine
 
-### 4. Dangerous Command Detection (60 seconds)
+### 4. System Directory Protection (40 seconds)
+```bash
+rm C:\Windows\System32\test.dll    # Windows
+# or
+rm /etc/passwd                      # Linux
+```
+**Show:**
+- 🛑 "STOP RIGHT THERE!" warning
+- Explanation of what the directory contains
+- Why it's dangerous to modify
+- Safe alternatives (user directories)
+
+**Narration:**
+"MairuCLI protects system directories across Windows, Linux, and macOS.
+It teaches beginners which directories are safe to work in!"
+
+### 5. Dangerous Command Detection (60 seconds)
 ```bash
 rm -rf /
 ```
@@ -52,7 +68,7 @@ DROP DATABASE production
 ```
 **Show:** Database destruction warning
 
-### 5. "I Told You So" Feature (40 seconds)
+### 6. "I Told You So" Feature (40 seconds)
 ```bash
 rm -rf /
 ```
@@ -70,7 +86,7 @@ rm -rf /
 
 **Narration:** "The more you try, the more sarcastic it gets!"
 
-### 6. Typo Entertainment (20 seconds)
+### 7. Typo Entertainment (20 seconds)
 ```bash
 sl
 cd..
@@ -78,7 +94,7 @@ cd..
 
 **Show:** Fun typo corrections with emoji
 
-### 7. Statistics (20 seconds)
+### 8. Statistics (20 seconds)
 ```bash
 stats
 ```
@@ -88,7 +104,7 @@ stats
 - Breakdown of dangerous vs typos
 - Sarcastic comment based on count
 
-### 8. Kiro Workflow Showcase (20 seconds)
+### 9. Kiro Workflow Showcase (20 seconds)
 
 **Screen recording of:**
 - Steering files (.kiro/steering/)
@@ -102,7 +118,7 @@ stats
 "I built this entire project using Kiro's Spec-Driven Development workflow.
 Kiro helped me go from idea to implementation in just a few hours!"
 
-### 9. Conclusion (20 seconds)
+### 10. Conclusion (20 seconds)
 ```bash
 exit
 ```
