@@ -18,10 +18,12 @@ class Statistics:
             "safe_commands_used": 0,
             "caution_shown": 0,
             "caution_proceeded": 0,
-            "caution_cancelled": 0
+            "caution_cancelled": 0,
+            "system_protection_blocks": 0
         }
         self._warned_commands: Dict[str, int] = {}
         self._safe_commands_used: set = set()
+        self._protected_dirs_attempted: set = set()
 
     def increment_dangerous_blocked(self) -> None:
         """Increment dangerous command counter."""
@@ -131,3 +133,31 @@ class Statistics:
             "proceeded": self._stats["caution_proceeded"],
             "cancelled": self._stats["caution_cancelled"]
         }
+
+    def track_system_protection_block(self, directory: str) -> None:
+        """
+        Track system directory protection block.
+
+        Args:
+            directory: The protected directory that was attempted
+        """
+        self._stats["system_protection_blocks"] += 1
+        self._protected_dirs_attempted.add(directory)
+
+    def get_system_protection_blocks(self) -> int:
+        """
+        Get total number of system protection blocks.
+
+        Returns:
+            Total system protection blocks count
+        """
+        return self._stats["system_protection_blocks"]
+
+    def get_unique_protected_dirs_count(self) -> int:
+        """
+        Get number of unique protected directories attempted.
+
+        Returns:
+            Number of unique protected directories
+        """
+        return len(self._protected_dirs_attempted)

@@ -161,6 +161,24 @@ def process_command(command: str) -> str:
         track_safe_command(cmd_name)
         return ""
 
+    # Layer 1.5: Check system directory protection (highest priority)
+    from src.interceptor import check_system_directory
+    sys_level, sys_type, sys_path = check_system_directory(command)
+
+    if sys_level == "critical":
+        # Critical system directory - block immediately
+        from src.display import show_system_protection_warning
+        show_system_protection_warning("critical", sys_path, command)
+        # Statistics are already updated by show_system_protection_warning
+        return ""
+    elif sys_level == "caution":
+        # Caution system directory - warn and ask for confirmation
+        from src.display import show_system_protection_warning
+        if not show_system_protection_warning("caution", sys_path, command):
+            print(colorize("Command cancelled.", "chocolate"))
+            return ""
+        # User confirmed - continue to next checks
+
     # Layer 2: Check if dangerous or caution command
     level, pattern_name = check_command(command)
 

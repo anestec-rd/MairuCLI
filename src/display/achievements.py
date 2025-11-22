@@ -99,6 +99,34 @@ class AchievementTracker:
                 "Explored both safe and dangerous commands. Perfect balance!"
             )
 
+        # System Protection Achievements
+        sys_blocks = self.statistics.get_system_protection_blocks()
+        unique_dirs = self.statistics.get_unique_protected_dirs_count()
+
+        # Achievement: Curious Explorer
+        if sys_blocks == 1 and "curious_explorer" not in self._unlocked:
+            self._unlocked.append("curious_explorer")
+            self.show_achievement(
+                "Curious Explorer",
+                "Found a protected area! Curiosity is great, but be careful!"
+            )
+
+        # Achievement: Boundary Tester
+        if sys_blocks >= 3 and "boundary_tester" not in self._unlocked:
+            self._unlocked.append("boundary_tester")
+            self.show_achievement(
+                "Boundary Tester",
+                "Tested protected boundaries 3 times. You're thorough!"
+            )
+
+        # Achievement: System Adventurer
+        if unique_dirs >= 3 and "system_adventurer" not in self._unlocked:
+            self._unlocked.append("system_adventurer")
+            self.show_achievement(
+                "System Adventurer",
+                "Explored 3 different protected areas. What a journey!"
+            )
+
     def show_achievement(self, title: str, description: str) -> None:
         """
         Display achievement unlock notification.
@@ -146,7 +174,10 @@ class AchievementTracker:
             "stubborn": "Stubborn",
             "explorer": "Explorer",
             "command_master": "Command Master",
-            "balanced": "Balanced User"
+            "balanced": "Balanced User",
+            "curious_explorer": "Curious Explorer",
+            "boundary_tester": "Boundary Tester",
+            "system_adventurer": "System Adventurer"
         }
 
         return [achievement_names[ach_id] for ach_id in self._unlocked

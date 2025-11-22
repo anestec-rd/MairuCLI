@@ -18,6 +18,7 @@ from src.display.warning_components import (
     EMOJI
 )
 from src.display.caution_warning import CautionWarning
+from src.display.system_protection_warning import SystemProtectionWarning
 
 # Initialize components
 _renderer = AsciiRenderer()
@@ -31,6 +32,7 @@ _danger_warning = DangerWarning(_renderer, _formatter, _content_loader)
 _typo_warning = TypoWarning(_renderer, _formatter, _content_loader)
 _repeat_warning = RepeatWarning(_renderer, _formatter, _content_loader)
 _caution_warning = CautionWarning(_renderer)
+_system_protection_warning = SystemProtectionWarning(_renderer)
 
 
 def colorize(text: str, color_name: str) -> str:
@@ -197,3 +199,35 @@ def get_unlocked_achievements() -> list:
         List of achievement display names
     """
     return _achievement_tracker.get_unlocked_achievement_names()
+
+
+def show_system_protection_warning(
+    level: str,
+    target_path: str,
+    command: str
+) -> bool:
+    """
+    Display system directory protection warning.
+
+    Args:
+        level: "critical" or "caution"
+        target_path: The protected path being targeted
+        command: The blocked command
+
+    Returns:
+        True if user confirms (caution level), False otherwise
+    """
+    # Update statistics for blocked command
+    if level == "critical":
+        _statistics.increment_dangerous_blocked()
+
+    # Track system protection block
+    _statistics.track_system_protection_block(target_path)
+
+    # Display warning
+    result = _system_protection_warning.display(level, target_path, command)
+
+    # Check for achievements
+    _achievement_tracker.check_achievements()
+
+    return result
