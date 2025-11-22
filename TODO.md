@@ -45,6 +45,50 @@
 ### Demo Preparation
 - [ ] **Improve ASCII art** (if time permits)
 
+### System Directory Protection - Considerations
+
+- [ ] **Review /home directory protection strategy** - Day 6 discovery 🟡 **IMPORTANT**
+  - **Issue:** `/home` directory itself is not protected, only system directories
+  - **Risk:** `rm -rf /home` would delete all user data on the system
+  - **Current behavior:** `/home/username/` contents are deletable (by design)
+  - **Dilemma:**
+    - Protecting `/home` prevents legitimate user directory deletion
+    - Not protecting `/home` allows catastrophic multi-user data loss
+    - "Partial protection" creates false sense of security
+
+  **Options to consider:**
+  1. **Add `/home` to critical protection** (safest, but restrictive)
+     - Pros: Prevents catastrophic loss of all user data
+     - Cons: Users can't delete their own home directories
+
+  2. **Add `/home` to caution level** (balanced approach)
+     - Pros: Warns but allows with confirmation
+     - Cons: Users might confirm without understanding impact
+
+  3. **Keep current behavior** (educational approach)
+     - Pros: Teaches users about directory structure
+     - Cons: Doesn't prevent multi-user data loss
+     - Add clear documentation about what IS and ISN'T protected
+
+  4. **Smart detection** (complex but ideal)
+     - Detect if deleting `/home` vs `/home/currentuser/`
+     - Protect `/home` but allow `/home/$USER/`
+     - Requires user context detection
+
+  **Recommendation:** Option 2 (Caution level) or Option 3 (Document clearly)
+  - MairuCLI is educational, not production security
+  - Clear documentation about limitations is crucial
+  - "Partial protection" is honest about what we protect
+
+  **Action items:**
+  - [ ] Decide on approach (Day 7 discussion)
+  - [ ] Update documentation to clearly state what IS and ISN'T protected
+  - [ ] Add to README.md "Known Limitations" section
+  - [ ] Consider adding to DANGEROUS_PATTERNS.md
+
+  **Added:** 2025-11-22 (Day 6 - Manual testing discovery)
+  **Priority:** Important for user expectations and safety
+
 ### New Feature Ideas (Post-Demo)
 
 **⚠️ Note:** Both features below require Spec creation before implementation (not simple pattern extensions)
