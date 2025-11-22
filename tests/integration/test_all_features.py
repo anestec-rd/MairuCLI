@@ -1,5 +1,14 @@
 """Test all new features together."""
 
+import sys
+import os
+
+# Add project root to path
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+)
+
 from src.builtins import BuiltinCommands
 from src.interceptor import check_command
 from src.display import show_warning

@@ -171,9 +171,9 @@ def test_pattern_detection():
 
     print("=" * 70)
 
-    return passed, failed, total
+    # Assert for pytest
+    assert failed == 0, f"{failed} test(s) failed"
 
 
 if __name__ == "__main__":
-    passed, failed, total = test_pattern_detection()
-    sys.exit(0 if failed == 0 else 1)
+    test_pattern_detection()
