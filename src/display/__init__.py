@@ -187,3 +187,13 @@ def show_caution_warning(pattern_name: str, command: str) -> bool:
     _achievement_tracker.check_achievements()
 
     return proceed
+
+
+def get_unlocked_achievements() -> list:
+    """
+    Get list of unlocked achievement display names.
+
+    Returns:
+        List of achievement display names
+    """
+    return _achievement_tracker.get_unlocked_achievement_names()

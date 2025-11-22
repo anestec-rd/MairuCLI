@@ -129,3 +129,25 @@ class AchievementTracker:
             List of achievement IDs
         """
         return self._unlocked.copy()
+
+    def get_unlocked_achievement_names(self) -> List[str]:
+        """
+        Get list of unlocked achievement display names.
+
+        Returns:
+            List of achievement display names
+        """
+        # Map internal IDs to display names
+        achievement_names = {
+            "first_blood": "First Blood",
+            "persistent": "Persistent Troublemaker",
+            "typo_master": "Typo Master",
+            "danger_addict": "Danger Addict",
+            "stubborn": "Stubborn",
+            "explorer": "Explorer",
+            "command_master": "Command Master",
+            "balanced": "Balanced User"
+        }
+
+        return [achievement_names[ach_id] for ach_id in self._unlocked
+                if ach_id in achievement_names]

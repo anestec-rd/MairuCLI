@@ -321,10 +321,18 @@ python tests/test_dangerous.py
 - Replacing proper access controls
 - Mission-critical systems
 
+**How It Works:**
+- ✅ **Dangerous commands** are blocked with warnings
+- ✅ **Safe commands** are passed to your system shell
+- ℹ️ **Unknown/invalid commands** will show system error messages
+
+This is intentional! Learning includes seeing what happens with invalid commands.
+
 **Known Limitations:**
 - Pattern matching can be bypassed
 - Not a comprehensive security solution
 - Educational purpose only
+- Unknown commands pass through to system (by design)
 - See `docs/ISSUES.md` for details
 
 ## 📚 Documentation

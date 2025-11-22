@@ -136,7 +136,9 @@ def execute_in_system_shell(command: str) -> None:
             command,
             shell=True,
             capture_output=True,
-            text=True
+            text=True,
+            encoding='utf-8',
+            errors='replace'  # Replace decode errors with �
         )
 
         # Print stdout if any

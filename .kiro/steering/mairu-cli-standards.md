@@ -91,10 +91,12 @@ use a trash utility like 'trash-cli' instead of rm.
 
 ### Language Requirements
 - **All documentation files (*.md) must be written in English**
+- **All CLI output (warnings, messages, prompts) must be in English**
 - Exception: `private_talk.md` can contain any language
 - When quoting user input in Japanese, translate it to English before including in documentation
 - Code comments should be in English
 - Commit messages should be in English
+- User-facing text in the terminal must always be in English for consistency and international accessibility
 
 ### README.md
 - Include installation instructions for multiple platforms

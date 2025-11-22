@@ -8,10 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **Achievement Display in Stats Command** - User testing feedback (Day 6)
+  - Stats command now displays unlocked achievements
+  - Achievements categorized into "Your Troublemaking History" (danger-related) and "Unlocked Achievements" (others)
+  - Danger-related achievements: First Blood, Persistent Troublemaker, Danger Addict, Stubborn
+  - Other achievements: Explorer, Command Master, Balanced User, Typo Master
+  - Displays between statistics and final message for better visibility
+
+### Changed
+- **Language Standards** - English-only CLI output
+  - Added steering rule: All CLI output must be in English
+  - Ensures consistency and international accessibility
+  - Documentation can be multilingual, but user-facing text is English-only
+
 ### Planned
 - Demo video recording
 - Kiro workflow documentation
 - Contest submission preparation
+- Achievement categorization system (maintainability improvement - see TODO.md)
 
 ---
 

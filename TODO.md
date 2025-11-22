@@ -213,6 +213,22 @@
   - Priority: Low (not essential for core functionality)
   - Note: Current simple implementation is sufficient for educational tool
 
+- [ ] **Achievement categorization system** (Maintainability improvement)
+  - **Current Issue:** Achievement categories hardcoded in stats command
+  - **Problem:** Adding new achievements requires updating multiple places
+  - **Proposed Solution:** Add category metadata to each achievement
+  - **Implementation:**
+    - Add `category` field to achievement definitions ("danger", "normal", "exploration")
+    - Update `AchievementTracker` to store category with each achievement
+    - Modify stats display to categorize based on metadata, not hardcoded list
+  - **Benefits:**
+    - Single source of truth for achievement properties
+    - Easier to add new achievements
+    - Better maintainability
+  - **Estimated Time:** 15-20 minutes
+  - **Priority:** Low (current implementation works, but less maintainable)
+  - **Added:** 2025-11-22 (Day 6 - User testing feedback)
+
 ### Visual Improvements
 - [ ] More elaborate ASCII art
 - [ ] Animation effects (if possible in terminal)

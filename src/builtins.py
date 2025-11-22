@@ -262,6 +262,38 @@ class BuiltinCommands:
                   f"{colorize(str(stats['typos_caught']), 'purple')}")
             print()
 
+            # Display unlocked achievements
+            from src.display import get_unlocked_achievements
+            unlocked = get_unlocked_achievements()
+
+            if unlocked:
+                # Categorize achievements
+                danger_achievements = [
+                    "First Blood", "Persistent Troublemaker",
+                    "Danger Addict", "Stubborn"
+                ]
+
+                danger_list = [ach for ach in unlocked
+                               if ach in danger_achievements]
+                other_list = [ach for ach in unlocked
+                              if ach not in danger_achievements]
+
+                # Display danger-related achievements
+                if danger_list:
+                    print(colorize("💀 Your Troublemaking History:", "red"))
+                    print()
+                    for achievement in danger_list:
+                        print(f"  {colorize('✓', 'green')} {achievement}")
+                    print()
+
+                # Display other achievements
+                if other_list:
+                    print(colorize("🏆 Unlocked Achievements:", "orange"))
+                    print()
+                    for achievement in other_list:
+                        print(f"  {colorize('✓', 'green')} {achievement}")
+                    print()
+
             if total_saves >= 10:
                 msg = "🏆 Wow! You really like living dangerously!"
                 print(colorize(msg, "orange"))
