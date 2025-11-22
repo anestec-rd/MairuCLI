@@ -5,7 +5,48 @@ This module provides pattern matching to detect dangerous commands and typos.
 """
 
 import re
+import sys
 from typing import Dict, Tuple
+
+
+# Protected system directories by platform
+# These directories are critical for system operation and should not be modified
+PROTECTED_DIRECTORIES = {
+    "win32": {
+        "critical": [
+            r"c:\windows",
+            r"c:\windows\system32",
+            r"c:\windows\syswow64",
+            r"c:\windows\winsxs",
+        ],
+        "caution": [
+            r"c:\program files",
+            r"c:\program files (x86)",
+            r"c:\programdata",
+        ]
+    },
+    "linux": {
+        "critical": [
+            "/bin", "/sbin", "/boot", "/etc",
+            "/lib", "/lib64", "/proc", "/sys",
+            "/root", "/dev"
+        ],
+        "caution": [
+            "/usr/bin", "/usr/sbin", "/usr/lib",
+            "/var/log", "/usr"
+        ]
+    },
+    "darwin": {  # macOS
+        "critical": [
+            "/system", "/bin", "/sbin",
+            "/etc", "/var", "/private"
+        ],
+        "caution": [
+            "/library", "/applications",
+            "/usr/bin", "/usr/sbin", "/usr"
+        ]
+    }
+}
 
 
 # Dangerous command patterns
@@ -199,3 +240,97 @@ def get_pattern_info(pattern_name: str) -> Dict[str, str]:
         return TYPO_PATTERNS[typo_name]
     else:
         return DANGEROUS_PATTERNS[pattern_name]
+
+
+def check_system_directory(command: str) -> Tuple[str, str, str]:
+    """
+    Check if command targets protected system directories.
+
+    This is the highest priority check and runs before dangerous pattern
+    matching. It prevents accidental modification of critical system
+    directories.
+
+    Args:
+        command: User-entered command string
+
+    Returns:
+        Tuple of (level, protection_type, target_path)
+        level: "critical", "caution", or "safe"
+        protection_type: "system_critical", "system_caution", or ""
+        target_path: The protected path that was targeted, or ""
+
+    Performance: Must complete within 50ms
+    """
+    from src.command_parser import CommandParser
+    from src.path_resolver import PathResolver
+
+    # Get platform-specific protected directories
+    platform = sys.platform
+    if platform not in PROTECTED_DIRECTORIES:
+        # Unknown platform - no system protection (fail-open for compatibility)
+        return "safe", "", ""
+
+    # Initialize parsers
+    parser = CommandParser()
+    resolver = PathResolver()
+
+    # Extract paths from command
+    try:
+        paths = parser.extract_all_paths(command)
+    except Exception:
+        # If parsing fails, assume safe (fail-open for usability)
+        return "safe", "", ""
+
+    if not paths:
+        # No paths found - safe
+        return "safe", "", ""
+
+    # Check each path against protected directories
+    for path in paths:
+        try:
+            # Resolve path to absolute normalized form
+            resolved_path = resolver.resolve_path(path)
+
+            # Check critical directories first (highest priority)
+            for protected_dir in PROTECTED_DIRECTORIES[platform]["critical"]:
+                # Normalize protected directory for comparison
+                normalized_protected = resolver.normalize_for_comparison(
+                    protected_dir
+                )
+
+                # Ensure both paths end with separator for accurate comparison
+                check_path = resolved_path
+                check_protected = normalized_protected
+                if not check_protected.endswith(('\\', '/')):
+                    import os
+                    check_protected += os.sep
+
+                # Check if resolved path starts with protected directory
+                if check_path.startswith(check_protected) or \
+                   check_path == normalized_protected:
+                    return "critical", "system_critical", resolved_path
+
+            # Check caution directories
+            for protected_dir in PROTECTED_DIRECTORIES[platform]["caution"]:
+                normalized_protected = resolver.normalize_for_comparison(
+                    protected_dir
+                )
+
+                # Ensure both paths end with separator for accurate comparison
+                check_path = resolved_path
+                check_protected = normalized_protected
+                if not check_protected.endswith(('\\', '/')):
+                    import os
+                    check_protected += os.sep
+
+                if check_path.startswith(check_protected) or \
+                   check_path == normalized_protected:
+                    return "caution", "system_caution", resolved_path
+
+        except (ValueError, PermissionError, OSError):
+            # If path resolution fails, err on side of caution (fail-safe)
+            # Block the command to prevent potential system damage
+            return "critical", "system_critical", path
+
+    # No protected directories targeted - safe
+    return "safe", "", ""
