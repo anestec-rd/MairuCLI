@@ -181,6 +181,10 @@ class TestCommandParser:
 
     def test_parse_windows_path(self):
         """Test parsing Windows-style path."""
+        import sys
+        if sys.platform != "win32":
+            pytest.skip("Windows-specific test")
+
         result = self.parser.parse(r"rm C:\Windows\System32\test.dll")
 
         assert result["command"] == "rm"
