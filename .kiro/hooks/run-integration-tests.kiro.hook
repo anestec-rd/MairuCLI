@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Run Integration Tests",
+  "description": "Run all integration tests including system protection",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "tests/integration/test_system_protection.py",
+      "tests/integration/test_all_features.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Execute the following command and report the results: python tests/integration/test_system_protection.py && python tests/integration/test_all_features.py. If all tests pass, respond with \"✅ All integration tests passed!\". If any tests fail, respond with \"❌ Some integration tests failed. Check the output above.\" and include details about which tests failed."
+  }
+}

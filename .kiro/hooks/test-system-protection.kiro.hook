@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Test System Protection",
+  "description": "Run system directory protection tests only",
+  "version": "1",
+  "when": {
+    "type": "manual"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Execute the following command and report the results: python tests/integration/test_system_protection.py. If all tests pass, respond with \"✅ System protection tests passed!\". If any tests fail, respond with \"❌ System protection tests failed. Check the output above.\" and include details about which tests failed."
+  }
+}

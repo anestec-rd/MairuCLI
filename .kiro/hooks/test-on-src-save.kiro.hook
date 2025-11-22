@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Auto-test on Save",
+  "description": "Automatically run unit tests when saving Python files in src/ (disabled by default)",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Execute the following command and report the results briefly: python -m pytest tests/unit/ -v --tb=short. Only report if tests fail. If all tests pass, just say \"✅ Tests passed\"."
+  }
+}

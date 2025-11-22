@@ -18,7 +18,7 @@ dangerous_cmd = "rm -rf /"
 print("Testing repeat warning feature:\n")
 print("=" * 70)
 
-for i in range(1, 6):
+for i in range(1, 8):  # Test up to 7 times to see all variations
     print(f"\n\nAttempt #{i}: {dangerous_cmd}")
     print("-" * 70)
 
@@ -28,3 +28,4 @@ for i in range(1, 6):
 
 print("\n" + "=" * 70)
 print("Test complete!")
+print("Note: After 7 attempts, warnings stop showing sarcastic comments.")

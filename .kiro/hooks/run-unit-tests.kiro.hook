@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Run Unit Tests",
+  "description": "Run all unit tests with pytest",
+  "version": "1",
+  "when": {
+    "type": "manual"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Execute the following command and report the results: python -m pytest tests/unit/ -v. If all tests pass, respond with \"✅ All unit tests passed!\". If any tests fail, respond with \"❌ Some unit tests failed. Check the output above.\" and include details about which tests failed."
+  }
+}
