@@ -9,6 +9,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Changed
+- **Builtin Commands Refactoring** - Day 7
+  - Split monolithic builtins.py (719 lines) into modular package
+  - Created src/builtins/ package with 7 specialized modules:
+    - navigation.py - cd, pwd commands
+    - file_operations.py - ls, cat, touch, mkdir commands
+    - search.py - find, grep, which commands
+    - system_info.py - whoami, date, hostname, env, export commands
+    - display.py - tree command
+    - shell_utils.py - echo, clear, history, alias commands
+    - mairu_commands.py - help, stats commands (MairuCLI-specific)
+  - Benefits:
+    - Better code organization (100-150 lines per module)
+    - Easier to maintain and extend
+    - Clear separation of concerns
+    - Improved testability
+  - Backward compatibility maintained
+  - All 20 unit tests passing
+  - No functional changes to user interface
+
+### Changed
 - **Task Management Consolidation** - Day 7
   - Merged MairuCLI_StockTask.md into TODO.md
   - All active tasks now tracked in single location (TODO.md)

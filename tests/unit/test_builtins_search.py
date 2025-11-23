@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 from unittest.mock import patch
 from src.builtins import BuiltinCommands
+from src.builtins import file_operations, search, system_info, display
 
 
 class TestSearchCommands(unittest.TestCase):
@@ -27,21 +28,21 @@ class TestSearchCommands(unittest.TestCase):
         test_file = Path(self.test_dir) / "test.txt"
 
         with patch('pathlib.Path.cwd', return_value=Path(self.test_dir)):
-            result = BuiltinCommands._cmd_touch([str(test_file)])
+            result = file_operations.cmd_touch([str(test_file)])
 
         self.assertTrue(result)
         self.assertTrue(test_file.exists())
 
     def test_touch_without_args(self):
         """Test touch command without arguments shows usage."""
-        result = BuiltinCommands._cmd_touch([])
+        result = file_operations.cmd_touch([])
         self.assertTrue(result)
 
     def test_mkdir_creates_directory(self):
         """Test mkdir command creates a new directory."""
         test_dir = Path(self.test_dir) / "newdir"
 
-        result = BuiltinCommands._cmd_mkdir([str(test_dir)])
+        result = file_operations.cmd_mkdir([str(test_dir)])
 
         self.assertTrue(result)
         self.assertTrue(test_dir.exists())
@@ -52,13 +53,13 @@ class TestSearchCommands(unittest.TestCase):
         test_dir = Path(self.test_dir) / "existing"
         test_dir.mkdir()
 
-        result = BuiltinCommands._cmd_mkdir([str(test_dir)])
+        result = file_operations.cmd_mkdir([str(test_dir)])
 
         self.assertTrue(result)
 
     def test_mkdir_without_args(self):
         """Test mkdir command without arguments shows usage."""
-        result = BuiltinCommands._cmd_mkdir([])
+        result = file_operations.cmd_mkdir([])
         self.assertTrue(result)
 
     def test_find_with_pattern(self):
@@ -69,13 +70,13 @@ class TestSearchCommands(unittest.TestCase):
         (Path(self.test_dir) / "other.py").touch()
 
         with patch('pathlib.Path.cwd', return_value=Path(self.test_dir)):
-            result = BuiltinCommands._cmd_find(["*.txt"])
+            result = search.cmd_find(["*.txt"])
 
         self.assertTrue(result)
 
     def test_find_without_args(self):
         """Test find command without arguments shows usage."""
-        result = BuiltinCommands._cmd_find([])
+        result = search.cmd_find([])
         self.assertTrue(result)
 
     def test_grep_finds_pattern(self):
@@ -83,48 +84,48 @@ class TestSearchCommands(unittest.TestCase):
         test_file = Path(self.test_dir) / "test.txt"
         test_file.write_text("Hello World\nTest Line\nAnother Line")
 
-        result = BuiltinCommands._cmd_grep(["Test", str(test_file)])
+        result = search.cmd_grep(["Test", str(test_file)])
 
         self.assertTrue(result)
 
     def test_grep_without_args(self):
         """Test grep command without arguments shows usage."""
-        result = BuiltinCommands._cmd_grep([])
+        result = search.cmd_grep([])
         self.assertTrue(result)
 
     def test_grep_with_only_pattern(self):
         """Test grep command with only pattern shows usage."""
-        result = BuiltinCommands._cmd_grep(["pattern"])
+        result = search.cmd_grep(["pattern"])
         self.assertTrue(result)
 
     def test_which_builtin_command(self):
         """Test which command with builtin."""
-        result = BuiltinCommands._cmd_which(["cd"])
+        result = search.cmd_which(["cd"])
         self.assertTrue(result)
 
     def test_which_system_command(self):
         """Test which command with system command."""
-        result = BuiltinCommands._cmd_which(["python"])
+        result = search.cmd_which(["python"])
         self.assertTrue(result)
 
     def test_which_without_args(self):
         """Test which command without arguments shows usage."""
-        result = BuiltinCommands._cmd_which([])
+        result = search.cmd_which([])
         self.assertTrue(result)
 
     def test_whoami_command(self):
         """Test whoami command returns username."""
-        result = BuiltinCommands._cmd_whoami([])
+        result = system_info.cmd_whoami([])
         self.assertTrue(result)
 
     def test_date_command(self):
         """Test date command returns date."""
-        result = BuiltinCommands._cmd_date([])
+        result = system_info.cmd_date([])
         self.assertTrue(result)
 
     def test_hostname_command(self):
         """Test hostname command returns hostname."""
-        result = BuiltinCommands._cmd_hostname([])
+        result = system_info.cmd_hostname([])
         self.assertTrue(result)
 
     def test_tree_command(self):
@@ -134,20 +135,20 @@ class TestSearchCommands(unittest.TestCase):
         test_subdir.mkdir()
         (test_subdir / "file.txt").touch()
 
-        result = BuiltinCommands._cmd_tree([self.test_dir])
+        result = display.cmd_tree([self.test_dir])
 
         self.assertTrue(result)
 
     def test_tree_without_args(self):
         """Test tree command without arguments uses current directory."""
         with patch('pathlib.Path.cwd', return_value=Path(self.test_dir)):
-            result = BuiltinCommands._cmd_tree([])
+            result = display.cmd_tree([])
 
         self.assertTrue(result)
 
     def test_tree_nonexistent_directory(self):
         """Test tree command with nonexistent directory."""
-        result = BuiltinCommands._cmd_tree(["/nonexistent/path"])
+        result = display.cmd_tree(["/nonexistent/path"])
         self.assertTrue(result)
 
     def test_all_new_commands_registered(self):
