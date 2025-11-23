@@ -27,6 +27,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Improved intensity:** More 💀, 🔥, 💥, ⚡, block noise (▓▓▓), glitch text
   - **Better educational impact:** Visual severity matches danger level
 
+- **Category-Based Warning Variations System with Merge Strategy** - Day 7
+  - **Merge strategy:** Category (8) + Pattern-specific (4) = 12 total variations
+  - **Scalability:** 11 patterns with 87 entries → 50+ patterns with ~45 entries
+  - **New files:**
+    - `category_variations.json` - 5 categories × 8 variations = 40 shared entries
+    - `pattern_variations.json` - 9 patterns × 4 unique variations = 36 entries
+  - **Result:** Each pattern gets 8-13 variations (category + pattern-specific)
+  - **Benefits:**
+    - Rich variety (12 variations per pattern vs 8)
+    - Reduced duplication (45 entries vs 300 for 50 patterns)
+    - Balanced approach (category consistency + pattern uniqueness)
+    - Easy to extend (just add 4 pattern-specific if needed)
+  - **Backward compatible:** Legacy danger_variations.json still supported
+  - **Documentation:**
+    - Design doc: `docs/CATEGORY_BASED_VARIATIONS_DESIGN.md`
+    - Steering guide: `.kiro/steering/warning-variations.md`
+
 - **Echo Command Variable Expansion** - Day 7
   - Unix-style variable expansion: $VAR and ${VAR}
   - Windows-style variable expansion: %VAR%

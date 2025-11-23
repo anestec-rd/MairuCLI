@@ -93,9 +93,10 @@ class DangerWarning(WarningComponent):
         # Load content for this pattern
         warning_content = self.content.get_warning_content(pattern_name)
 
-        # Get variation set and select random variation
+        # Get variation set and category, then select random variation
         variation_set = warning_content.get("variation_set", "data_destroyer")
-        variations = self.content.get_variations(variation_set)
+        category = warning_content.get("category", None)
+        variations = self.content.get_variations(variation_set, category)
         title, subtitle = random.choice(variations) if variations else ("DANGER!", "(Be careful)")
 
         # Load and display ASCII art

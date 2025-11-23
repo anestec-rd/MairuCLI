@@ -1,0 +1,195 @@
+{
+  "version": "1.0",
+  "description": "Category-based warning variations. These are shared across all patterns in the same category.",
+  "categories": {
+    "deletion": {
+      "theme": "Data loss, disappearance, destruction",
+      "variations": [
+        {
+          "title": "DATA DESTROYER DETECTED!",
+          "subtitle": "(This will not end well)"
+        },
+        {
+          "title": "POINT OF NO RETURN!",
+          "subtitle": "(Backups? Anyone?)"
+        },
+        {
+          "title": "CAREER ENDER!",
+          "subtitle": "(Update your resume now)"
+        },
+        {
+          "title": "SCARIER THAN GHOSTS!",
+          "subtitle": "(Even monsters fear this command)"
+        },
+        {
+          "title": "NO USE CRYING!",
+          "subtitle": "(It's no use crying over spilt milk)"
+        },
+        {
+          "title": "TRICK AND TRIAGE!",
+          "subtitle": "(You pranked, now we handle the incident)"
+        },
+        {
+          "title": "HALLOWEEN ISN'T HERE!",
+          "subtitle": "(The party venue is somewhere else!)"
+        },
+        {
+          "title": "BBQ DATA!",
+          "subtitle": "(The taste of barbecued data is terrible)"
+        }
+      ]
+    },
+    "permission": {
+      "theme": "Access control, security, locks",
+      "variations": [
+        {
+          "title": "PERMISSION DENIED!",
+          "subtitle": "(Error 403: Forbidden by your future self)"
+        },
+        {
+          "title": "SECURITY BREACH ALERT!",
+          "subtitle": "(This is how hacks happen)"
+        },
+        {
+          "title": "WIDE OPEN DOORS!",
+          "subtitle": "(Might as well remove the locks)"
+        },
+        {
+          "title": "EVERYONE'S INVITED!",
+          "subtitle": "(Including the bad guys)"
+        },
+        {
+          "title": "NEED A CHECKLIST?",
+          "subtitle": "(This definitely shouldn't be on it)"
+        },
+        {
+          "title": "WANT ME TO LAUGH?",
+          "subtitle": "(HAHAHA... 😐)"
+        },
+        {
+          "title": "REMOVE THE ENTER KEY!",
+          "subtitle": "(Big buttons are tempting, aren't they?)"
+        },
+        {
+          "title": "A BIT TOO TIDY!",
+          "subtitle": "(Maybe a little too clean?)"
+        },
+        {
+          "title": "PARTY TIME?",
+          "subtitle": "(Did you throw a party? There's a wolf at the door)"
+        }
+      ]
+    },
+    "disk": {
+      "theme": "Hardware destruction, disk operations",
+      "variations": [
+        {
+          "title": "DISK OBLITERATION!",
+          "subtitle": "(Your disk is being shredded)"
+        },
+        {
+          "title": "HARDWARE HAUNTING!",
+          "subtitle": "(Your disk will become a ghost)"
+        },
+        {
+          "title": "STORAGE GRAVEYARD!",
+          "subtitle": "(Every byte gets a tombstone)"
+        },
+        {
+          "title": "DISK EXORCISM!",
+          "subtitle": "(Purging all data spirits)"
+        },
+        {
+          "title": "HARD DRIVE HORROR!",
+          "subtitle": "(The scariest thing this Halloween)"
+        },
+        {
+          "title": "BYTE BURIAL!",
+          "subtitle": "(Rest in peace, little bytes)"
+        },
+        {
+          "title": "STORAGE APOCALYPSE!",
+          "subtitle": "(The end times for your data)"
+        },
+        {
+          "title": "DISK ANNIHILATOR!",
+          "subtitle": "(Say goodbye to your data)"
+        }
+      ]
+    },
+    "database": {
+      "theme": "Database operations, SQL, tables",
+      "variations": [
+        {
+          "title": "DATABASE APOCALYPSE!",
+          "subtitle": "(All your tables are belong to /dev/null)"
+        },
+        {
+          "title": "SQL NIGHTMARE!",
+          "subtitle": "(DROP is forever, SELECT is not)"
+        },
+        {
+          "title": "MAGIC TRICK GONE WRONG!",
+          "subtitle": "(Poof! Your data vanished... permanently)"
+        },
+        {
+          "title": "BACKUP CHECK FAILED!",
+          "subtitle": "(You DO have backups... right?)"
+        },
+        {
+          "title": "DBA'S HAUNTING!",
+          "subtitle": "(Your DBA will literally haunt you forever)"
+        },
+        {
+          "title": "DISAPPEARING ACT!",
+          "subtitle": "(The magician forgot the 'reappear' part)"
+        },
+        {
+          "title": "CURSED SPELL!",
+          "subtitle": "(This incantation has no undo)"
+        },
+        {
+          "title": "GRAVEYARD SHIFT!",
+          "subtitle": "(Your tables are moving to the cemetery)"
+        }
+      ]
+    },
+    "system": {
+      "theme": "System crashes, kernel panic, process issues",
+      "variations": [
+        {
+          "title": "SYSTEM TANTRUM!",
+          "subtitle": "(Kernel-chan is having a meltdown!)"
+        },
+        {
+          "title": "PARTY TOO WILD!",
+          "subtitle": "(The kernel can't handle this much fun!)"
+        },
+        {
+          "title": "SYSTEM SCREAMING!",
+          "subtitle": "(Not the fun Halloween kind of screaming)"
+        },
+        {
+          "title": "REBOOT REQUIRED!",
+          "subtitle": "(Time to kick everyone out and start over)"
+        },
+        {
+          "title": "CRASH COURSE!",
+          "subtitle": "(Literally)"
+        },
+        {
+          "title": "KERNEL PANIC TRIGGER!",
+          "subtitle": "(Instant system crash!)"
+        },
+        {
+          "title": "PROCESS EXPLOSION!",
+          "subtitle": "(:(){ :|:& };: is NOT a smiley face)"
+        },
+        {
+          "title": "ZOMBIE APOCALYPSE!",
+          "subtitle": "(Processes multiplying like the undead!)"
+        }
+      ]
+    }
+  }
+}

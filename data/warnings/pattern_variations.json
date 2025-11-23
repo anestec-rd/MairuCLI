@@ -1,0 +1,195 @@
+{
+  "version": "1.0",
+  "description": "Pattern-specific warning variations. These override category variations for specific patterns that need unique messaging.",
+  "patterns": {
+    "rm_root": {
+      "reason": "Iconic pattern - filesystem destruction theme",
+      "variations": [
+        {
+          "title": "YOU'RE FIRED!",
+          "subtitle": "(And so is your entire filesystem!)"
+        },
+        {
+          "title": "NOPE. JUST NOPE.",
+          "subtitle": "(Not today, SATA!)"
+        },
+        {
+          "title": "MEMORY LOSS!",
+          "subtitle": "(RAM not found... Who are you again?)"
+        },
+        {
+          "title": "GAME OVER!",
+          "subtitle": "(No continues, no save points)"
+        }
+      ]
+    },
+    "chmod_777": {
+      "reason": "Security breach theme - everyone invited",
+      "variations": [
+        {
+          "title": "WIDE OPEN DOORS!",
+          "subtitle": "(Might as well remove the locks)"
+        },
+        {
+          "title": "EVERYONE'S INVITED!",
+          "subtitle": "(Including the bad guys)"
+        },
+        {
+          "title": "PARTY TIME?",
+          "subtitle": "(Did you throw a party? There's a wolf at the door)"
+        },
+        {
+          "title": "REMOVE THE ENTER KEY!",
+          "subtitle": "(Big buttons are tempting, aren't they?)"
+        }
+      ]
+    },
+    "chmod_000": {
+      "reason": "Unique ghost/lock theme - visible but inaccessible",
+      "variations": [
+        {
+          "title": "GHOST FILE!",
+          "subtitle": "(It's there... but you can't touch it! 👻)"
+        },
+        {
+          "title": "LOCKED IN A COFFIN!",
+          "subtitle": "(Not even you have the key anymore)"
+        },
+        {
+          "title": "SPECTRAL EXISTENCE!",
+          "subtitle": "(Visible to all, accessible to none)"
+        },
+        {
+          "title": "ETERNAL SEAL!",
+          "subtitle": "(Locked tighter than a vampire's tomb)"
+        }
+      ]
+    },
+    "data_destroyer": {
+      "reason": "General destruction theme with Halloween humor",
+      "variations": [
+        {
+          "title": "TRICK AND TRIAGE!",
+          "subtitle": "(You pranked, now we handle the incident)"
+        },
+        {
+          "title": "HALLOWEEN ISN'T HERE!",
+          "subtitle": "(The party venue is somewhere else!)"
+        },
+        {
+          "title": "BBQ DATA!",
+          "subtitle": "(The taste of barbecued data is terrible)"
+        },
+        {
+          "title": "ECONOMIC STIMULUS!",
+          "subtitle": "(This creates jobs... for disaster recovery teams)"
+        }
+      ]
+    },
+    "fork_bomb": {
+      "reason": "Unique party/multiplication theme - infinite guests",
+      "variations": [
+        {
+          "title": "PARTY CRASHERS!",
+          "subtitle": "(Everyone invited everyone... infinitely!)"
+        },
+        {
+          "title": "TOO MANY TRICK-OR-TREATERS!",
+          "subtitle": "(Your door can't handle this many guests!)"
+        },
+        {
+          "title": "CANDY BOWL OVERWHELMED!",
+          "subtitle": "(Too many hands reaching in at once!)"
+        },
+        {
+          "title": "INFINITE COSTUME PARTY!",
+          "subtitle": "(Everyone's duplicating themselves!)"
+        }
+      ]
+    },
+    "kernel_panic": {
+      "reason": "Unique overexcited kernel theme - Halloween party gone wild",
+      "variations": [
+        {
+          "title": "KERNEL'S HALLOWEEN PARTY!",
+          "subtitle": "(Someone's TOO excited for trick-or-treating!)"
+        },
+        {
+          "title": "TOO MUCH CANDY!",
+          "subtitle": "(Your kernel ate all the treats and crashed!)"
+        },
+        {
+          "title": "OVEREXCITED KERNEL!",
+          "subtitle": "(Calm down, Halloween isn't going anywhere!)"
+        },
+        {
+          "title": "PARTY TOO WILD!",
+          "subtitle": "(The kernel can't handle this much fun!)"
+        }
+      ]
+    },
+    "data_void": {
+      "reason": "Unique void/black hole theme - data disappearing into nothingness",
+      "variations": [
+        {
+          "title": "/dev/null AWAITS!",
+          "subtitle": "(The black hole of data)"
+        },
+        {
+          "title": "VOID MONSTER HUNGRY!",
+          "subtitle": "(It eats files for breakfast)"
+        },
+        {
+          "title": "DIMENSIONAL RIFT!",
+          "subtitle": "(Your files are entering another dimension)"
+        },
+        {
+          "title": "OBLIVION EXPRESS!",
+          "subtitle": "(Next stop: Nowhere)"
+        }
+      ]
+    },
+    "zero_wipe": {
+      "reason": "Unique zero/nullification theme - everything becomes zeros",
+      "variations": [
+        {
+          "title": "ZERO ARMY INVASION!",
+          "subtitle": "(Infinite zeros marching in)"
+        },
+        {
+          "title": "NOTHING BURGER!",
+          "subtitle": "(Your data is becoming absolutely nothing)"
+        },
+        {
+          "title": "BLANK SLATE CURSE!",
+          "subtitle": "(Everything returns to zero)"
+        },
+        {
+          "title": "NUMERICAL NIGHTMARE!",
+          "subtitle": "(Only zeros remain)"
+        }
+      ]
+    },
+    "file_eraser": {
+      "reason": "Unique empty/hollow theme - file exists but content is gone",
+      "variations": [
+        {
+          "title": "EMPTY SHELL!",
+          "subtitle": "(Like a carved pumpkin - hollow inside)"
+        },
+        {
+          "title": "GHOST FILE!",
+          "subtitle": "(The file exists, but its soul is gone)"
+        },
+        {
+          "title": "CONTENT EXORCISM!",
+          "subtitle": "(Purging all the data spirits)"
+        },
+        {
+          "title": "HOLLOW VICTORY!",
+          "subtitle": "(File survived, content didn't)"
+        }
+      ]
+    }
+  }
+}

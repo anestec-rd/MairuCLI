@@ -97,24 +97,40 @@
   ],
   "chmod_000": [
     {
-      "title": "LOCKOUT WARNING!",
-      "subtitle": "(You're locking yourself out!)"
+      "title": "GHOST FILE!",
+      "subtitle": "(It's there... but you can't touch it! 👻)"
     },
     {
-      "title": "ACCESS DENIED!",
-      "subtitle": "(Even YOU can't access this!)"
+      "title": "INVISIBLE BARRIER!",
+      "subtitle": "(Like a ghost - you can see it but can't reach it)"
     },
     {
-      "title": "TOTAL LOCKDOWN!",
-      "subtitle": "(Nobody gets in. Nobody.)"
+      "title": "PHANTOM FILE!",
+      "subtitle": "(Exists in limbo - neither alive nor dead)"
     },
     {
-      "title": "PERMISSION PARADOX!",
-      "subtitle": "(You need permission to fix permissions)"
+      "title": "UNTOUCHABLE!",
+      "subtitle": "(Even ghosts have more access than you)"
     },
     {
-      "title": "DIGITAL FORTRESS!",
-      "subtitle": "(So secure, even you can't enter)"
+      "title": "HAUNTED FILE!",
+      "subtitle": "(Cursed to exist but never be opened)"
+    },
+    {
+      "title": "LOCKED IN A COFFIN!",
+      "subtitle": "(Not even you have the key anymore)"
+    },
+    {
+      "title": "ETERNAL SEAL!",
+      "subtitle": "(Locked tighter than a vampire's tomb)"
+    },
+    {
+      "title": "FORBIDDEN TREASURE!",
+      "subtitle": "(The curse prevents anyone from opening it)"
+    },
+    {
+      "title": "SPECTRAL EXISTENCE!",
+      "subtitle": "(Visible to all, accessible to none)"
     }
   ],
   "data_destroyer": [
@@ -165,60 +181,96 @@
       "subtitle": "(DROP is forever, SELECT is not)"
     },
     {
-      "title": "DATA VANISHING ACT!",
-      "subtitle": "(Poof! And it's gone)"
+      "title": "MAGIC TRICK GONE WRONG!",
+      "subtitle": "(Poof! Your data vanished... permanently)"
     },
     {
       "title": "BACKUP CHECK FAILED!",
       "subtitle": "(You DO have backups... right?)"
     },
     {
-      "title": "CAREER LIMITING MOVE!",
-      "subtitle": "(Your DBA will haunt you)"
+      "title": "DBA'S HAUNTING!",
+      "subtitle": "(Your DBA will literally haunt you forever)"
+    },
+    {
+      "title": "DISAPPEARING ACT!",
+      "subtitle": "(The magician forgot the 'reappear' part)"
+    },
+    {
+      "title": "CURSED SPELL!",
+      "subtitle": "(This incantation has no undo)"
+    },
+    {
+      "title": "GRAVEYARD SHIFT!",
+      "subtitle": "(Your tables are moving to the cemetery)"
     }
   ],
   "fork_bomb": [
     {
-      "title": "FORK BOMB DETECTED!",
-      "subtitle": "(Infinite processes incoming!)"
+      "title": "PARTY CRASHERS!",
+      "subtitle": "(Everyone invited everyone... infinitely!)"
     },
     {
-      "title": "SYSTEM FREEZE WARNING!",
-      "subtitle": "(Your CPU is about to cry)"
+      "title": "TOO MANY TRICK-OR-TREATERS!",
+      "subtitle": "(Your door can't handle this many guests!)"
+    },
+    {
+      "title": "ZOMBIE APOCALYPSE!",
+      "subtitle": "(Processes multiplying like the undead!)"
+    },
+    {
+      "title": "GUEST LIST EXPLOSION!",
+      "subtitle": "(Each guest brought infinite friends!)"
+    },
+    {
+      "title": "CANDY BOWL OVERWHELMED!",
+      "subtitle": "(Too many hands reaching in at once!)"
     },
     {
       "title": "PROCESS EXPLOSION!",
       "subtitle": "(:(){ :|:& };: is NOT a smiley face)"
     },
     {
-      "title": "DOS ATTACK ON SELF!",
-      "subtitle": "(Why would you do this to yourself?)"
+      "title": "INFINITE COSTUME PARTY!",
+      "subtitle": "(Everyone's duplicating themselves!)"
     },
     {
       "title": "REBOOT REQUIRED!",
-      "subtitle": "(And you'll need the power button)"
+      "subtitle": "(Time to kick everyone out and start over)"
     }
   ],
   "kernel_panic": [
     {
+      "title": "KERNEL'S HALLOWEEN PARTY!",
+      "subtitle": "(Someone's TOO excited for trick-or-treating!)"
+    },
+    {
+      "title": "SYSTEM TANTRUM!",
+      "subtitle": "(Kernel-chan is having a meltdown!)"
+    },
+    {
+      "title": "TOO MUCH CANDY!",
+      "subtitle": "(Your kernel ate all the treats and crashed!)"
+    },
+    {
+      "title": "PARTY TOO WILD!",
+      "subtitle": "(The kernel can't handle this much fun!)"
+    },
+    {
+      "title": "OVEREXCITED KERNEL!",
+      "subtitle": "(Calm down, Halloween isn't going anywhere!)"
+    },
+    {
       "title": "KERNEL PANIC TRIGGER!",
       "subtitle": "(Instant system crash!)"
-    },
-    {
-      "title": "SYSRQ DANGER!",
-      "subtitle": "(This is the nuclear option)"
-    },
-    {
-      "title": "SYSTEM HALT IMMINENT!",
-      "subtitle": "(Hope you saved your work)"
     },
     {
       "title": "CRASH COURSE!",
       "subtitle": "(Literally)"
     },
     {
-      "title": "BLUE SCREEN INCOMING!",
-      "subtitle": "(Well, kernel panic screen)"
+      "title": "SYSTEM SCREAMING!",
+      "subtitle": "(Not the fun Halloween kind of screaming)"
     }
   ],
   "disk_destroyer": [
@@ -227,20 +279,28 @@
       "subtitle": "(Your disk is being shredded)"
     },
     {
-      "title": "HARDWARE DESTRUCTION!",
-      "subtitle": "(Physical damage imminent)"
+      "title": "HARDWARE HAUNTING!",
+      "subtitle": "(Your disk will become a ghost)"
     },
     {
-      "title": "DISK WIPE IN PROGRESS!",
-      "subtitle": "(Every byte is being erased)"
+      "title": "STORAGE GRAVEYARD!",
+      "subtitle": "(Every byte gets a tombstone)"
+    },
+    {
+      "title": "DISK EXORCISM!",
+      "subtitle": "(Purging all data spirits)"
+    },
+    {
+      "title": "HARD DRIVE HORROR!",
+      "subtitle": "(The scariest thing this Halloween)"
+    },
+    {
+      "title": "BYTE BURIAL!",
+      "subtitle": "(Rest in peace, little bytes)"
     },
     {
       "title": "STORAGE APOCALYPSE!",
-      "subtitle": "(Say goodbye to your data)"
-    },
-    {
-      "title": "DISK ANNIHILATOR!",
-      "subtitle": "(No recovery possible)"
+      "subtitle": "(The end times for your data)"
     }
   ],
   "data_void": [
@@ -253,16 +313,28 @@
       "subtitle": "(The black hole of data)"
     },
     {
-      "title": "PERMANENT DELETION!",
-      "subtitle": "(No trash bin, just oblivion)"
+      "title": "PORTAL TO NOWHERE!",
+      "subtitle": "(Your data is taking a one-way trip)"
     },
     {
       "title": "DATA VAPORIZED!",
       "subtitle": "(Gone without a trace)"
     },
     {
-      "title": "VOID CONSUMPTION!",
-      "subtitle": "(Your files are being consumed)"
+      "title": "VOID MONSTER HUNGRY!",
+      "subtitle": "(It eats files for breakfast)"
+    },
+    {
+      "title": "DIMENSIONAL RIFT!",
+      "subtitle": "(Your files are entering another dimension)"
+    },
+    {
+      "title": "BLACK HOLE FEEDING!",
+      "subtitle": "(Nothing escapes, not even light... or data)"
+    },
+    {
+      "title": "OBLIVION EXPRESS!",
+      "subtitle": "(Next stop: Nowhere)"
     }
   ],
   "zero_wipe": [
@@ -271,20 +343,32 @@
       "subtitle": "(Everything becomes 0000000)"
     },
     {
-      "title": "DISK ZEROING!",
-      "subtitle": "(All data → zeros)"
+      "title": "ZERO ARMY INVASION!",
+      "subtitle": "(Infinite zeros marching in)"
     },
     {
       "title": "/dev/zero FLOOD!",
-      "subtitle": "(Infinite zeros incoming)"
+      "subtitle": "(Drowning in a sea of zeros)"
     },
     {
-      "title": "DATA NULLIFICATION!",
-      "subtitle": "(Overwriting with nothingness)"
+      "title": "NOTHING BURGER!",
+      "subtitle": "(Your data is becoming absolutely nothing)"
     },
     {
       "title": "ZERO APOCALYPSE!",
-      "subtitle": "(Your disk is being zeroed)"
+      "subtitle": "(The end is 00000000)"
+    },
+    {
+      "title": "BLANK SLATE CURSE!",
+      "subtitle": "(Everything returns to zero)"
+    },
+    {
+      "title": "ZERO HOUR!",
+      "subtitle": "(Time to reset... everything)"
+    },
+    {
+      "title": "NUMERICAL NIGHTMARE!",
+      "subtitle": "(Only zeros remain)"
     }
   ],
   "file_eraser": [
@@ -293,20 +377,32 @@
       "subtitle": "(Content → Empty)"
     },
     {
-      "title": "ZERO BYTE FILE!",
-      "subtitle": "(All content erased)"
+      "title": "CONTENT VANISHING ACT!",
+      "subtitle": "(Now you see it, now you don't)"
     },
     {
-      "title": "CONTENT VANISHED!",
-      "subtitle": "(File now empty)"
+      "title": "EMPTY SHELL!",
+      "subtitle": "(Like a carved pumpkin - hollow inside)"
     },
     {
-      "title": "OVERWRITE TO NOTHING!",
-      "subtitle": "(Redirecting emptiness)"
+      "title": "GHOST FILE!",
+      "subtitle": "(The file exists, but its soul is gone)"
     },
     {
       "title": "FILE ERASURE!",
       "subtitle": "(0 bytes remaining)"
+    },
+    {
+      "title": "CONTENT EXORCISM!",
+      "subtitle": "(Purging all the data spirits)"
+    },
+    {
+      "title": "HOLLOW VICTORY!",
+      "subtitle": "(File survived, content didn't)"
+    },
+    {
+      "title": "BLANK CANVAS!",
+      "subtitle": "(Everything painted over with nothing)"
     }
   ]
 }

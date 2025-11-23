@@ -70,36 +70,82 @@ class ContentLoader:
         warnings = self._catalog.get("warnings", {})
         return warnings.get(pattern_name, self._get_fallback_warning(pattern_name))
 
-    def get_variations(self, category: str) -> List[Tuple[str, str]]:
+    def get_variations(
+        self,
+        variation_set: str,
+        pattern_category: Optional[str] = None
+    ) -> List[Tuple[str, str]]:
         """
-        Get all variations for a warning category.
+        Get variations for a pattern using merge strategy.
+
+        Strategy:
+        1. Get category variations (8 variations)
+        2. Get pattern-specific variations (0-4 variations)
+        3. Merge both lists (8-12 total)
+        4. Fallback to legacy if needed
 
         Args:
-            category: Category name (e.g., 'rm_root', 'chmod_777')
+            variation_set: Variation set name (e.g., 'rm_root')
+            pattern_category: Category name (e.g., 'deletion', 'permission')
 
         Returns:
-            List of (title, subtitle) tuples
+            List of (title, subtitle) tuples (merged from category + pattern)
         """
         # Check cache first
-        if category in self._variations:
-            return self._variations[category]
+        cache_key = f"{variation_set}:{pattern_category}"
+        if cache_key in self._variations:
+            return self._variations[cache_key]
 
-        # Load from file
-        variations_path = self.warnings_dir / "danger_variations.json"
+        merged_variations = []
 
+        # Step 1: Get category variations (8 variations)
+        if pattern_category:
+            category_vars_path = self.warnings_dir / "category_variations.json"
+            try:
+                with open(category_vars_path, "r", encoding="utf-8") as f:
+                    category_variations = json.load(f)
+
+                if pattern_category in category_variations.get("categories", {}):
+                    variations_list = category_variations["categories"][pattern_category]["variations"]
+                    category_vars = [(v["title"], v["subtitle"]) for v in variations_list]
+                    merged_variations.extend(category_vars)
+            except (FileNotFoundError, json.JSONDecodeError, KeyError):
+                pass  # Continue without category variations
+
+        # Step 2: Get pattern-specific variations (0-4 variations)
+        pattern_vars_path = self.warnings_dir / "pattern_variations.json"
         try:
-            with open(variations_path, "r", encoding="utf-8") as f:
-                all_variations = json.load(f)
+            with open(pattern_vars_path, "r", encoding="utf-8") as f:
+                pattern_variations = json.load(f)
 
-            variations_list = all_variations.get(category, [])
-            # Convert to list of tuples
-            result = [(v["title"], v["subtitle"]) for v in variations_list]
-            self._variations[category] = result
-            return result
+            if variation_set in pattern_variations.get("patterns", {}):
+                variations_list = pattern_variations["patterns"][variation_set]["variations"]
+                pattern_vars = [(v["title"], v["subtitle"]) for v in variations_list]
+                merged_variations.extend(pattern_vars)
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            pass  # Continue without pattern-specific variations
 
-        except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
-            print(f"Warning: Could not load variations for {category}: {e}")
-            return self._get_fallback_variations(category)
+        # Step 3: If we got variations, cache and return
+        if merged_variations:
+            self._variations[cache_key] = merged_variations
+            return merged_variations
+
+        # Step 4: Fallback to legacy danger_variations.json
+        legacy_path = self.warnings_dir / "danger_variations.json"
+        try:
+            with open(legacy_path, "r", encoding="utf-8") as f:
+                legacy_variations = json.load(f)
+
+            if variation_set in legacy_variations:
+                variations_list = legacy_variations[variation_set]
+                result = [(v["title"], v["subtitle"]) for v in variations_list]
+                self._variations[cache_key] = result
+                return result
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            pass  # Continue to fallback
+
+        # Step 5: Ultimate fallback
+        return self._get_fallback_variations(variation_set)
 
     def validate_content(self, content: Dict) -> bool:
         """
