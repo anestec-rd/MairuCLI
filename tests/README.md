@@ -44,25 +44,103 @@ pytest tests/integration/
 pytest tests/integration/test_dangerous.py
 ```
 
-## Test Types
+## Test Types - When to Use Which
 
 ### Unit Tests (`tests/unit/`)
-- Test individual components in isolation
-- Fast execution
-- Mocked dependencies
-- One test file per source module
+
+**What they test:**
+- Individual functions and classes
+- Pattern matching logic
+- Path resolution algorithms
+- Command parsing
+- Data validation
+
+**What they DON'T test:**
+- Visual appearance
+- User experience
+- Component interactions
+- Timing and "feel"
+
+**When to run:**
+- After every code change
+- Before committing
+- Automatically via hooks
+- Fast feedback (< 10 seconds)
+
+**Example:**
+```bash
+pytest tests/unit/test_interceptor.py -v
+```
+
+---
 
 ### Integration Tests (`tests/integration/`)
-- Test multiple components working together
-- Realistic scenarios
-- Minimal mocking
-- One test file per feature
+
+**What they test:**
+- Complete feature flows
+- Component interactions
+- End-to-end scenarios
+- System protection logic
+- Multi-step processes
+
+**What they DON'T test:**
+- Visual quality
+- Message clarity
+- User experience
+- Performance perception
+
+**When to run:**
+- After feature completion
+- Before releases
+- When modifying core components
+- Moderate speed (< 60 seconds)
+
+**Example:**
+```bash
+pytest tests/integration/test_system_protection.py -v
+```
+
+---
 
 ### Manual Tests (`tests/manual/`)
-- Require human observation
-- Visual/timing verification
-- Demo scenarios
-- Not automated
+
+**What they test:**
+- ✅ Visual appearance (ASCII art, colors, formatting)
+- ✅ User experience (message clarity, helpfulness)
+- ✅ Timing and "feel" (dramatic pauses, flow)
+- ✅ Educational value (are messages understandable?)
+- ✅ Real user scenarios (how it feels to use)
+
+**What they DON'T test:**
+- Logic correctness (that's unit tests)
+- Code coverage (that's automated tests)
+
+**When to run:**
+- Before demo/presentation
+- After visual changes
+- Before releases
+- After refactoring display code
+
+**How to run:**
+See `tests/manual/README.md` for detailed instructions.
+
+---
+
+## Test Coverage Comparison
+
+| Test Aspect | Unit | Integration | Manual |
+|-------------|------|-------------|--------|
+| Pattern detection | ✅ | ✅ | ❌ |
+| Path resolution | ✅ | ✅ | ❌ |
+| Command parsing | ✅ | ✅ | ❌ |
+| Feature flows | ❌ | ✅ | ✅ |
+| Visual quality | ❌ | ❌ | ✅ |
+| Message clarity | ❌ | ❌ | ✅ |
+| User experience | ❌ | ❌ | ✅ |
+| Timing/feel | ❌ | ❌ | ✅ |
+| Performance | ✅ | ✅ | ✅ |
+
+**Key Insight:** All three test types are necessary for comprehensive quality assurance.
 
 ## Adding New Tests
 
