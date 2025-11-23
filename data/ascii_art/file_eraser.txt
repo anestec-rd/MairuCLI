@@ -1,0 +1,21 @@
+    💀💀💀 FILE ERASER 💀💀💀
+
+         YOUR FILE:
+        _______________
+       |  Content...   |
+       |  Important    |
+       |  Data here    |
+       |  Text text    |
+        \_____________/
+              ↓
+           > file
+              ↓
+        _______________
+       |               |
+       |    EMPTY!     |
+       |               |
+       |   💀💀💀💀  |
+        \_____________/
+            0 BYTES!
+            💀💀💀
+        CONTENT ERASED!

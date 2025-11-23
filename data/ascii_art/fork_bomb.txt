@@ -1,16 +1,16 @@
-    ╔══════════════════════════════════════╗
-    ║      💣  FORK BOMB DETECTED  💣     ║
-    ╚══════════════════════════════════════╝
+    💣💣💣 FORK BOMB DETONATED 💣💣💣
 
            :(){ :|:& };:
-              /    \
-             /      \
-            /   💥   \
-           /          \
+               💥💥
+             /  ||  \
+            / BOOM!! \
+           /💥💥💥💥\
           /____________\
-         /  /  /  /  \  \
-        /  /  /  /    \  \
-       💥 💥 💥 💥    💥 💥
-      Infinite processes spawning!
+         /💀/💀/💀/\💀\
+        /💥/💥/💥/💥\💥\
+       INFINITE PROCESSES!
+            ⚡⚡⚡
+         SYSTEM OVERLOAD!
+            💀💀💀
 
-    🚨 SYSTEM FREEZE IMMINENT! 🚨
+    🚨 CPU MELTDOWN IN PROGRESS! 🚨

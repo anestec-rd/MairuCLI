@@ -220,5 +220,93 @@
       "title": "BLUE SCREEN INCOMING!",
       "subtitle": "(Well, kernel panic screen)"
     }
+  ],
+  "disk_destroyer": [
+    {
+      "title": "DISK OBLITERATION!",
+      "subtitle": "(Your disk is being shredded)"
+    },
+    {
+      "title": "HARDWARE DESTRUCTION!",
+      "subtitle": "(Physical damage imminent)"
+    },
+    {
+      "title": "DISK WIPE IN PROGRESS!",
+      "subtitle": "(Every byte is being erased)"
+    },
+    {
+      "title": "STORAGE APOCALYPSE!",
+      "subtitle": "(Say goodbye to your data)"
+    },
+    {
+      "title": "DISK ANNIHILATOR!",
+      "subtitle": "(No recovery possible)"
+    }
+  ],
+  "data_void": [
+    {
+      "title": "INTO THE VOID!",
+      "subtitle": "(Data vanishing into nothingness)"
+    },
+    {
+      "title": "/dev/null AWAITS!",
+      "subtitle": "(The black hole of data)"
+    },
+    {
+      "title": "PERMANENT DELETION!",
+      "subtitle": "(No trash bin, just oblivion)"
+    },
+    {
+      "title": "DATA VAPORIZED!",
+      "subtitle": "(Gone without a trace)"
+    },
+    {
+      "title": "VOID CONSUMPTION!",
+      "subtitle": "(Your files are being consumed)"
+    }
+  ],
+  "zero_wipe": [
+    {
+      "title": "ZERO BYTE ATTACK!",
+      "subtitle": "(Everything becomes 0000000)"
+    },
+    {
+      "title": "DISK ZEROING!",
+      "subtitle": "(All data → zeros)"
+    },
+    {
+      "title": "/dev/zero FLOOD!",
+      "subtitle": "(Infinite zeros incoming)"
+    },
+    {
+      "title": "DATA NULLIFICATION!",
+      "subtitle": "(Overwriting with nothingness)"
+    },
+    {
+      "title": "ZERO APOCALYPSE!",
+      "subtitle": "(Your disk is being zeroed)"
+    }
+  ],
+  "file_eraser": [
+    {
+      "title": "FILE WIPEOUT!",
+      "subtitle": "(Content → Empty)"
+    },
+    {
+      "title": "ZERO BYTE FILE!",
+      "subtitle": "(All content erased)"
+    },
+    {
+      "title": "CONTENT VANISHED!",
+      "subtitle": "(File now empty)"
+    },
+    {
+      "title": "OVERWRITE TO NOTHING!",
+      "subtitle": "(Redirecting emptiness)"
+    },
+    {
+      "title": "FILE ERASURE!",
+      "subtitle": "(0 bytes remaining)"
+    }
   ]
 }

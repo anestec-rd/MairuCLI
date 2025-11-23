@@ -9,13 +9,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
-- **New ASCII Art for Distinctive Patterns** - Day 7
-  - database_drop.txt - Database deletion warning with database icon
-  - fork_bomb.txt - Fork bomb warning with process explosion visual
-  - kernel_panic.txt - Kernel panic warning with system crash visual
-  - Each art has unique Halloween-themed design
-  - 15 new warning variations added for these patterns
-  - Improved visual distinction between different danger types
+- **Complete ASCII Art Overhaul - Intense & Distinctive** - Day 7
+  - **Enhanced existing (3):** fired.txt, permission_denied.txt, data_destroyer.txt
+    - Added burning faces, screaming, flames, destruction effects
+    - More intense visuals with 💀💀💀 and 🔥💥⚡
+  - **Created new (8):**
+    - database_drop.txt - Database apocalypse with DELETED markers
+    - fork_bomb.txt - Process explosion with CPU meltdown
+    - kernel_panic.txt - Glitch text (K̴E̷R̶N̸E̵L̴), system death
+    - disk_destroyer.txt - Physical disk obliteration
+    - data_void.txt - /dev/null void consumption
+    - zero_wipe.txt - Zero byte flood attack
+    - file_eraser.txt - File content wipeout
+    - system_glitch.txt - System corruption with glitch effects
+  - **35 new warning variations** across all patterns
+  - **All 11 danger patterns** now have unique, intense ASCII art
+  - **Improved intensity:** More 💀, 🔥, 💥, ⚡, block noise (▓▓▓), glitch text
+  - **Better educational impact:** Visual severity matches danger level
 
 - **Echo Command Variable Expansion** - Day 7
   - Unix-style variable expansion: $VAR and ${VAR}
