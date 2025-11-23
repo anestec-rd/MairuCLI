@@ -1,10 +1,13 @@
 {
   "enabled": true,
   "name": "Run Unit Tests",
-  "description": "Run all unit tests with pytest",
+  "description": "Run all unit tests with pytest and report the results",
   "version": "1",
   "when": {
-    "type": "manual"
+    "type": "fileEdited",
+    "patterns": [
+      "tests/unit/**/*.py"
+    ]
   },
   "then": {
     "type": "askAgent",

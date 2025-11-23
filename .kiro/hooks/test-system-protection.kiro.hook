@@ -1,10 +1,17 @@
 {
   "enabled": true,
   "name": "Test System Protection",
-  "description": "Run system directory protection tests only",
+  "description": "Run system protection tests when related source files are modified",
   "version": "1",
   "when": {
-    "type": "manual"
+    "type": "fileEdited",
+    "patterns": [
+      "src/path_resolver.py",
+      "src/command_parser.py",
+      "src/interceptor.py",
+      "src/display/system_protection_warning.py",
+      "src/main.py"
+    ]
   },
   "then": {
     "type": "askAgent",
