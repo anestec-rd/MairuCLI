@@ -8,7 +8,15 @@ import time
 from typing import List
 from src.display.statistics import Statistics
 from src.display.ascii_renderer import AsciiRenderer
-from src.config import TIMING_PAUSE_SHORT, TIMING_PAUSE_MEDIUM
+from src.config import TIMING_PAUSE_SHORT, TIMING_PAUSE_MEDIUM, DISPLAY_SEPARATOR_WIDTH
+
+
+# Achievement threshold constants
+ACHIEVEMENT_FIRST_BLOOD = 1          # First dangerous command blocked
+ACHIEVEMENT_THRESHOLD_LOW = 3        # Typo Master, Stubborn, Boundary Tester
+ACHIEVEMENT_THRESHOLD_MEDIUM = 5     # Persistent Troublemaker, Explorer
+ACHIEVEMENT_THRESHOLD_HIGH = 8       # Balanced User
+ACHIEVEMENT_THRESHOLD_EXPERT = 10    # Danger Addict
 
 
 class AchievementTracker:
@@ -36,7 +44,7 @@ class AchievementTracker:
         safe_commands = self.statistics.get_safe_commands_count()
 
         # Achievement: First Blood
-        if total_blocks == 1 and "first_blood" not in self._unlocked:
+        if total_blocks == ACHIEVEMENT_FIRST_BLOOD and "first_blood" not in self._unlocked:
             self._unlocked.append("first_blood")
             self.show_achievement(
                 "First Blood",
@@ -44,7 +52,7 @@ class AchievementTracker:
             )
 
         # Achievement: Persistent Troublemaker
-        if total_blocks >= 5 and "persistent" not in self._unlocked:
+        if total_blocks >= ACHIEVEMENT_THRESHOLD_MEDIUM and "persistent" not in self._unlocked:
             self._unlocked.append("persistent")
             self.show_achievement(
                 "Persistent Troublemaker",
@@ -52,7 +60,7 @@ class AchievementTracker:
             )
 
         # Achievement: Typo Master
-        if total_typos >= 3 and "typo_master" not in self._unlocked:
+        if total_typos >= ACHIEVEMENT_THRESHOLD_LOW and "typo_master" not in self._unlocked:
             self._unlocked.append("typo_master")
             self.show_achievement(
                 "Typo Master",
@@ -60,7 +68,7 @@ class AchievementTracker:
             )
 
         # Achievement: Danger Addict
-        if total_blocks >= 10 and "danger_addict" not in self._unlocked:
+        if total_blocks >= ACHIEVEMENT_THRESHOLD_EXPERT and "danger_addict" not in self._unlocked:
             self._unlocked.append("danger_addict")
             self.show_achievement(
                 "Danger Addict",
@@ -68,7 +76,7 @@ class AchievementTracker:
             )
 
         # Achievement: Stubborn
-        if max_repeats >= 3 and "stubborn" not in self._unlocked:
+        if max_repeats >= ACHIEVEMENT_THRESHOLD_LOW and "stubborn" not in self._unlocked:
             self._unlocked.append("stubborn")
             self.show_achievement(
                 "Stubborn",
@@ -76,7 +84,7 @@ class AchievementTracker:
             )
 
         # Achievement: Explorer
-        if safe_commands >= 5 and "explorer" not in self._unlocked:
+        if safe_commands >= ACHIEVEMENT_THRESHOLD_MEDIUM and "explorer" not in self._unlocked:
             self._unlocked.append("explorer")
             self.show_achievement(
                 "Explorer",
@@ -84,7 +92,7 @@ class AchievementTracker:
             )
 
         # Achievement: Command Master
-        if safe_commands >= 10 and "command_master" not in self._unlocked:
+        if safe_commands >= ACHIEVEMENT_THRESHOLD_EXPERT and "command_master" not in self._unlocked:
             self._unlocked.append("command_master")
             self.show_achievement(
                 "Command Master",
@@ -92,7 +100,7 @@ class AchievementTracker:
             )
 
         # Achievement: Balanced User
-        if (safe_commands >= 8 and total_blocks >= 3 and
+        if (safe_commands >= ACHIEVEMENT_THRESHOLD_HIGH and total_blocks >= ACHIEVEMENT_THRESHOLD_LOW and
                 "balanced" not in self._unlocked):
             self._unlocked.append("balanced")
             self.show_achievement(
@@ -113,7 +121,7 @@ class AchievementTracker:
             )
 
         # Achievement: Boundary Tester
-        if sys_blocks >= 3 and "boundary_tester" not in self._unlocked:
+        if sys_blocks >= ACHIEVEMENT_THRESHOLD_LOW and "boundary_tester" not in self._unlocked:
             self._unlocked.append("boundary_tester")
             self.show_achievement(
                 "Boundary Tester",
@@ -121,7 +129,7 @@ class AchievementTracker:
             )
 
         # Achievement: System Adventurer
-        if unique_dirs >= 3 and "system_adventurer" not in self._unlocked:
+        if unique_dirs >= ACHIEVEMENT_THRESHOLD_LOW and "system_adventurer" not in self._unlocked:
             self._unlocked.append("system_adventurer")
             self.show_achievement(
                 "System Adventurer",
@@ -138,7 +146,7 @@ class AchievementTracker:
         """
         time.sleep(TIMING_PAUSE_MEDIUM)  # Pause before achievement (dramatic timing)
         print()
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         trophy = "🏆"
         title_text = self.renderer.colorize("ACHIEVEMENT UNLOCKED!", "orange")
         print(f"{trophy} {title_text} {trophy}")
@@ -146,7 +154,7 @@ class AchievementTracker:
         achievement_title = self.renderer.colorize(title, "purple")
         print(f"  {achievement_title}")
         print(f"  {description}")
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
         time.sleep(TIMING_PAUSE_SHORT)  # Brief pause after achievement
 

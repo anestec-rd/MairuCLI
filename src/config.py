@@ -12,6 +12,10 @@ TIMING_ASCII_CHAR_DELAY = 0.05  # Delay between ASCII art characters
 TIMING_PAUSE_SHORT = 0.3        # Short pause (after art, after achievement)
 TIMING_PAUSE_MEDIUM = 0.5       # Medium pause (before explanation, before achievement)
 
+# Display formatting constants
+DISPLAY_SEPARATOR_WIDTH = 60    # Width of separator lines (=====)
+DISPLAY_MIN_QUOTE_LENGTH = 2    # Minimum length for quoted strings in command parser
+
 
 @dataclass
 class MairuConfig:

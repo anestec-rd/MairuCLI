@@ -9,6 +9,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Changed
+- **Magic Number Refactoring Phase 2 & 3** - Day 7
+  - Added achievement threshold constants to achievements.py:
+    - ACHIEVEMENT_FIRST_BLOOD = 1
+    - ACHIEVEMENT_THRESHOLD_LOW = 3
+    - ACHIEVEMENT_THRESHOLD_MEDIUM = 5
+    - ACHIEVEMENT_THRESHOLD_HIGH = 8
+    - ACHIEVEMENT_THRESHOLD_EXPERT = 10
+  - Added display formatting constants to config.py:
+    - DISPLAY_SEPARATOR_WIDTH = 60
+    - DISPLAY_MIN_QUOTE_LENGTH = 2
+  - Replaced 10+ magic numbers with named constants
+  - Benefits:
+    - Single source of truth for thresholds
+    - Easy to adjust achievement difficulty
+    - Self-documenting code
+    - Improved maintainability
+  - All 94 tests passing
+  - No functional changes
+
 - **Builtin Commands Refactoring** - Day 7
   - Split monolithic builtins.py (719 lines) into modular package
   - Created src/builtins/ package with 7 specialized modules:
