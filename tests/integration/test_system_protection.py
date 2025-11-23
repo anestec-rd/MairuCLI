@@ -9,11 +9,6 @@ import os
 from io import StringIO
 from unittest.mock import patch
 
-# Set UTF-8 encoding for output
-if sys.platform == 'win32':
-    import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-
 # Add src to path for imports
 sys.path.insert(
     0,

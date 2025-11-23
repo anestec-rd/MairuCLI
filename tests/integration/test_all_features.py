@@ -39,7 +39,7 @@ for cmd in test_commands:
 # Show statistics
 print("\n\nmairu> stats")
 print("-" * 70)
-BuiltinCommands._cmd_stats([])
+BuiltinCommands.execute_builtin('stats', [])
 
 print("\n" + "=" * 70)
 print("Demo Complete!")
