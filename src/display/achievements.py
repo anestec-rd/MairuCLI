@@ -19,6 +19,55 @@ ACHIEVEMENT_THRESHOLD_HIGH = 8       # Balanced User
 ACHIEVEMENT_THRESHOLD_EXPERT = 10    # Danger Addict
 
 
+# Achievement metadata with categories
+ACHIEVEMENT_METADATA = {
+    "first_blood": {
+        "name": "First Blood",
+        "category": "danger"
+    },
+    "persistent": {
+        "name": "Persistent Troublemaker",
+        "category": "danger"
+    },
+    "typo_master": {
+        "name": "Typo Master",
+        "category": "exploration"
+    },
+    "danger_addict": {
+        "name": "Danger Addict",
+        "category": "danger"
+    },
+    "stubborn": {
+        "name": "Stubborn",
+        "category": "danger"
+    },
+    "explorer": {
+        "name": "Explorer",
+        "category": "safe"
+    },
+    "command_master": {
+        "name": "Command Master",
+        "category": "safe"
+    },
+    "balanced": {
+        "name": "Balanced User",
+        "category": "safe"
+    },
+    "curious_explorer": {
+        "name": "Curious Explorer",
+        "category": "system_protection"
+    },
+    "boundary_tester": {
+        "name": "Boundary Tester",
+        "category": "system_protection"
+    },
+    "system_adventurer": {
+        "name": "System Adventurer",
+        "category": "system_protection"
+    }
+}
+
+
 class AchievementTracker:
     """Tracks and displays achievements."""
 
@@ -174,20 +223,35 @@ class AchievementTracker:
         Returns:
             List of achievement display names
         """
-        # Map internal IDs to display names
-        achievement_names = {
-            "first_blood": "First Blood",
-            "persistent": "Persistent Troublemaker",
-            "typo_master": "Typo Master",
-            "danger_addict": "Danger Addict",
-            "stubborn": "Stubborn",
-            "explorer": "Explorer",
-            "command_master": "Command Master",
-            "balanced": "Balanced User",
-            "curious_explorer": "Curious Explorer",
-            "boundary_tester": "Boundary Tester",
-            "system_adventurer": "System Adventurer"
-        }
+        return [ACHIEVEMENT_METADATA[ach_id]["name"]
+                for ach_id in self._unlocked
+                if ach_id in ACHIEVEMENT_METADATA]
 
-        return [achievement_names[ach_id] for ach_id in self._unlocked
-                if ach_id in achievement_names]
+    def get_achievements_by_category(self, category: str) -> List[str]:
+        """
+        Get unlocked achievements filtered by category.
+
+        Args:
+            category: Category to filter by
+                     ("danger", "safe", "exploration", "system_protection")
+
+        Returns:
+            List of achievement display names in the specified category
+        """
+        return [ACHIEVEMENT_METADATA[ach_id]["name"]
+                for ach_id in self._unlocked
+                if ach_id in ACHIEVEMENT_METADATA and
+                ACHIEVEMENT_METADATA[ach_id]["category"] == category]
+
+    def get_all_categories(self) -> List[str]:
+        """
+        Get list of all achievement categories that have unlocked achievements.
+
+        Returns:
+            List of category names
+        """
+        categories = set()
+        for ach_id in self._unlocked:
+            if ach_id in ACHIEVEMENT_METADATA:
+                categories.add(ACHIEVEMENT_METADATA[ach_id]["category"])
+        return sorted(list(categories))

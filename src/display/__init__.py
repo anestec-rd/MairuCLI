@@ -201,6 +201,20 @@ def get_unlocked_achievements() -> list:
     return _achievement_tracker.get_unlocked_achievement_names()
 
 
+def get_achievements_by_category(category: str) -> list:
+    """
+    Get unlocked achievements filtered by category.
+
+    Args:
+        category: Category to filter by
+                 ("danger", "safe", "exploration", "system_protection")
+
+    Returns:
+        List of achievement display names in the specified category
+    """
+    return _achievement_tracker.get_achievements_by_category(category)
+
+
 def show_system_protection_warning(
     level: str,
     target_path: str,

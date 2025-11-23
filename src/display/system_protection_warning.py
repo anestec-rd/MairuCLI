@@ -7,6 +7,7 @@ protected system directories.
 
 from typing import Dict
 from src.display.ascii_renderer import AsciiRenderer
+from src.config import DISPLAY_SEPARATOR_WIDTH
 
 
 # Directory information for educational messages
@@ -152,9 +153,9 @@ class SystemProtectionWarning:
             command: The blocked command
         """
         print()
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print(f"🎃 {self.renderer.colorize('WHOA THERE, EXPLORER!', 'orange')}")
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
 
         # Get directory info
@@ -176,7 +177,7 @@ class SystemProtectionWarning:
             "🛡️  Protected by MairuCLI's magic shield!",
             "purple"
         ))
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
 
     def _display_caution_warning(
@@ -195,9 +196,9 @@ class SystemProtectionWarning:
             True if user confirms, False if cancelled
         """
         print()
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print(f"🦇 {self.renderer.colorize('CAREFUL, ADVENTURER!', 'orange')}")
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
 
         # Get directory info
@@ -222,7 +223,7 @@ class SystemProtectionWarning:
         )
         response = input(prompt).strip().lower()
 
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
 
         return response in ['yes', 'y']

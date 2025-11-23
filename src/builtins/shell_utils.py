@@ -15,7 +15,11 @@ _history: List[str] = []
 
 def cmd_echo(args: List[str]) -> bool:
     """
-    Echo command - print arguments.
+    Echo command - print arguments with environment variable expansion.
+
+    Supports:
+    - $VAR or ${VAR} syntax (Unix-style)
+    - %VAR% syntax (Windows-style)
 
     Args:
         args: Arguments to print
@@ -23,7 +27,27 @@ def cmd_echo(args: List[str]) -> bool:
     Returns:
         True (always handled)
     """
-    print(" ".join(args))
+    import re
+
+    # Join arguments
+    text = " ".join(args)
+
+    # Expand environment variables
+    # Unix-style: $VAR or ${VAR}
+    def expand_unix_var(match):
+        var_name = match.group(1) or match.group(2)
+        return os.environ.get(var_name, match.group(0))
+
+    text = re.sub(r'\$\{([^}]+)\}|\$(\w+)', expand_unix_var, text)
+
+    # Windows-style: %VAR%
+    def expand_windows_var(match):
+        var_name = match.group(1)
+        return os.environ.get(var_name, match.group(0))
+
+    text = re.sub(r'%(\w+)%', expand_windows_var, text)
+
+    print(text)
     return True
 
 

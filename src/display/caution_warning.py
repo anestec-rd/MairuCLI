@@ -6,6 +6,7 @@ Displays lighter warnings for risky but not immediately catastrophic commands.
 
 from src.display.ascii_renderer import AsciiRenderer
 from src.interceptor import CAUTION_PATTERNS
+from src.config import DISPLAY_SEPARATOR_WIDTH
 
 
 class CautionWarning:
@@ -34,13 +35,13 @@ class CautionWarning:
         pattern = CAUTION_PATTERNS[pattern_name]
 
         print()
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         title = self.renderer.colorize(
             "⚠️  Heads Up! Think Carefully.",
             "orange"
         )
         print(title)
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()
 
         # Show command and risk

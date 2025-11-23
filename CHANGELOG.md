@@ -8,8 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **Echo Command Variable Expansion** - Day 7
+  - Unix-style variable expansion: $VAR and ${VAR}
+  - Windows-style variable expansion: %VAR%
+  - Undefined variables remain as literal text (safe fallback)
+  - Cross-platform support for environment variable access
+  - 11 unit tests added, all passing
+  - Educational value: teaches environment variable concepts
+
+- **Achievement Categorization System** - Day 7
+  - ACHIEVEMENT_METADATA dictionary with category information
+  - Four categories: danger, safe, exploration, system_protection
+  - get_achievements_by_category() method for filtered retrieval
+  - get_all_categories() method for dynamic category listing
+  - Stats command now displays achievements grouped by category
+  - Custom icons for each category (💀 danger, 🏆 safe, 🚂 exploration, 🛡️ system_protection)
+  - Removed hardcoded achievement lists from stats command
+  - Single source of truth for achievement properties
+  - Easier to add new achievements without code changes
+
 ### Changed
-- **Magic Number Refactoring Phase 2 & 3** - Day 7
+- **Magic Number Refactoring Phase 2 & 3 Complete** - Day 7
   - Added achievement threshold constants to achievements.py:
     - ACHIEVEMENT_FIRST_BLOOD = 1
     - ACHIEVEMENT_THRESHOLD_LOW = 3

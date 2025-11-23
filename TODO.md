@@ -3,40 +3,38 @@
 ## High Priority (Before Demo)
 
 ### Code Quality
-- [ ] **Magic Number Refactoring** - Day 7 🟡 **IN PROGRESS**
+- [x] **Magic Number Refactoring** - Day 7 ✅ **COMPLETED**
   - **Reference:** See `docs/reports/MAGIC_NUMBERS_ANALYSIS.md` for detailed analysis
   - **Goal:** Replace hardcoded numeric literals with named constants for better maintainability
 
-  **Phase 1: Timing Constants** (Day 7 - High Priority) ✅ **PLANNED**
-  - [ ] Add timing constants to `src/config.py`
+  **Phase 1: Timing Constants** ✅ **COMPLETED**
+  - [x] Add timing constants to `src/config.py`
     - TIMING_ASCII_CHAR_DELAY = 0.05
     - TIMING_PAUSE_SHORT = 0.3
     - TIMING_PAUSE_MEDIUM = 0.5
-  - [ ] Update `src/display/ascii_renderer.py` (1 instance)
-  - [ ] Update `src/display/warning_components.py` (4 instances)
-  - [ ] Update `src/display/achievements.py` (2 instances)
-  - [ ] Run tests to verify no functional changes
-  - **Estimated Time:** 5-7 minutes
-  - **Impact:** High (most frequently adjusted values)
+  - [x] Update `src/display/ascii_renderer.py` (1 instance)
+  - [x] Update `src/display/warning_components.py` (4 instances)
+  - [x] Update `src/display/achievements.py` (2 instances)
+  - [x] Run tests to verify no functional changes
+  - **Completed:** 2025-11-23 (Day 7)
 
-  **Phase 2: Achievement Thresholds** (Day 8 - Medium Priority) ⏳ **DEFERRED**
-  - [ ] Add achievement threshold constants to `src/display/achievements.py`
+  **Phase 2: Achievement Thresholds** ✅ **COMPLETED**
+  - [x] Add achievement threshold constants to `src/display/achievements.py`
     - ACHIEVEMENT_FIRST_BLOOD = 1
     - ACHIEVEMENT_THRESHOLD_LOW = 3
     - ACHIEVEMENT_THRESHOLD_MEDIUM = 5
     - ACHIEVEMENT_THRESHOLD_HIGH = 8
-  - [ ] Update all achievement checks (8-10 instances)
-  - **Estimated Time:** 5 minutes
-  - **Impact:** Medium (improves achievement maintainability)
+    - ACHIEVEMENT_THRESHOLD_EXPERT = 10
+  - [x] Update all achievement checks (8-10 instances)
+  - **Completed:** 2025-11-23 (Day 7)
 
-  **Phase 3: Display Formatting** (Day 8 - Low Priority) ⏳ **DEFERRED**
-  - [ ] Add display constants to `src/config.py`
+  **Phase 3: Display Formatting** ✅ **COMPLETED**
+  - [x] Add display constants to `src/config.py`
     - DISPLAY_SEPARATOR_WIDTH = 60
     - DISPLAY_MIN_QUOTE_LENGTH = 2
-  - [ ] Update separator lines in 4 files
-  - [ ] Update quote check in `src/command_parser.py`
-  - **Estimated Time:** 5 minutes
-  - **Impact:** Low (rarely changed values)
+  - [x] Update separator lines in 7 files
+  - [x] Update quote check in `src/command_parser.py`
+  - **Completed:** 2025-11-23 (Day 7)
 
   **Benefits:**
   - Single source of truth for timing values
@@ -583,27 +581,36 @@
 - [ ] Configuration file support
 - [ ] Command logging to file
 - [ ] Multi-language support (Japanese)
-- [ ] **Echo command variable expansion** (Optional enhancement)
+- [x] **Echo command variable expansion** ✅ **COMPLETED** (2025-11-23)
   - Current: Simple text display only (`echo Hello` → "Hello")
   - Enhancement: Add basic variable expansion (`echo $HOME` → actual path)
   - Implementation: ~5-10 minutes
   - Priority: Low (not essential for core functionality)
-  - Note: Current simple implementation is sufficient for educational tool
+  - **Completed Features:**
+    - Unix-style variable expansion: $VAR and ${VAR}
+    - Windows-style variable expansion: %VAR%
+    - Undefined variables remain as literal text
+    - 11 unit tests added, all passing (105 total tests)
 
-- [ ] **Achievement categorization system** (Maintainability improvement)
+- [x] **Achievement categorization system** ✅ **COMPLETED** (2025-11-23)
   - **Current Issue:** Achievement categories hardcoded in stats command
   - **Problem:** Adding new achievements requires updating multiple places
   - **Proposed Solution:** Add category metadata to each achievement
   - **Implementation:**
-    - Add `category` field to achievement definitions ("danger", "normal", "exploration")
+    - Add `category` field to achievement definitions ("danger", "safe", "exploration", "system_protection")
     - Update `AchievementTracker` to store category with each achievement
     - Modify stats display to categorize based on metadata, not hardcoded list
+  - **Completed Features:**
+    - ACHIEVEMENT_METADATA dictionary with categories
+    - get_achievements_by_category() method
+    - get_all_categories() method
+    - Stats command now displays achievements by category with custom icons
+    - Removed hardcoded achievement lists
   - **Benefits:**
     - Single source of truth for achievement properties
     - Easier to add new achievements
     - Better maintainability
-  - **Estimated Time:** 15-20 minutes
-  - **Priority:** Low (current implementation works, but less maintainable)
+  - **Time:** 15 minutes
   - **Added:** 2025-11-22 (Day 6 - User testing feedback)
 
 ### Visual Improvements

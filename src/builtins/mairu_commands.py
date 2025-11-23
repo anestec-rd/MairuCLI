@@ -5,6 +5,7 @@ Provides MairuCLI-specific commands: help, stats
 """
 
 from typing import List
+from src.config import DISPLAY_SEPARATOR_WIDTH
 
 
 def cmd_help(args: List[str]) -> bool:
@@ -19,10 +20,10 @@ def cmd_help(args: List[str]) -> bool:
     """
     from src.display import colorize, EMOJI
 
-    print("\n" + "=" * 60)
+    print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
     print(f"{EMOJI['pumpkin']} {colorize('MairuCLI Help', 'orange')} "
           f"{EMOJI['pumpkin']}")
-    print("=" * 60)
+    print("=" * DISPLAY_SEPARATOR_WIDTH)
     print()
 
     print(colorize("Navigation & File Management:", "green"))
@@ -89,7 +90,7 @@ def cmd_help(args: List[str]) -> bool:
     print("  I'll warn you about dangerous commands, but I can't")
     print("  protect you from everything. Stay curious, stay safe!")
     print()
-    print("=" * 60 + "\n")
+    print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
 
     return True
 
@@ -108,11 +109,11 @@ def cmd_stats(args: List[str]) -> bool:
 
     stats = get_stats()
 
-    print("\n" + "=" * 60)
+    print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
     pumpkin = EMOJI['pumpkin']
     title = colorize('MairuCLI Statistics', 'orange')
     print(f"{pumpkin} {title} {pumpkin}")
-    print("=" * 60)
+    print("=" * DISPLAY_SEPARATOR_WIDTH)
     print()
 
     total_saves = stats["dangerous_blocked"] + stats["typos_caught"]
@@ -130,35 +131,36 @@ def cmd_stats(args: List[str]) -> bool:
               f"{colorize(str(stats['typos_caught']), 'purple')}")
         print()
 
-        # Display unlocked achievements
-        from src.display import get_unlocked_achievements
-        unlocked = get_unlocked_achievements()
+        # Display unlocked achievements by category
+        from src.display import get_achievements_by_category
 
-        if unlocked:
-            # Categorize achievements
-            danger_achievements = [
-                "First Blood", "Persistent Troublemaker",
-                "Danger Addict", "Stubborn"
-            ]
+        # Category display configuration
+        category_config = {
+            "danger": {
+                "title": "💀 Your Troublemaking History:",
+                "color": "red"
+            },
+            "safe": {
+                "title": "🏆 Safe Explorer Achievements:",
+                "color": "green"
+            },
+            "exploration": {
+                "title": "🚂 Exploration Achievements:",
+                "color": "purple"
+            },
+            "system_protection": {
+                "title": "🛡️ System Protection Achievements:",
+                "color": "orange"
+            }
+        }
 
-            danger_list = [ach for ach in unlocked
-                           if ach in danger_achievements]
-            other_list = [ach for ach in unlocked
-                          if ach not in danger_achievements]
-
-            # Display danger-related achievements
-            if danger_list:
-                print(colorize("💀 Your Troublemaking History:", "red"))
+        # Display achievements by category
+        for category, config in category_config.items():
+            achievements = get_achievements_by_category(category)
+            if achievements:
+                print(colorize(config["title"], config["color"]))
                 print()
-                for achievement in danger_list:
-                    print(f"  {colorize('✓', 'green')} {achievement}")
-                print()
-
-            # Display other achievements
-            if other_list:
-                print(colorize("🏆 Unlocked Achievements:", "orange"))
-                print()
-                for achievement in other_list:
+                for achievement in achievements:
                     print(f"  {colorize('✓', 'green')} {achievement}")
                 print()
 
@@ -171,6 +173,6 @@ def cmd_stats(args: List[str]) -> bool:
             print(colorize("👍 Keep being careful out there!", "green"))
 
     print()
-    print("=" * 60 + "\n")
+    print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
 
     return True

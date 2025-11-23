@@ -85,15 +85,23 @@ Available commands:
 ## ✨ Features
 
 ### Core Functionality
-- **12 Built-in Commands:** cd, pwd, ls/dir, clear/cls, echo, export, env, alias, history, help, stats, exit
+- **20 Built-in Commands:**
+  - Navigation: cd, pwd
+  - File Operations: ls/dir, cat, touch, mkdir
+  - Search: find, grep, which
+  - System Info: whoami, date, hostname, env, export
+  - Display: tree
+  - Utilities: echo, clear/cls, history, alias
+  - MairuCLI: help, stats, exit
 - **System Directory Protection:** Prevents accidental modification of critical system directories (Windows, Linux, macOS)
-- **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
+- **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777/000, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
 - **4 Caution-Level Warnings:** sudo su, chmod 666/755, firewall disable, SELinux disable
 - **2 Typo Entertainment:** sl → ls, cd.. → cd ..
-- **Achievement System:** Multiple unlockable achievements (danger-related, safe exploration, typos)
-- **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands
+- **Achievement System:** Multiple unlockable achievements to discover (danger-related, safe exploration, system protection, and more...)
+- **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands, system protection
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
 - **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
+- **Modular Architecture:** Clean separation with 15+ modules, 94 passing tests
 
 ### Display System (Refactored Architecture)
 - **Modular Components:** Separated concerns for maintainability
@@ -192,13 +200,26 @@ mairu> sl               # Typo entertainment
 mairu-cli/
 ├── src/
 │   ├── main.py                    # Entry point and REPL loop
-│   ├── builtins.py                # Built-in command implementations
+│   ├── config.py                  # Configuration and constants
+│   ├── builtins/                  # Modular builtin commands (refactored Day 7)
+│   │   ├── __init__.py            # Main interface
+│   │   ├── navigation.py          # cd, pwd
+│   │   ├── file_operations.py    # ls, cat, touch, mkdir
+│   │   ├── search.py              # find, grep, which
+│   │   ├── system_info.py        # whoami, date, hostname, env
+│   │   ├── display.py             # tree
+│   │   ├── shell_utils.py        # echo, clear, history, alias
+│   │   └── mairu_commands.py     # help, stats
 │   ├── interceptor.py             # Pattern matching for dangerous commands
+│   ├── command_parser.py          # Command parsing and path extraction
+│   ├── path_resolver.py           # Path resolution for system protection
 │   └── display/                   # Modular display system
 │       ├── __init__.py            # Public API
 │       ├── ascii_renderer.py      # ASCII art loading and rendering
 │       ├── message_formatter.py   # Template-based message formatting
 │       ├── warning_components.py  # Warning display components
+│       ├── system_protection_warning.py # System directory warnings
+│       ├── caution_warning.py     # Caution-level warnings
 │       ├── achievements.py        # Achievement tracking
 │       ├── statistics.py          # Statistics tracking
 │       └── content_loader.py      # JSON content management

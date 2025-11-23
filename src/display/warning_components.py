@@ -10,7 +10,12 @@ from abc import ABC, abstractmethod
 from src.display.ascii_renderer import AsciiRenderer
 from src.display.message_formatter import MessageFormatter
 from src.display.content_loader import ContentLoader
-from src.config import TIMING_ASCII_CHAR_DELAY, TIMING_PAUSE_SHORT, TIMING_PAUSE_MEDIUM
+from src.config import (
+    TIMING_ASCII_CHAR_DELAY,
+    TIMING_PAUSE_SHORT,
+    TIMING_PAUSE_MEDIUM,
+    DISPLAY_SEPARATOR_WIDTH
+)
 
 
 # Emoji constants
@@ -99,7 +104,7 @@ class DangerWarning(WarningComponent):
         color = warning_content.get("color", "red")
         timing = warning_content.get("timing", {})
 
-        print("\n" + "=" * 60)
+        print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
 
         # Display ASCII art slowly for dramatic effect
         art_delay = timing.get("art_delay", TIMING_ASCII_CHAR_DELAY)
@@ -135,7 +140,7 @@ class DangerWarning(WarningComponent):
         print()
         command_text = self.renderer.colorize(f"Blocked command: {command}", "chocolate")
         print(command_text)
-        print("=" * 60 + "\n")
+        print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
 
 
 class TypoWarning(WarningComponent):
@@ -170,7 +175,7 @@ class TypoWarning(WarningComponent):
         from src.interceptor import get_pattern_info
         pattern_info = get_pattern_info(pattern_name)
 
-        print("\n" + "=" * 60)
+        print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
         print(pattern_info.get("message", "Oops! Typo detected!"))
         print()
 
@@ -178,7 +183,7 @@ class TypoWarning(WarningComponent):
         correct_colored = self.renderer.colorize(pattern_info["correct"], "green")
         print(f"You typed: {typed_colored}")
         print(f"Did you mean: {correct_colored}?")
-        print("=" * 60 + "\n")
+        print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
 
 
 class RepeatWarning(WarningComponent):
@@ -232,7 +237,7 @@ class RepeatWarning(WarningComponent):
         count_key = str(count) if str(count) in repeat_warnings else "default"
         warning_data = repeat_warnings.get(count_key, repeat_warnings["default"])
 
-        print("\n" + "=" * 60)
+        print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
 
         # Display emoji and title
         emoji_name = warning_data.get("emoji")
@@ -253,5 +258,5 @@ class RepeatWarning(WarningComponent):
             formatted_line = formatted_line.replace("{count}", str(count))
             print(formatted_line)
 
-        print("=" * 60)
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
         print()

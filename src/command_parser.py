@@ -8,6 +8,7 @@ for protection checking.
 import re
 import shlex
 from typing import List, Dict, Any, Optional
+from src.config import DISPLAY_MIN_QUOTE_LENGTH
 
 
 class CommandParser:
@@ -240,7 +241,7 @@ class CommandParser:
         Returns:
             Path with quotes removed
         """
-        if len(path) >= 2:
+        if len(path) >= DISPLAY_MIN_QUOTE_LENGTH:
             if (path[0] == '"' and path[-1] == '"') or \
                (path[0] == "'" and path[-1] == "'"):
                 return path[1:-1]
