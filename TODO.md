@@ -47,6 +47,53 @@
   **Added:** 2025-11-23 (Day 7 - Code quality improvement)
   **Priority:** Medium (improves maintainability, not critical for v1.2.0)
 
+### Feature Enhancements
+
+- [x] **Expand Normal Commands** - Stock task ✅ **COMPLETED**
+  - **Status:** 9 new commands added successfully!
+  - **Implemented Commands:**
+
+    **File Management:**
+    1. ✅ touch <file> - Create empty file or update timestamp
+    2. ✅ mkdir <dir> - Create directory
+
+    **Search Commands:**
+    3. ✅ find <pattern> - Find files by name (supports wildcards)
+    4. ✅ grep <pattern> <file> - Search text in files (with highlighting)
+    5. ✅ which <command> - Show command location in PATH
+
+    **System Info:**
+    6. ✅ whoami - Display current username
+    7. ✅ date - Display current date and time
+    8. ✅ hostname - Display computer name
+    9. ✅ tree [path] - Display directory tree structure
+
+  **Implementation Details:**
+  - All commands follow Halloween theme with emojis
+  - Comprehensive error handling
+  - Usage help for each command
+  - Cross-platform compatibility (Windows/Unix)
+  - Educational output messages
+
+  **Testing:**
+  - 20 unit tests added, all passing
+  - Tests cover normal operation and edge cases
+
+  **Updated Features:**
+  - help command reorganized by category
+  - All new commands registered as builtins
+
+  **Educational Value:**
+  - Teaches file system navigation
+  - Introduces search concepts (find, grep)
+  - Explains PATH environment variable
+  - Shows directory structure visually
+  - Encourages CLI exploration
+
+  **Completed:** 2025-11-23 (Day 7)
+  **Time:** 30 minutes
+  **Priority:** ✅ Complete
+
 ### Bug Fixes
 - [x] **Fix dd command pattern detection (Issue #2)** ✅ 2025-11-21
   - Fixed pattern to `r"dd\s+if=/dev/zero"` (made `of=` optional)
@@ -133,6 +180,37 @@
 
   **Added:** 2025-11-22 (Day 6 - Manual testing discovery)
   **Priority:** Important for user expectations and safety
+
+### Achievement Enhancement
+
+- [x] **Achievement for Normal Commands** - Stock task ✅ **COMPLETED**
+  - **Status:** Already implemented and working!
+  - **Implemented Achievements:**
+    1. ✅ "Explorer" - Use 5 different safe commands
+    2. ✅ "Command Master" - Use 10 different safe commands
+    3. ✅ "Balanced User" - Use 8 safe + 3 dangerous commands
+
+  **Implementation Details:**
+  - ✅ Statistics tracks safe command usage via `track_safe_command()`
+  - ✅ Achievement checks in `AchievementTracker.check_achievements()`
+  - ✅ Halloween-themed achievement messages
+  - ✅ Called from main.py after builtin and system shell commands
+
+  **Existing Achievements:**
+  ```
+  🏆 Explorer - Used 5 different safe commands
+  🏆 Command Master - Used 10 different safe commands
+  🏆 Balanced User - 8 safe + 3 dangerous commands
+  ```
+
+  **Verified:** 2025-11-23 (Day 7)
+  - Tested with pwd, ls, echo, cd, help
+  - "Explorer" achievement unlocked at 5 commands
+  - System working as designed
+
+  **Priority:** ✅ Complete
+  **Added:** 2025-11-23 (Day 7 - Stock task integration)
+  **Completed:** 2025-11-23 (Day 7 - Verified existing implementation)
 
 ### New Feature Ideas (Post-Demo)
 
