@@ -99,10 +99,12 @@
   - File: `src/interceptor.py` line 31
   - Resolved: 2025-11-21 (Day 5)
 
-## High Priority (Before Demo)
+## Day 8 - Final Polish (2025-11-24)
 
-### Documentation
-- [ ] **Create final README.md for submission**
+### High Priority
+
+#### Documentation
+- [ ] **Create final README.md for submission** (30 min)
   - Project overview and purpose
   - Installation steps
   - How to run: `python -m src.main`
@@ -122,18 +124,24 @@
   - Highlight steering files and context management
   - Document time savings and productivity gains
 
-### Testing
-- [ ] **Thorough manual testing in actual REPL**
-  - Test all builtin commands
-  - Test all dangerous patterns
+#### Testing
+- [ ] **Final smoke test** (30 min)
+  - Test all 20 builtin commands
+  - Test all 11 dangerous patterns
   - Test typo detection
-  - Test "I told you so" feature
-  - Test achievements
+  - Test repeat warning escalation
+  - Test all achievements
   - Test stats command
   - Verify colors on different terminals
+  - Test category-based variations (8-13 per pattern)
 
-### Demo Preparation
-- [ ] **Improve ASCII art** (if time permits)
+#### Demo Preparation
+- [ ] **Create demo script** (45 min)
+  - Key feature showcase
+  - Timing and flow
+  - Highlight category-based variation system
+  - Show achievement system
+  - Emphasize Kiro-exclusive development
 
 ### System Directory Protection - Considerations
 
