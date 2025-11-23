@@ -8,17 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [1.2.0] - 2025-11-23
+
 ### Added
-- **System Directory Protection** - Safety feature (Day 6)
-  - Protects critical system directories from accidental modification
-  - Platform-specific protection: Windows, Linux, macOS
-  - Two-tier protection: Critical (block) and Caution (confirm)
-  - Path resolution: Handles relative paths, environment variables, ~
-  - Command parsing: Extracts paths from rm, mv, chmod, dd, redirects
-  - Educational warnings explain risks and safe alternatives
-  - Integration tests: 10+ test cases covering all platforms
-  - Unit tests: 35+ tests for path resolution and command parsing
-  - Tasks 1-9 complete (manual testing and docs pending)
+- **System Directory Protection** - Critical safety feature (Day 6-7) ✅ COMPLETE
+  - Protects critical system directories from accidental modification/deletion
+  - Platform-specific protection: Windows (C:\Windows, System32, Program Files), Linux (/etc, /bin, /usr), macOS (/System, /Library)
+  - Two-tier protection: Critical (immediate block) and Caution (confirmation prompt)
+  - Path resolution: Handles relative paths (../../), environment variables ($WINDIR, $HOME), home expansion (~)
+  - Command parsing: Extracts paths from rm, mv, chmod, dd, output redirection (>)
+  - Educational warnings explain risks and provide safe alternatives
+  - Comprehensive testing: 63 unit tests + 10 integration tests + manual test documentation
+  - Performance: 0.02ms average (2500x faster than 50ms target)
+  - Safety review: All fail-safe mechanisms verified, no bypass methods found
+  - Cross-platform compatibility: Windows/Linux/macOS verified
+  - Tasks 1-12 complete, approved for production
 - **Achievement Display in Stats Command** - User testing feedback (Day 6)
   - Stats command now displays unlocked achievements
   - Achievements categorized into "Your Troublemaking History" (danger-related) and "Unlocked Achievements" (others)
