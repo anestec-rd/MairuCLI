@@ -9,6 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **New ASCII Art for Distinctive Patterns** - Day 7
+  - database_drop.txt - Database deletion warning with database icon
+  - fork_bomb.txt - Fork bomb warning with process explosion visual
+  - kernel_panic.txt - Kernel panic warning with system crash visual
+  - Each art has unique Halloween-themed design
+  - 15 new warning variations added for these patterns
+  - Improved visual distinction between different danger types
+
 - **Echo Command Variable Expansion** - Day 7
   - Unix-style variable expansion: $VAR and ${VAR}
   - Windows-style variable expansion: %VAR%

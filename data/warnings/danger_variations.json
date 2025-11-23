@@ -154,5 +154,71 @@
       "title": "NO USE CRYING!",
       "subtitle": "(It's no use crying over spilt milk)"
     }
+  ],
+  "drop_database": [
+    {
+      "title": "DATABASE APOCALYPSE!",
+      "subtitle": "(All your tables are belong to /dev/null)"
+    },
+    {
+      "title": "SQL NIGHTMARE!",
+      "subtitle": "(DROP is forever, SELECT is not)"
+    },
+    {
+      "title": "DATA VANISHING ACT!",
+      "subtitle": "(Poof! And it's gone)"
+    },
+    {
+      "title": "BACKUP CHECK FAILED!",
+      "subtitle": "(You DO have backups... right?)"
+    },
+    {
+      "title": "CAREER LIMITING MOVE!",
+      "subtitle": "(Your DBA will haunt you)"
+    }
+  ],
+  "fork_bomb": [
+    {
+      "title": "FORK BOMB DETECTED!",
+      "subtitle": "(Infinite processes incoming!)"
+    },
+    {
+      "title": "SYSTEM FREEZE WARNING!",
+      "subtitle": "(Your CPU is about to cry)"
+    },
+    {
+      "title": "PROCESS EXPLOSION!",
+      "subtitle": "(:(){ :|:& };: is NOT a smiley face)"
+    },
+    {
+      "title": "DOS ATTACK ON SELF!",
+      "subtitle": "(Why would you do this to yourself?)"
+    },
+    {
+      "title": "REBOOT REQUIRED!",
+      "subtitle": "(And you'll need the power button)"
+    }
+  ],
+  "kernel_panic": [
+    {
+      "title": "KERNEL PANIC TRIGGER!",
+      "subtitle": "(Instant system crash!)"
+    },
+    {
+      "title": "SYSRQ DANGER!",
+      "subtitle": "(This is the nuclear option)"
+    },
+    {
+      "title": "SYSTEM HALT IMMINENT!",
+      "subtitle": "(Hope you saved your work)"
+    },
+    {
+      "title": "CRASH COURSE!",
+      "subtitle": "(Literally)"
+    },
+    {
+      "title": "BLUE SCREEN INCOMING!",
+      "subtitle": "(Well, kernel panic screen)"
+    }
   ]
 }

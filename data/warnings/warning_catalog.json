@@ -86,8 +86,8 @@
     "drop_database": {
       "category": "database",
       "severity": "critical",
-      "variation_set": "data_destroyer",
-      "ascii_art": "fired.txt",
+      "variation_set": "drop_database",
+      "ascii_art": "database_drop.txt",
       "color": "red",
       "emoji": "fire",
       "explanation": "DROP DATABASE permanently deletes an entire database.",
@@ -107,8 +107,8 @@
     "fork_bomb": {
       "category": "system",
       "severity": "critical",
-      "variation_set": "data_destroyer",
-      "ascii_art": "data_destroyer.txt",
+      "variation_set": "fork_bomb",
+      "ascii_art": "fork_bomb.txt",
       "color": "red",
       "emoji": "fire",
       "explanation": "This is a FORK BOMB - a DOS attack that freezes your system!",
@@ -227,8 +227,8 @@
     "kernel_panic": {
       "category": "system",
       "severity": "critical",
-      "variation_set": "data_destroyer",
-      "ascii_art": "data_destroyer.txt",
+      "variation_set": "kernel_panic",
+      "ascii_art": "kernel_panic.txt",
       "color": "red",
       "emoji": "fire",
       "explanation": "This command triggers a Kernel Panic - instant system crash!",
