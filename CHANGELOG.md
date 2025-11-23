@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **chmod -R 000 Pattern Detection** - Day 7
+  - Detects chmod 000 and chmod -R 000 commands
+  - Critical severity (blocks immediately)
+  - Educational message explains total permission lockout
+  - 5 warning variations with IT wordplay
+  - Unit tests added
+
 ---
 
 ## [1.2.0] - 2025-11-23

@@ -95,6 +95,28 @@
       "subtitle": "(Did you throw a party? There's a wolf at the door)"
     }
   ],
+  "chmod_000": [
+    {
+      "title": "LOCKOUT WARNING!",
+      "subtitle": "(You're locking yourself out!)"
+    },
+    {
+      "title": "ACCESS DENIED!",
+      "subtitle": "(Even YOU can't access this!)"
+    },
+    {
+      "title": "TOTAL LOCKDOWN!",
+      "subtitle": "(Nobody gets in. Nobody.)"
+    },
+    {
+      "title": "PERMISSION PARADOX!",
+      "subtitle": "(You need permission to fix permissions)"
+    },
+    {
+      "title": "DIGITAL FORTRESS!",
+      "subtitle": "(So secure, even you can't enter)"
+    }
+  ],
   "data_destroyer": [
     {
       "title": "DATA DESTROYER DETECTED!",

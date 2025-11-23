@@ -67,6 +67,12 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "severity": "high",
         "art_file": "permission_denied.txt"
     },
+    "chmod_000": {
+        "pattern": r"chmod\s+(-R\s+)?000",
+        "category": "permission",
+        "severity": "critical",
+        "art_file": "permission_denied.txt"
+    },
     "dd_zero": {
         "pattern": r"dd\s+if=/dev/zero",
         "category": "disk",

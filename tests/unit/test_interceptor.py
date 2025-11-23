@@ -56,6 +56,8 @@ def test_pattern_detection():
         ("rm -rf *", "rm_dangerous"),
         ("chmod 777 file.txt", "chmod_777"),
         ("chmod -R 777 /var", "chmod_777"),
+        ("chmod 000 file.txt", "chmod_000"),
+        ("chmod -R 000 /var", "chmod_000"),
         ("dd if=/dev/zero of=/dev/sda", "dd_zero"),
         ("DROP DATABASE production", "drop_database"),
         (":(){ :|:& };:", "fork_bomb"),

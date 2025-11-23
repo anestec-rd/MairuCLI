@@ -42,6 +42,27 @@
         "pause_before_achievement": 0.3
       }
     },
+    "chmod_000": {
+      "category": "permission",
+      "severity": "critical",
+      "variation_set": "chmod_000",
+      "ascii_art": "permission_denied.txt",
+      "color": "red",
+      "emoji": "skull",
+      "explanation": "chmod 000 removes ALL permissions - nobody can access the file!",
+      "consequence": "You won't be able to read, write, or execute the file. Even you!",
+      "advice": [
+        "Use 'chmod 644' for regular files (read/write for you, read for others)",
+        "Use 'chmod 755' for executables",
+        "chmod 000 makes files completely inaccessible"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
     "dd_zero": {
       "category": "disk",
       "severity": "critical",
