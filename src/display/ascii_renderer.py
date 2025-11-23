@@ -8,6 +8,8 @@ import time
 from pathlib import Path
 from typing import Optional
 
+from src.config import TIMING_ASCII_CHAR_DELAY
+
 
 # Halloween color palette (ANSI 256-color codes)
 COLORS = {
@@ -70,7 +72,7 @@ class AsciiRenderer:
         self,
         art: str,
         color: str,
-        delay: float = 0.05
+        delay: float = TIMING_ASCII_CHAR_DELAY
     ) -> None:
         """
         Display ASCII art line by line with dramatic effect.

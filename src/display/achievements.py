@@ -8,6 +8,7 @@ import time
 from typing import List
 from src.display.statistics import Statistics
 from src.display.ascii_renderer import AsciiRenderer
+from src.config import TIMING_PAUSE_SHORT, TIMING_PAUSE_MEDIUM
 
 
 class AchievementTracker:
@@ -135,7 +136,7 @@ class AchievementTracker:
             title: Achievement title
             description: Achievement description
         """
-        time.sleep(0.5)  # Pause before achievement (dramatic timing)
+        time.sleep(TIMING_PAUSE_MEDIUM)  # Pause before achievement (dramatic timing)
         print()
         print("=" * 60)
         trophy = "🏆"
@@ -147,7 +148,7 @@ class AchievementTracker:
         print(f"  {description}")
         print("=" * 60)
         print()
-        time.sleep(0.3)  # Brief pause after achievement
+        time.sleep(TIMING_PAUSE_SHORT)  # Brief pause after achievement
 
     def get_unlocked_achievements(self) -> List[str]:
         """

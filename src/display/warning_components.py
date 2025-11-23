@@ -10,6 +10,7 @@ from abc import ABC, abstractmethod
 from src.display.ascii_renderer import AsciiRenderer
 from src.display.message_formatter import MessageFormatter
 from src.display.content_loader import ContentLoader
+from src.config import TIMING_ASCII_CHAR_DELAY, TIMING_PAUSE_SHORT, TIMING_PAUSE_MEDIUM
 
 
 # Emoji constants
@@ -101,9 +102,9 @@ class DangerWarning(WarningComponent):
         print("\n" + "=" * 60)
 
         # Display ASCII art slowly for dramatic effect
-        art_delay = timing.get("art_delay", 0.05)
+        art_delay = timing.get("art_delay", TIMING_ASCII_CHAR_DELAY)
         self.renderer.display_art_slowly(art, color, delay=art_delay)
-        time.sleep(timing.get("pause_after_art", 0.3))
+        time.sleep(timing.get("pause_after_art", TIMING_PAUSE_SHORT))
 
         # Display title and subtitle
         emoji_name = warning_content.get("emoji", "fire")
@@ -113,7 +114,7 @@ class DangerWarning(WarningComponent):
         subtitle_colored = self.renderer.colorize(subtitle, "orange")
         print(subtitle_colored)
         print()
-        time.sleep(timing.get("pause_before_explanation", 0.5))
+        time.sleep(timing.get("pause_before_explanation", TIMING_PAUSE_MEDIUM))
 
         # Display explanation and consequence
         explanation = warning_content.get("explanation", "This command is dangerous.")
@@ -129,7 +130,7 @@ class DangerWarning(WarningComponent):
         print(f"{lightbulb} {advice_title}")
         for item in advice:
             print(f"  - {item}")
-        time.sleep(timing.get("pause_before_achievement", 0.3))
+        time.sleep(timing.get("pause_before_achievement", TIMING_PAUSE_SHORT))
 
         print()
         command_text = self.renderer.colorize(f"Blocked command: {command}", "chocolate")

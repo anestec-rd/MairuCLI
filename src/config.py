@@ -7,6 +7,12 @@ This module handles user preferences and system settings.
 from dataclasses import dataclass
 
 
+# Timing constants (in seconds)
+TIMING_ASCII_CHAR_DELAY = 0.05  # Delay between ASCII art characters
+TIMING_PAUSE_SHORT = 0.3        # Short pause (after art, after achievement)
+TIMING_PAUSE_MEDIUM = 0.5       # Medium pause (before explanation, before achievement)
+
+
 @dataclass
 class MairuConfig:
     """Configuration for MairuCLI."""
