@@ -8,7 +8,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+- **Task Management Consolidation** - Day 7
+  - Merged MairuCLI_StockTask.md into TODO.md
+  - All active tasks now tracked in single location (TODO.md)
+  - Stock task file updated with completion status and references
+  - Verified "Achievement for Normal Commands" already implemented
+  - Existing achievements: Explorer (5 commands), Command Master (10 commands), Balanced User
+
 ### Added
+- **Extended Search and File Management Commands** - Day 7
+  - File Management:
+    - touch <file> - Create empty file or update timestamp
+    - mkdir <dir> - Create directory
+  - Search Commands:
+    - find <pattern> - Find files by name (supports wildcards)
+    - grep <pattern> <file> - Search text in files (with highlighting)
+    - which <command> - Show command location in PATH
+  - System Info:
+    - whoami - Display current username
+    - date - Display current date and time
+    - hostname - Display computer name
+    - tree [path] - Display directory tree structure (max 3 levels)
+  - Educational Features:
+    - All commands have Halloween-themed output
+    - Usage help for each command
+    - Error handling with friendly messages
+    - Cross-platform compatibility (Windows/Unix)
+  - Testing:
+    - 20 unit tests added, all passing
+    - Tests cover normal operation and edge cases
+  - Updated help command to categorize commands by function
+
 - **chmod -R 000 Pattern Detection** - Day 7
   - Detects chmod 000 and chmod -R 000 commands
   - Critical severity (blocks immediately)

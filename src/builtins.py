@@ -6,6 +6,11 @@ that must run in MairuCLI's process (cd, pwd, echo, etc.).
 """
 
 import os
+import re
+import sys
+import getpass
+import datetime
+import socket
 from pathlib import Path
 from typing import List, Optional
 
@@ -31,7 +36,9 @@ class BuiltinCommands:
         return cmd_name in [
             'cd', 'pwd', 'exit', 'quit', 'echo', 'export',
             'history', 'help', 'stats', 'ls', 'dir', 'clear',
-            'cls', 'env', 'alias', 'cat'
+            'cls', 'env', 'alias', 'cat', 'touch', 'mkdir',
+            'find', 'grep', 'which', 'whoami', 'date', 'hostname',
+            'tree'
         ]
 
     @classmethod
@@ -177,17 +184,37 @@ class BuiltinCommands:
         print("=" * 60)
         print()
 
-        print(colorize("Safe Commands (Go ahead, try these!):", "green"))
+        print(colorize("Navigation & File Management:", "green"))
         print("  cd [path]    - Change directory")
         print("  pwd          - Print working directory")
         print("  ls / dir     - List directory contents")
+        print("  tree [path]  - Show directory tree structure")
+        print("  touch <file> - Create empty file")
+        print("  mkdir <dir>  - Create directory")
         print("  cat [file]   - Display file contents =^.^=")
-        print("  clear / cls  - Clear terminal screen")
-        print("  echo [text]  - Print text to screen")
-        print("  export VAR=value - Set environment variable")
+        print()
+
+        print(colorize("Search & Find:", "green"))
+        print("  find <pattern> - Find files by name")
+        print("  grep <pattern> <file> - Search text in files")
+        print("  which <cmd>  - Show command location")
+        print()
+
+        print(colorize("System Info:", "green"))
+        print("  whoami       - Show current username")
+        print("  hostname     - Show computer name")
+        print("  date         - Show current date and time")
         print("  env          - Show environment variables")
+        print()
+
+        print(colorize("Utilities:", "green"))
+        print("  echo [text]  - Print text to screen")
+        print("  clear / cls  - Clear terminal screen")
         print("  history      - Show command history")
         print("  alias        - Show available command aliases")
+        print()
+
+        print(colorize("MairuCLI Specific:", "green"))
         print("  stats        - Show how many times I saved you")
         print("  help         - Show this help message")
         print("  exit/quit    - Exit MairuCLI")
@@ -490,3 +517,370 @@ class BuiltinCommands:
             command: Command to add to history
         """
         cls._history.append(command)
+
+    @classmethod
+    def _cmd_touch(cls, args: List[str]) -> bool:
+        """
+        Create empty file or update timestamp.
+
+        Args:
+            args: File paths to create/touch
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        if not args:
+            print(f"{EMOJI['pumpkin']} Usage: touch <filename>")
+            print("Creates an empty file or updates its timestamp")
+            return True
+
+        for filename in args:
+            try:
+                Path(filename).touch()
+                print(f"✨ Created/touched: {colorize(filename, 'green')}")
+            except PermissionError:
+                print(f"❌ Permission denied: {colorize(filename, 'red')}")
+            except Exception as e:
+                print(f"❌ Error: {e}")
+
+        return True
+
+    @classmethod
+    def _cmd_mkdir(cls, args: List[str]) -> bool:
+        """
+        Create directory.
+
+        Args:
+            args: Directory paths to create
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        if not args:
+            print(f"{EMOJI['pumpkin']} Usage: mkdir <directory>")
+            print("Creates a new directory")
+            return True
+
+        for dirname in args:
+            try:
+                Path(dirname).mkdir(parents=False, exist_ok=False)
+                print(f"📁 Created directory: {colorize(dirname, 'green')}")
+            except FileExistsError:
+                print(f"⚠️  Directory already exists: {colorize(dirname, 'chocolate')}")
+            except PermissionError:
+                print(f"❌ Permission denied: {colorize(dirname, 'red')}")
+            except Exception as e:
+                print(f"❌ Error: {e}")
+
+        return True
+
+    @classmethod
+    def _cmd_find(cls, args: List[str]) -> bool:
+        """
+        Find files by name pattern (simplified version).
+
+        Args:
+            args: Pattern to search for
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        if not args:
+            print(f"{EMOJI['pumpkin']} Usage: find <pattern>")
+            print("Searches for files matching the pattern in current directory")
+            print()
+            print("Examples:")
+            print("  find *.py      - Find all Python files")
+            print("  find test      - Find files containing 'test'")
+            return True
+
+        pattern = args[0]
+        current_dir = Path.cwd()
+        found_count = 0
+
+        print(f"🔍 Searching for '{colorize(pattern, 'orange')}' in {current_dir}...")
+        print()
+
+        try:
+            # Use rglob for recursive search
+            if '*' in pattern or '?' in pattern:
+                # Glob pattern
+                matches = list(current_dir.rglob(pattern))
+            else:
+                # Simple substring search
+                matches = [p for p in current_dir.rglob('*')
+                          if pattern.lower() in p.name.lower()]
+
+            for match in sorted(matches)[:50]:  # Limit to 50 results
+                relative_path = match.relative_to(current_dir)
+                if match.is_dir():
+                    print(f"  📁 {colorize(str(relative_path), 'purple')}/")
+                else:
+                    print(f"  📄 {colorize(str(relative_path), 'green')}")
+                found_count += 1
+
+            print()
+            if found_count == 0:
+                print(f"{EMOJI['ghost']} No files found matching '{pattern}'")
+            elif found_count == 50:
+                print(f"✨ Found {colorize(str(found_count), 'orange')}+ matches (showing first 50)")
+            else:
+                print(f"✨ Found {colorize(str(found_count), 'orange')} match(es)")
+
+        except Exception as e:
+            print(f"❌ Error searching: {e}")
+
+        return True
+
+    @classmethod
+    def _cmd_grep(cls, args: List[str]) -> bool:
+        """
+        Search for pattern in files (simplified version).
+
+        Args:
+            args: Pattern and file(s) to search
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        if len(args) < 2:
+            print(f"{EMOJI['pumpkin']} Usage: grep <pattern> <file>")
+            print("Searches for text pattern in file(s)")
+            print()
+            print("Examples:")
+            print("  grep TODO file.txt       - Find 'TODO' in file.txt")
+            print("  grep 'hello' *.py        - Find 'hello' in Python files")
+            return True
+
+        pattern = args[0]
+        files = args[1:]
+        total_matches = 0
+
+        print(f"🔍 Searching for '{colorize(pattern, 'orange')}'...")
+        print()
+
+        for file_pattern in files:
+            # Handle wildcards
+            if '*' in file_pattern or '?' in file_pattern:
+                matching_files = list(Path.cwd().glob(file_pattern))
+            else:
+                matching_files = [Path(file_pattern)]
+
+            for filepath in matching_files:
+                if not filepath.is_file():
+                    continue
+
+                try:
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        file_matches = 0
+                        for line_num, line in enumerate(f, 1):
+                            if re.search(pattern, line, re.IGNORECASE):
+                                if file_matches == 0:
+                                    print(f"{colorize(str(filepath), 'purple')}:")
+                                # Highlight the match
+                                highlighted = re.sub(
+                                    f'({re.escape(pattern)})',
+                                    lambda m: colorize(m.group(1), 'orange'),
+                                    line.rstrip(),
+                                    flags=re.IGNORECASE
+                                )
+                                print(f"  {colorize(str(line_num), 'chocolate')}: {highlighted}")
+                                file_matches += 1
+                                total_matches += 1
+
+                        if file_matches > 0:
+                            print()
+
+                except PermissionError:
+                    print(f"❌ Permission denied: {filepath}")
+                except Exception as e:
+                    print(f"❌ Error reading {filepath}: {e}")
+
+        if total_matches == 0:
+            print(f"{EMOJI['ghost']} No matches found for '{pattern}'")
+        else:
+            print(f"✨ Found {colorize(str(total_matches), 'orange')} match(es)")
+
+        return True
+
+    @classmethod
+    def _cmd_which(cls, args: List[str]) -> bool:
+        """
+        Show location of command in PATH.
+
+        Args:
+            args: Command name(s) to locate
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        if not args:
+            print(f"{EMOJI['pumpkin']} Usage: which <command>")
+            print("Shows the location of a command in your PATH")
+            return True
+
+        path_env = os.environ.get('PATH', '')
+        path_dirs = path_env.split(os.pathsep)
+
+        for cmd_name in args:
+            found = False
+
+            # Check if it's a builtin first
+            if cls.is_builtin(cmd_name):
+                print(f"{colorize(cmd_name, 'green')}: MairuCLI builtin command")
+                found = True
+                continue
+
+            # Search in PATH
+            for path_dir in path_dirs:
+                if sys.platform == "win32":
+                    # Windows: check with common extensions
+                    for ext in ['', '.exe', '.bat', '.cmd', '.com']:
+                        cmd_path = Path(path_dir) / f"{cmd_name}{ext}"
+                        if cmd_path.is_file():
+                            print(f"{colorize(cmd_name, 'green')}: {cmd_path}")
+                            found = True
+                            break
+                else:
+                    # Unix: check without extension
+                    cmd_path = Path(path_dir) / cmd_name
+                    if cmd_path.is_file() and os.access(cmd_path, os.X_OK):
+                        print(f"{colorize(cmd_name, 'green')}: {cmd_path}")
+                        found = True
+                        break
+
+                if found:
+                    break
+
+            if not found:
+                print(f"{EMOJI['ghost']} {cmd_name}: not found in PATH")
+
+        return True
+
+    @classmethod
+    def _cmd_whoami(cls, args: List[str]) -> bool:
+        """
+        Display current username.
+
+        Args:
+            args: Command arguments (unused)
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize
+
+        try:
+            username = getpass.getuser()
+            print(f"👤 {colorize(username, 'orange')}")
+        except Exception:
+            print("👤 (unknown)")
+
+        return True
+
+    @classmethod
+    def _cmd_date(cls, args: List[str]) -> bool:
+        """
+        Display current date and time.
+
+        Args:
+            args: Command arguments (unused)
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize
+
+        now = datetime.datetime.now()
+        formatted_date = now.strftime("%Y-%m-%d %H:%M:%S %A")
+        print(f"📅 {colorize(formatted_date, 'purple')}")
+
+        return True
+
+    @classmethod
+    def _cmd_hostname(cls, args: List[str]) -> bool:
+        """
+        Display hostname.
+
+        Args:
+            args: Command arguments (unused)
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize
+
+        try:
+            hostname = socket.gethostname()
+            print(f"🖥️  {colorize(hostname, 'orange')}")
+        except Exception:
+            print("🖥️  (unknown)")
+
+        return True
+
+    @classmethod
+    def _cmd_tree(cls, args: List[str]) -> bool:
+        """
+        Display directory tree structure (simplified version).
+
+        Args:
+            args: Directory path (optional)
+
+        Returns:
+            True (always handled)
+        """
+        from src.display import colorize, EMOJI
+
+        target_dir = Path(args[0]) if args else Path.cwd()
+
+        if not target_dir.exists():
+            print(f"❌ Directory not found: {target_dir}")
+            return True
+
+        if not target_dir.is_dir():
+            print(f"❌ Not a directory: {target_dir}")
+            return True
+
+        print(f"🌳 {colorize(str(target_dir), 'orange')}")
+
+        def print_tree(directory: Path, prefix: str = "", max_depth: int = 3, current_depth: int = 0):
+            """Recursively print directory tree."""
+            if current_depth >= max_depth:
+                return
+
+            try:
+                entries = sorted(directory.iterdir(), key=lambda p: (not p.is_dir(), p.name))
+                entries = [e for e in entries if not e.name.startswith('.')]  # Skip hidden files
+
+                for i, entry in enumerate(entries[:20]):  # Limit to 20 entries per directory
+                    is_last = i == len(entries) - 1
+                    current_prefix = "└── " if is_last else "├── "
+                    next_prefix = "    " if is_last else "│   "
+
+                    if entry.is_dir():
+                        print(f"{prefix}{current_prefix}{colorize(entry.name, 'purple')}/")
+                        print_tree(entry, prefix + next_prefix, max_depth, current_depth + 1)
+                    else:
+                        print(f"{prefix}{current_prefix}{colorize(entry.name, 'green')}")
+
+                if len(entries) > 20:
+                    print(f"{prefix}... ({len(entries) - 20} more items)")
+
+            except PermissionError:
+                print(f"{prefix}❌ Permission denied")
+
+        print_tree(target_dir)
+        print()
+        print(f"{EMOJI['pumpkin']} Tip: tree shows up to 3 levels deep")
+
+        return True
