@@ -2,6 +2,51 @@
 
 ## High Priority (Before Demo)
 
+### Code Quality
+- [ ] **Magic Number Refactoring** - Day 7 🟡 **IN PROGRESS**
+  - **Reference:** See `docs/reports/MAGIC_NUMBERS_ANALYSIS.md` for detailed analysis
+  - **Goal:** Replace hardcoded numeric literals with named constants for better maintainability
+
+  **Phase 1: Timing Constants** (Day 7 - High Priority) ✅ **PLANNED**
+  - [ ] Add timing constants to `src/config.py`
+    - TIMING_ASCII_CHAR_DELAY = 0.05
+    - TIMING_PAUSE_SHORT = 0.3
+    - TIMING_PAUSE_MEDIUM = 0.5
+  - [ ] Update `src/display/ascii_renderer.py` (1 instance)
+  - [ ] Update `src/display/warning_components.py` (4 instances)
+  - [ ] Update `src/display/achievements.py` (2 instances)
+  - [ ] Run tests to verify no functional changes
+  - **Estimated Time:** 5-7 minutes
+  - **Impact:** High (most frequently adjusted values)
+
+  **Phase 2: Achievement Thresholds** (Day 8 - Medium Priority) ⏳ **DEFERRED**
+  - [ ] Add achievement threshold constants to `src/display/achievements.py`
+    - ACHIEVEMENT_FIRST_BLOOD = 1
+    - ACHIEVEMENT_THRESHOLD_LOW = 3
+    - ACHIEVEMENT_THRESHOLD_MEDIUM = 5
+    - ACHIEVEMENT_THRESHOLD_HIGH = 8
+  - [ ] Update all achievement checks (8-10 instances)
+  - **Estimated Time:** 5 minutes
+  - **Impact:** Medium (improves achievement maintainability)
+
+  **Phase 3: Display Formatting** (Day 8 - Low Priority) ⏳ **DEFERRED**
+  - [ ] Add display constants to `src/config.py`
+    - DISPLAY_SEPARATOR_WIDTH = 60
+    - DISPLAY_MIN_QUOTE_LENGTH = 2
+  - [ ] Update separator lines in 4 files
+  - [ ] Update quote check in `src/command_parser.py`
+  - **Estimated Time:** 5 minutes
+  - **Impact:** Low (rarely changed values)
+
+  **Benefits:**
+  - Single source of truth for timing values
+  - Easy to adjust timing globally
+  - Self-documenting code
+  - Easier to add configuration file support later
+
+  **Added:** 2025-11-23 (Day 7 - Code quality improvement)
+  **Priority:** Medium (improves maintainability, not critical for v1.2.0)
+
 ### Bug Fixes
 - [x] **Fix dd command pattern detection (Issue #2)** ✅ 2025-11-21
   - Fixed pattern to `r"dd\s+if=/dev/zero"` (made `of=` optional)
