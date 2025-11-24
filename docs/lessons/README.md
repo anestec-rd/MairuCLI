@@ -48,8 +48,28 @@ The lessons are organized by topic for easier navigation and reference.
 ### Practical Challenges
 - **[06-practical-challenges.md](06-practical-challenges.md)**
   - Session length and response quality
+  - Emoji compatibility in terminal applications
   - Real-world AI usage patterns
-  - Workarounds and solutions
+
+### AI Limitations and Technology Choices
+- **[07-ai-limitations-and-choices.md](07-ai-limitations-and-choices.md)**
+  - ASCII art: Where AI still struggles
+  - CLI vs GUI: Technology choice in the AI era
+  - When to delegate to AI and when to do it yourself
+
+### Learning in the AI Era
+- **[08-learning-in-ai-era.md](08-learning-in-ai-era.md)**
+  - What are "fundamentals" in the AI era?
+  - The paradox of AI-assisted learning
+  - Redefining fundamentals
+  - Learning through building vs studying
+
+### Motivation and Value Creation
+- **[09-motivation-and-value.md](09-motivation-and-value.md)**
+  - The mass production problem
+  - What creates value in AI era
+  - Motivation formula and sources
+  - Practical recommendations
 
 ---
 
@@ -112,9 +132,9 @@ When adding new lessons:
 
 ---
 
-**Last Updated:** November 19, 2025 (Day 4)
-**Total Lessons:** 6 major topics
-**Total Insights:** 20+ key learnings
+**Last Updated:** November 24, 2025 (Day 8)
+**Total Lessons:** 9 major topics
+**Total Insights:** 35+ key learnings
 **Status:** Active and evolving
 
 ---
