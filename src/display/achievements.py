@@ -17,6 +17,7 @@ ACHIEVEMENT_THRESHOLD_LOW = 3        # Typo Master, Stubborn, Boundary Tester
 ACHIEVEMENT_THRESHOLD_MEDIUM = 5     # Persistent Troublemaker, Explorer
 ACHIEVEMENT_THRESHOLD_HIGH = 8       # Balanced User
 ACHIEVEMENT_THRESHOLD_EXPERT = 10    # Danger Addict
+ACHIEVEMENT_THRESHOLD_UNSTOPPABLE = 20  # Unstoppable - extreme persistence
 
 
 # Achievement metadata with categories
@@ -64,6 +65,22 @@ ACHIEVEMENT_METADATA = {
     "system_adventurer": {
         "name": "System Adventurer",
         "category": "system_protection"
+    },
+    "unstoppable": {
+        "name": "Unstoppable",
+        "category": "danger"
+    },
+    "creator": {
+        "name": "Creator",
+        "category": "safe"
+    },
+    "architect": {
+        "name": "Architect",
+        "category": "safe"
+    },
+    "detective": {
+        "name": "Detective",
+        "category": "safe"
     }
 }
 
@@ -132,6 +149,20 @@ class AchievementTracker:
                 "Tried the same command 3 times. I admire your persistence!"
             )
 
+        # Achievement: Unstoppable
+        if max_repeats >= ACHIEVEMENT_THRESHOLD_UNSTOPPABLE and "unstoppable" not in self._unlocked:
+            self._unlocked.append("unstoppable")
+            self.show_achievement(
+                "Unstoppable",
+                "20 times the same command?! You're absolutely unstoppable! 🔥"
+            )
+            # Note: Repeat warnings stop escalating after 7, but achievement still tracks
+            print(self.renderer.colorize(
+                "💡 Note: Warning messages won't change anymore, but I'm still counting!",
+                "chocolate"
+            ))
+            print()
+
         # Achievement: Explorer
         if safe_commands >= ACHIEVEMENT_THRESHOLD_MEDIUM and "explorer" not in self._unlocked:
             self._unlocked.append("explorer")
@@ -146,6 +177,31 @@ class AchievementTracker:
             self.show_achievement(
                 "Command Master",
                 "Used 10 different safe commands. You're a CLI wizard!"
+            )
+
+        # Achievement: Creator
+        if self.statistics.has_used_command("touch") and "creator" not in self._unlocked:
+            self._unlocked.append("creator")
+            self.show_achievement(
+                "Creator",
+                "Created a file with 'touch'! Every masterpiece starts somewhere. 📝"
+            )
+
+        # Achievement: Architect
+        if self.statistics.has_used_command("mkdir") and "architect" not in self._unlocked:
+            self._unlocked.append("architect")
+            self.show_achievement(
+                "Architect",
+                "Built a directory with 'mkdir'! You're structuring your digital world. 🏗️"
+            )
+
+        # Achievement: Detective
+        if ((self.statistics.has_used_command("grep") or self.statistics.has_used_command("find"))
+                and "detective" not in self._unlocked):
+            self._unlocked.append("detective")
+            self.show_achievement(
+                "Detective",
+                "Used search commands! Nothing escapes your investigation. 🔍"
             )
 
         # Achievement: Balanced User

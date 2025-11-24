@@ -100,6 +100,18 @@ class Statistics:
             len(self._safe_commands_used)
         )
 
+    def has_used_command(self, command: str) -> bool:
+        """
+        Check if a specific command has been used.
+
+        Args:
+            command: The command to check
+
+        Returns:
+            True if command has been used, False otherwise
+        """
+        return command in self._safe_commands_used
+
     def get_safe_commands_count(self) -> int:
         """
         Get number of unique safe commands used.

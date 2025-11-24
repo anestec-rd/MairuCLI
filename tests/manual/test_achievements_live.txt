@@ -1,0 +1,4 @@
+touch myfile.txt
+mkdir mydir
+grep test README.md
+exit
