@@ -8,9 +8,10 @@ from dataclasses import dataclass
 
 
 # Timing constants (in seconds)
-TIMING_ASCII_CHAR_DELAY = 0.05  # Delay between ASCII art characters
-TIMING_PAUSE_SHORT = 0.3        # Short pause (after art, after achievement)
-TIMING_PAUSE_MEDIUM = 0.5       # Medium pause (before explanation, before achievement)
+# Day 8: Adjusted for more dramatic effect (demo-friendly)
+TIMING_ASCII_CHAR_DELAY = 0.08  # Delay between ASCII art characters (was 0.05)
+TIMING_PAUSE_SHORT = 0.5        # Short pause (after art, after achievement) (was 0.3)
+TIMING_PAUSE_MEDIUM = 1.0       # Medium pause (before explanation) (was 0.5)
 
 # Display formatting constants
 DISPLAY_SEPARATOR_WIDTH = 60    # Width of separator lines (=====)
