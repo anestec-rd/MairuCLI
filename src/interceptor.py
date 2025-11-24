@@ -181,22 +181,123 @@ CAUTION_PATTERNS: Dict[str, Dict] = {
             "Is this permanent or temporary?",
             "Do you understand the security implications?"
         ]
+    },
+    "kill_force": {
+        "pattern": r"kill\s+-9\s+\d+",
+        "category": "process",
+        "severity": "medium",
+        "risk": "Force-killing process without cleanup",
+        "impact": "May cause data loss or corruption",
+        "considerations": [
+            "Did you try 'kill' (SIGTERM) first?",
+            "Will the process lose unsaved data?",
+            "Is this a critical system process?"
+        ]
+    },
+    "rm_node_modules": {
+        "pattern": r"rm\s+-rf\s+node_modules",
+        "category": "deletion",
+        "severity": "low",
+        "risk": "Deleting node_modules directory",
+        "impact": "Will need to run 'npm install' again (takes time)",
+        "considerations": [
+            "This will take a while to reinstall",
+            "Are you sure you want to delete dependencies?",
+            "Consider 'npm ci' for a clean install instead"
+        ]
+    },
+    "git_force_push": {
+        "pattern": r"git\s+push\s+(--force|-f)(?:\s|$)",
+        "category": "version_control",
+        "severity": "high",
+        "risk": "Force-pushing to remote repository",
+        "impact": "May overwrite teammates' work",
+        "considerations": [
+            "Have you coordinated with your team?",
+            "Could you use '--force-with-lease' instead?",
+            "Are you pushing to a shared branch?"
+        ]
     }
 }
 
-# Typo patterns
+# Typo patterns (special cases that need custom messages)
+# Note: Generic typo detection handles most common typos automatically
+# Only define patterns here if they need special handling or custom messages
 TYPO_PATTERNS: Dict[str, Dict[str, str]] = {
     "sl": {
         "pattern": r"^sl$",
         "correct": "ls",
         "message": "🚂 Choo choo! All aboard the typo train!"
     },
+    "gti": {
+        "pattern": r"^gti\b",
+        "correct": "git",
+        "message": "🎃 GTI? That's a car! You meant 'git', right?"
+    },
+    "tou": {
+        "pattern": r"^tou\b",
+        "correct": "touch",
+        "message": "⚡ Whoa, speedy fingers! You meant 'touch', right?"
+    },
     "cd_stuck": {
         "pattern": r"^cd\.\.$",
         "correct": "cd ..",
         "message": "🎃 Stuck together? Let me help you separate!"
+    },
+    "ls_stuck": {
+        "pattern": r"^ls-[a-z]+$",
+        "correct": "ls -[options]",
+        "message": "🎯 Missing space! Try 'ls -la' instead of 'ls-la'!"
+    },
+    "git_stuck": {
+        "pattern": r"^git-[a-z]+$",
+        "correct": "git [command]",
+        "message": "📝 Oops! Git commands need space: 'git status'!"
     }
 }
+
+
+# Common command list for generic typo detection
+COMMON_COMMANDS = [
+    "ls", "cd", "pwd", "cat", "echo", "touch", "mkdir", "rm", "mv", "cp",
+    "chmod", "chown", "grep", "find", "which", "whoami", "date", "hostname",
+    "git", "exit", "clear", "help", "history", "alias", "tree"
+]
+
+
+def check_generic_typo(command: str) -> Tuple[bool, str, str]:
+    """
+    Check for generic typo patterns (missing last character, etc.).
+
+    Args:
+        command: First word of the command
+
+    Returns:
+        Tuple of (is_typo, correct_command, message)
+    """
+    cmd_word = command.split()[0] if command.split() else command
+
+    # Check if command is missing last character
+    for correct_cmd in COMMON_COMMANDS:
+        if len(correct_cmd) > 2 and cmd_word == correct_cmd[:-1]:
+            return (
+                True,
+                correct_cmd,
+                f"⚡ Speedy fingers! Missing the last letter? Try '{correct_cmd}'!"
+            )
+
+    # Check if command has one character wrong (simple substitution)
+    for correct_cmd in COMMON_COMMANDS:
+        if len(cmd_word) == len(correct_cmd) and len(cmd_word) > 2:
+            diff_count = sum(1 for a, b in zip(cmd_word, correct_cmd) if a != b)
+            if diff_count == 1:
+                return (
+                    True,
+                    correct_cmd,
+                    f"🎃 Close! One letter off. Did you mean '{correct_cmd}'?"
+                )
+
+    return False, "", ""
 
 
 def check_command(command: str) -> Tuple[str, str]:
@@ -223,10 +324,22 @@ def check_command(command: str) -> Tuple[str, str]:
         if re.search(pattern_data["pattern"], command, re.IGNORECASE):
             return "caution", pattern_name
 
-    # Check typo patterns (treated as critical for blocking)
+    # Check specific typo patterns (treated as critical for blocking)
     for pattern_name, pattern_data in TYPO_PATTERNS.items():
         if re.search(pattern_data["pattern"], command, re.IGNORECASE):
             return "critical", f"typo_{pattern_name}"
+
+    # Check generic typo patterns
+    is_typo, correct_cmd, message = check_generic_typo(command)
+    if is_typo:
+        # Create a dynamic typo pattern
+        cmd_word = command.split()[0] if command.split() else command
+        TYPO_PATTERNS[f"generic_{cmd_word}"] = {
+            "pattern": f"^{re.escape(cmd_word)}\\b",
+            "correct": correct_cmd,
+            "message": message
+        }
+        return "critical", f"typo_generic_{cmd_word}"
 
     return "safe", ""
 
