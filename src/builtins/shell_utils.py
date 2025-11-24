@@ -35,6 +35,7 @@ def cmd_echo(args: List[str]) -> bool:
     # Expand environment variables
     # Unix-style: $VAR or ${VAR}
     def expand_unix_var(match):
+        """Expand Unix-style environment variable ($VAR or ${VAR})."""
         var_name = match.group(1) or match.group(2)
         return os.environ.get(var_name, match.group(0))
 
@@ -42,6 +43,7 @@ def cmd_echo(args: List[str]) -> bool:
 
     # Windows-style: %VAR%
     def expand_windows_var(match):
+        """Expand Windows-style environment variable (%VAR%)."""
         var_name = match.group(1)
         return os.environ.get(var_name, match.group(0))
 

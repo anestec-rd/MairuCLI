@@ -2,6 +2,19 @@
 Configuration management for MairuCLI.
 
 This module handles user preferences and system settings.
+
+Timing Constants (Day 8 - Adjusted for dramatic effect):
+- TIMING_ASCII_CHAR_DELAY: Delay between ASCII art lines (0.08s)
+- TIMING_PAUSE_SHORT: Short pause after art/achievements (0.5s)
+- TIMING_PAUSE_MEDIUM: Medium pause before explanations (1.0s)
+
+Display Constants:
+- DISPLAY_SEPARATOR_WIDTH: Width of separator lines (60 chars)
+- DISPLAY_MIN_QUOTE_LENGTH: Minimum length for quoted strings (2 chars)
+
+Configuration:
+- MairuConfig: Dataclass for user preferences (colors, behavior, etc.)
+- Currently uses default values (file loading not implemented in MVP)
 """
 
 from dataclasses import dataclass

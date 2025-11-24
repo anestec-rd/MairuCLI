@@ -2,6 +2,18 @@
 Achievement tracking for MairuCLI display system.
 
 Tracks and displays achievement unlocks based on user actions.
+
+Achievements are categorized into:
+- danger: Achievements related to dangerous command attempts
+- safe: Achievements related to safe command usage
+- exploration: Achievements related to exploring CLI features
+- system_protection: Achievements related to system directory protection
+
+New achievements added in Day 8:
+- Unstoppable: Repeat same command 20 times
+- Creator: Use 'touch' command
+- Architect: Use 'mkdir' command
+- Detective: Use 'grep' or 'find' command
 """
 
 import time

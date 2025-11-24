@@ -2,6 +2,16 @@
 Statistics tracking for MairuCLI display system.
 
 Tracks dangerous commands blocked, typos caught, and repeat attempts.
+
+Statistics tracked:
+- dangerous_blocked: Number of dangerous commands blocked
+- typos_caught: Number of typos caught
+- safe_commands_used: Number of unique safe commands used
+- caution_shown/proceeded/cancelled: Caution warning statistics
+- system_protection_blocks: Number of system directory protection blocks
+
+The statistics system supports achievement tracking by providing
+methods to check command usage and repeat patterns.
 """
 
 from typing import Dict
