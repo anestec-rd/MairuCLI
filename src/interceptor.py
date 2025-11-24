@@ -232,7 +232,7 @@ TYPO_PATTERNS: Dict[str, Dict[str, str]] = {
     "gti": {
         "pattern": r"^gti\b",
         "correct": "git",
-        "message": "🎃 GTI? That's a car! You meant 'git', right?"
+        "message": "🚗 GTI? That's a car! You meant 'git', right?"
     },
     "tou": {
         "pattern": r"^tou\b",
