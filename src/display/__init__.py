@@ -53,15 +53,19 @@ def display_welcome_banner() -> None:
     """
     Display Halloween-themed welcome banner on startup.
     """
-    pumpkin = EMOJI['pumpkin']
-    title = colorize("Welcome to MairuCLI", "red")
-    subtitle = colorize(
-        "Your friendly CLI safety wrapper with a spooky twist!",
-        "chocolate"
-    )
+    # Load ASCII art banner
+    import os
+    banner_path = os.path.join("data", "ascii_art", "welcome_mairu_banner.txt")
 
-    # Simple separator line (no box to avoid emoji alignment issues)
-    separator = colorize("=" * 65, "orange")
+    try:
+        with open(banner_path, 'r', encoding='utf-8') as f:
+            ascii_banner = f.read()
+    except FileNotFoundError:
+        # Fallback to simple banner if file not found
+        ascii_banner = "\n🎃 MairuCLI 🎃\n"
+
+    # Colorize the banner
+    colored_banner = colorize(ascii_banner, "orange")
 
     # Instructions
     instruction1 = colorize(
@@ -78,12 +82,7 @@ def display_welcome_banner() -> None:
         "chocolate"
     )
 
-    banner = f"""
-{separator}
-  {pumpkin} {title} {pumpkin}
-  {subtitle}
-{separator}
-
+    banner = f"""{colored_banner}
 {instruction1}
 {instruction2}
 {instruction3}
