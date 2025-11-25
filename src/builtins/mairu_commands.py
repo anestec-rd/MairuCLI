@@ -67,15 +67,42 @@ def cmd_help(args: List[str]) -> bool:
     print("  (after safety checks, of course!)")
     print()
 
-    print(colorize("⚠️  Dangerous Commands (DON'T try these!):", "red"))
+    print(colorize("💀 Dangerous Commands (DON'T try these!):", "red"))
     print(f"  {EMOJI['fire']} rm -rf /        "
           "- Deletes EVERYTHING (seriously, don't)")
-    print(f"  {EMOJI['skull']} chmod 777 file  "
+    print(f"  {EMOJI['unlock']} chmod 777 file  "
           "- Makes files world-writable (bad idea)")
-    print(f"  {EMOJI['fire']} dd if=/dev/zero "
+    print(f"  {EMOJI['lock']} chmod 000 file  "
+          "- Locks file completely (even you can't access)")
+    print(f"  {EMOJI['bomb']} dd if=/dev/zero "
           "- Overwrites your disk (yikes!)")
+    print(f"  {EMOJI['disk']} > /dev/sda      "
+          "- Destroys disk directly (instant data loss)")
+    print(f"  {EMOJI['disk']} mkfs /dev/sda   "
+          "- Formats entire disk (everything gone)")
+    print(f"  {EMOJI['skull']} echo c > /proc/sysrq-trigger "
+          "- Crashes kernel (instant reboot)")
+    print(f"  {EMOJI['shredder']} shred /dev/sda  "
+          "- Secure wipes disk (unrecoverable)")
     print(f"  {EMOJI['fire']} DROP DATABASE   "
           "- Deletes entire database (career-ending)")
+    print(f"  {EMOJI['fire']} :()\u007b :|:& \u007d;: "
+          "- Fork bomb (freezes system)")
+    print()
+
+    print(colorize("⚠️  Caution Commands (Think twice!):", "purple"))
+    print(f"  {EMOJI['skull']} sudo su         "
+          "- Enters root shell (all safety off)")
+    print(f"  {EMOJI['skull']} chmod 666/755   "
+          "- Makes files readable by others")
+    print(f"  {EMOJI['skull']} iptables -F     "
+          "- Disables firewall (security risk)")
+    print(f"  {EMOJI['skull']} setenforce 0    "
+          "- Disables SELinux (weakens security)")
+    print(f"  {EMOJI['skull']} kill -9 <pid>   "
+          "- Force kills process (may lose data)")
+    print(f"  {EMOJI['skull']} git push --force "
+          "- Overwrites remote (may lose teammates' work)")
     print()
 
     print(colorize("Fun Typos to Try:", "chocolate"))

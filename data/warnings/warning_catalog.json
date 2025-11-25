@@ -28,7 +28,7 @@
       "variation_set": "chmod_777",
       "ascii_art": "permission_denied.txt",
       "color": "purple",
-      "emoji": "skull",
+      "emoji": "unlock",
       "explanation": "chmod 777 gives EVERYONE full access to your files.",
       "consequence": "This is a major security risk!",
       "advice": [
@@ -48,7 +48,7 @@
       "variation_set": "chmod_000",
       "ascii_art": "permission_denied.txt",
       "color": "red",
-      "emoji": "skull",
+      "emoji": "lock",
       "explanation": "chmod 000 removes ALL permissions - nobody can access the file!",
       "consequence": "You won't be able to read, write, or execute the file. Even you!",
       "advice": [
@@ -69,7 +69,7 @@
       "variation_set": "zero_wipe",
       "ascii_art": "zero_wipe.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "bomb",
       "explanation": "The command 'dd if=/dev/zero' can destroy disk data.",
       "consequence": "It can cause irreversible data loss.",
       "advice": [
@@ -89,7 +89,7 @@
       "variation_set": "drop_database",
       "ascii_art": "database_drop.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "database",
       "explanation": "DROP DATABASE permanently deletes an entire database.",
       "consequence": "It can cause irreversible data loss.",
       "advice": [
@@ -110,7 +110,7 @@
       "variation_set": "fork_bomb",
       "ascii_art": "fork_bomb.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "bomb",
       "explanation": "This is a FORK BOMB - a DOS attack that freezes your system!",
       "consequence": "Your system will become unresponsive and require reboot.",
       "advice": [
@@ -130,7 +130,7 @@
       "variation_set": "disk_destroyer",
       "ascii_art": "disk_destroyer.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "disk",
       "explanation": "/dev/sda is your PHYSICAL DISK, not a file! Redirecting output here writes directly to the disk hardware, destroying the boot sector and partition table.",
       "consequence": "All data on the disk will be lost. Your system won't boot. Recovery is nearly impossible.",
       "advice": [
@@ -151,7 +151,7 @@
       "variation_set": "disk_destroyer",
       "ascii_art": "disk_destroyer.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "disk",
       "explanation": "mkfs formats the disk, erasing EVERYTHING on it!",
       "consequence": "All data on the disk will be permanently lost.",
       "advice": [
@@ -171,7 +171,7 @@
       "variation_set": "data_void",
       "ascii_art": "data_void.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "void",
       "explanation": "Moving files to /dev/null makes them disappear forever!",
       "consequence": "Files sent to /dev/null cannot be recovered.",
       "advice": [
@@ -191,7 +191,7 @@
       "variation_set": "file_eraser",
       "ascii_art": "file_eraser.txt",
       "color": "purple",
-      "emoji": "skull",
+      "emoji": "eraser",
       "explanation": "Redirecting nothing to a file overwrites it with 0 bytes!",
       "consequence": "The file will be empty - all content lost.",
       "advice": [
@@ -211,7 +211,7 @@
       "variation_set": "disk_destroyer",
       "ascii_art": "disk_destroyer.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "disk",
       "explanation": "This command fills your disk with random data!",
       "consequence": "All data will be overwritten and unrecoverable.",
       "advice": [
@@ -231,7 +231,7 @@
       "variation_set": "kernel_panic",
       "ascii_art": "kernel_panic.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "skull",
       "explanation": "/proc/sysrq-trigger is a KERNEL CONTROL interface! Writing 'c' here forces an immediate kernel panic (crash). This is like pressing the emergency stop button on your system.",
       "consequence": "Instant system crash. All unsaved work lost. Requires hard reboot. Potential filesystem corruption.",
       "advice": [
@@ -252,7 +252,7 @@
       "variation_set": "data_destroyer",
       "ascii_art": "data_destroyer.txt",
       "color": "red",
-      "emoji": "fire",
+      "emoji": "shredder",
       "explanation": "shred overwrites files multiple times to make recovery IMPOSSIBLE! When used on disk devices (/dev/sda) or with high iteration counts, it destroys data permanently.",
       "consequence": "Data cannot be recovered. Unlike 'rm', shred makes files truly unrecoverable. On disk devices, it destroys everything.",
       "advice": [

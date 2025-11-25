@@ -28,7 +28,16 @@ EMOJI = {
     "lightbulb": "💡",
     "ghost": "👻",
     "facepalm": "🤦",
-    "eyes": "👀"
+    "eyes": "👀",
+    "unlock": "🔓",
+    "lock": "🔒",
+    "bomb": "💣",
+    "database": "🗄️",
+    "disk": "💿",
+    "void": "🕳️",
+    "eraser": "🧹",
+    "shredder": "🔪",
+    "warning": "⚠️"
 }
 
 
