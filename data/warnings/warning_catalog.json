@@ -131,11 +131,12 @@
       "ascii_art": "disk_destroyer.txt",
       "color": "red",
       "emoji": "fire",
-      "explanation": "Redirecting output to /dev/sda overwrites your disk directly!",
-      "consequence": "This will destroy all data on the disk.",
+      "explanation": "/dev/sda is your PHYSICAL DISK, not a file! Redirecting output here writes directly to the disk hardware, destroying the boot sector and partition table.",
+      "consequence": "All data on the disk will be lost. Your system won't boot. Recovery is nearly impossible.",
       "advice": [
-        "Never redirect to /dev/sd* devices",
-        "Use proper disk tools for disk operations"
+        "NEVER redirect to /dev/sd* devices (these are physical disks)",
+        "/dev/sda = entire first disk, /dev/sdb = second disk, etc.",
+        "Use regular files for output: > /tmp/output.txt"
       ],
       "timing": {
         "art_delay": 0.05,
@@ -231,11 +232,34 @@
       "ascii_art": "kernel_panic.txt",
       "color": "red",
       "emoji": "fire",
-      "explanation": "This command triggers a Kernel Panic - instant system crash!",
-      "consequence": "Your system will crash immediately and require reboot.",
+      "explanation": "/proc/sysrq-trigger is a KERNEL CONTROL interface! Writing 'c' here forces an immediate kernel panic (crash). This is like pressing the emergency stop button on your system.",
+      "consequence": "Instant system crash. All unsaved work lost. Requires hard reboot. Potential filesystem corruption.",
       "advice": [
-        "Never write to /proc/sysrq-trigger unless debugging",
-        "This is a system debugging feature, not for normal use"
+        "NEVER write to /proc/sysrq-trigger in normal operation",
+        "/proc/ contains kernel interfaces, not regular files",
+        "This is only for kernel debugging by experts"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "shred_secure": {
+      "category": "disk",
+      "severity": "critical",
+      "variation_set": "data_destroyer",
+      "ascii_art": "data_destroyer.txt",
+      "color": "red",
+      "emoji": "fire",
+      "explanation": "shred overwrites files multiple times to make recovery IMPOSSIBLE! When used on disk devices (/dev/sda) or with high iteration counts, it destroys data permanently.",
+      "consequence": "Data cannot be recovered. Unlike 'rm', shred makes files truly unrecoverable. On disk devices, it destroys everything.",
+      "advice": [
+        "NEVER use shred on /dev/sd* devices (entire disk destruction)",
+        "Verify the file path THREE times before running shred",
+        "Use 'rm' for normal deletion - shred is for secure deletion only",
+        "High iteration counts (-n 100) take very long and are usually unnecessary"
       ],
       "timing": {
         "art_delay": 0.05,

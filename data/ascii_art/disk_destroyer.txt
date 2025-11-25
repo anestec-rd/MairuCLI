@@ -5,13 +5,13 @@
          |  /dev/sda   |
          |   ______    |
          |  /XXXXXX\   |
-         | |XX💀XX💀| |
+         | |XX💀💀XX|  |
          |  \XXXXXX/   |
          |_____||______|
                ||
             💥BOOM💥
            /   ||   \
           💀   ||   💀
-            DESTROYED!
+           DESTROYED!
 
  ⚠️  YOUR DISK IS BEING OBLITERATED! ⚠️
