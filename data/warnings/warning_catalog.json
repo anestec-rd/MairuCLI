@@ -231,7 +231,7 @@
       "variation_set": "kernel_panic",
       "ascii_art": "kernel_panic.txt",
       "color": "red",
-      "emoji": "skull",
+      "emoji": "exclamation",
       "explanation": "/proc/sysrq-trigger is a KERNEL CONTROL interface! Writing 'c' here forces an immediate kernel panic (crash). This is like pressing the emergency stop button on your system.",
       "consequence": "Instant system crash. All unsaved work lost. Requires hard reboot. Potential filesystem corruption.",
       "advice": [
@@ -260,6 +260,28 @@
         "Verify the file path THREE times before running shred",
         "Use 'rm' for normal deletion - shred is for secure deletion only",
         "High iteration counts (-n 100) take very long and are usually unnecessary"
+      ],
+      "timing": {
+        "art_delay": 0.05,
+        "pause_after_art": 0.3,
+        "pause_before_explanation": 0.5,
+        "pause_before_achievement": 0.3
+      }
+    },
+    "system_modify": {
+      "category": "system",
+      "severity": "critical",
+      "variation_set": "system_glitch",
+      "ascii_art": "system_glitch.txt",
+      "color": "red",
+      "emoji": "glitch",
+      "explanation": "Modifying critical system files (/etc/passwd, /etc/shadow, /etc/fstab, /boot) or writing to /dev/mem can CORRUPT your entire system!",
+      "consequence": "System becomes unbootable, users locked out, or complete system instability. Recovery requires rescue mode or reinstallation.",
+      "advice": [
+        "NEVER directly edit /etc/passwd or /etc/shadow - use 'useradd', 'usermod', 'passwd' commands",
+        "NEVER delete /etc or /boot directories",
+        "NEVER write to /dev/mem - this is raw memory access",
+        "Use proper system administration tools instead of direct file manipulation"
       ],
       "timing": {
         "art_delay": 0.05,

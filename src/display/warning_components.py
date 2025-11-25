@@ -32,12 +32,14 @@ EMOJI = {
     "unlock": "🔓",
     "lock": "🔒",
     "bomb": "💣",
-    "database": "🗄️",
+    "database": "💾",
     "disk": "💿",
     "void": "🕳️",
     "eraser": "🧹",
     "shredder": "🔪",
-    "warning": "⚠️"
+    "warning": "⚠️",
+    "exclamation": "❗",
+    "glitch": "⚡"
 }
 
 

@@ -404,5 +404,39 @@
       "title": "BLANK CANVAS!",
       "subtitle": "(Everything painted over with nothing)"
     }
+  ],
+  "system_glitch": [
+    {
+      "title": "SYSTEM CORRUPTION!",
+      "subtitle": "(Your OS is about to have a bad day)"
+    },
+    {
+      "title": "CONFIGURATION CATASTROPHE!",
+      "subtitle": "(Breaking the system, one file at a time)"
+    },
+    {
+      "title": "BOOT FAILURE INCOMING!",
+      "subtitle": "(Say goodbye to your bootloader)"
+    },
+    {
+      "title": "SYSTEM INTEGRITY: 0%",
+      "subtitle": "(Critical files under attack!)"
+    },
+    {
+      "title": "ADMINISTRATIVE APOCALYPSE!",
+      "subtitle": "(Corrupting the core of your system)"
+    },
+    {
+      "title": "SYSTEM MALFUNCTION!",
+      "subtitle": "(This is how systems die)"
+    },
+    {
+      "title": "CONFIGURATION CHAOS!",
+      "subtitle": "(Turning order into entropy)"
+    },
+    {
+      "title": "SYSTEM SABOTAGE!",
+      "subtitle": "(Self-destructing in 3... 2... 1...)"
+    }
   ]
 }

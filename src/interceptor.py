@@ -77,53 +77,74 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "pattern": r"dd\s+if=/dev/zero",
         "category": "disk",
         "severity": "critical",
-        "art_file": "data_destroyer.txt"
+        "art_file": "zero_wipe.txt"
     },
     "drop_database": {
         "pattern": r"DROP\s+DATABASE",
         "category": "database",
         "severity": "critical",
-        "art_file": "fired.txt"
+        "art_file": "database_drop.txt"
     },
     "fork_bomb": {
         "pattern": r":\(\)\s*\{\s*:\s*\|\s*:\s*&\s*\}\s*;?\s*:",
         "category": "system",
         "severity": "critical",
-        "art_file": "data_destroyer.txt"
+        "art_file": "fork_bomb.txt"
     },
     "redirect_to_disk": {
         "pattern": r">\s*/dev/sd[a-z]",
         "category": "disk",
         "severity": "critical",
-        "art_file": "data_destroyer.txt"
+        "art_file": "disk_destroyer.txt"
     },
     "mkfs_disk": {
         "pattern": r"mkfs\.\w+\s+/dev/sd[a-z]",
         "category": "disk",
         "severity": "critical",
-        "art_file": "data_destroyer.txt"
+        "art_file": "disk_destroyer.txt"
     },
     "mv_to_null": {
         "pattern": r"mv\s+.+\s+/dev/null",
         "category": "deletion",
         "severity": "high",
-        "art_file": "fired.txt"
+        "art_file": "data_void.txt"
+    },
+    "system_modify": {
+        "pattern": (
+            r"(>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
+            r"echo\s+.*>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
+            r"cat\s+.*>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
+            r">\s*/dev/mem|"
+            r"dd\s+.*of=/dev/mem|"
+            r"chmod\s+.*\s+/etc/(passwd|shadow|sudoers)|"
+            r"chown\s+.*\s+/etc/(passwd|shadow|sudoers)|"
+            r"rm\s+.*\s+/etc/(passwd|shadow|fstab|sudoers|group))"
+        ),
+        "category": "system",
+        "severity": "critical",
+        "art_file": "system_glitch.txt"
     },
     "overwrite_file": {
         "pattern": r"^\s*>\s+/\w+",
         "category": "deletion",
         "severity": "medium",
-        "art_file": "permission_denied.txt"
+        "art_file": "file_eraser.txt"
     },
     "dd_random": {
         "pattern": r"dd\s+if=/dev/random\s+of=/dev/sd[a-z]",
         "category": "disk",
         "severity": "critical",
-        "art_file": "data_destroyer.txt"
+        "art_file": "disk_destroyer.txt"
     },
     "kernel_panic": {
         "pattern": r"echo\s+c\s*>\s*/proc/sysrq-trigger",
         "category": "system",
+        "severity": "critical",
+        "art_file": "kernel_panic.txt"
+    },
+    "shred_secure": {
+        "pattern": r"shred\s+.*(/dev/sd[a-z]|/dev/nvme|-n\s+\d{2,})",
+        "category": "disk",
         "severity": "critical",
         "art_file": "data_destroyer.txt"
     }
@@ -382,6 +403,23 @@ def check_system_directory(command: str) -> Tuple[str, str, str]:
     """
     from src.command_parser import CommandParser
     from src.path_resolver import PathResolver
+
+    # Special paths that should be handled by dangerous pattern check
+    # These have specific educational warnings that are more valuable
+    # than generic system protection warnings
+    DANGEROUS_PATTERN_PATHS = [
+        '/dev/zero',      # dd_zero pattern
+        '/dev/random',    # dd_random pattern
+        '/dev/sd',        # redirect_to_disk, mkfs_disk patterns (prefix match)
+        '/dev/null',      # mv_to_null pattern
+        '/proc/sysrq-trigger'  # kernel_panic pattern
+    ]
+
+    # Check if command contains any dangerous pattern paths
+    # If so, skip system protection and let dangerous pattern check handle it
+    for dangerous_path in DANGEROUS_PATTERN_PATHS:
+        if dangerous_path in command:
+            return "safe", "", ""
 
     # Get platform-specific protected directories
     platform = sys.platform
