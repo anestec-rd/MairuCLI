@@ -1,5 +1,28 @@
 # MairuCLI - TODO List
 
+## Critical Issues
+
+### Safety & Security
+- [ ] **Fix Builtin Command Redirection Detection** - Issue #4 🔴 **CRITICAL**
+  - **Problem:** Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` are not detected as dangerous
+  - **Root Cause:** Builtin commands execute before redirection target is checked
+  - **Impact:** Critical safety vulnerability - dangerous commands can execute
+  - **Affected Commands:**
+    - `echo data > /dev/sda` - Direct disk write
+    - `cat file > /dev/sdb` - Direct disk write
+    - `echo c > /proc/sysrq-trigger` - Kernel panic
+  - **Solution Approach:**
+    1. Add redirection target extraction to `command_parser.py`
+    2. Check redirection targets before executing builtins in `process_command()`
+    3. Detect dangerous targets: `/dev/sd*`, `/proc/sysrq-trigger`, `/dev/mem`
+  - **Files to Modify:**
+    - `src/command_parser.py` - Add `extract_redirection_target()` method
+    - `src/main.py` - Add redirection check before builtin execution
+    - `src/interceptor.py` - May need pattern updates
+  - **Priority:** HIGH - Safety critical
+  - **Reference:** `docs/issues.md` Issue #4
+  - **Added:** 2025-11-25
+
 ## High Priority (Before Demo)
 
 ### Code Quality

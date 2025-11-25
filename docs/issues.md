@@ -6,6 +6,154 @@ This document tracks bugs, issues, and enhancement requests discovered during de
 
 ## Active Issues
 
+### Issue #3: Character Encoding Issues on Windows
+**Date:** 2025-11-25 16:40
+**Severity:** Major (Functionality)
+**Status:** ✅ RESOLVED (2025-11-25)
+**Platform:** Windows only (Linux works correctly)
+
+**Problem:**
+When entering unexpected commands (not in dangerous/caution/builtin lists), the output becomes garbled with character encoding issues.
+
+**Expected Behavior:**
+- Should display "Candy Store" message
+- Should show safe command suggestions
+
+**Actual Behavior:**
+- Character encoding corruption
+- Unreadable output
+
+**Root Cause:**
+- `subprocess.run()` was using hardcoded `encoding='utf-8'`
+- Windows command prompt uses `cp932` (Shift-JIS) encoding
+- Japanese error messages were being decoded incorrectly
+
+**Solution:**
+- Use `locale.getpreferredencoding()` to detect system encoding
+- Changed from `encoding='utf-8'` to `encoding=system_encoding`
+- Now correctly decodes Windows error messages
+
+**Code Changes:**
+- File: `src/main.py`
+- Function: `execute_in_system_shell()`
+- Added: `import locale` and `system_encoding = locale.getpreferredencoding()`
+
+**Testing:**
+- ✅ Tested on Windows with Japanese error messages
+- ✅ Candy Store message displays correctly
+- ✅ Command not found detection works properly
+
+**Impact:**
+- Windows users: Proper error message display
+- Candy Store messages now appear correctly
+- Improved cross-platform compatibility
+
+---
+
+### Issue #4: Direct Disk Write Commands Not Detected
+**Date:** 2025-11-25 16:40
+**Severity:** Critical (Safety)
+**Status:** 🔴 OPEN
+**Platform:** Both Windows and Linux
+
+**Problem:**
+Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` are not being detected as dangerous because builtin `echo` and `cat` commands execute first.
+
+**Affected Patterns:**
+1. **Direct Disk Write (`redirect_to_disk`)**
+   - `echo data > /dev/sda` - Write directly to disk device
+   - `cat file > /dev/sdb` - Redirect output to disk
+
+2. **Kernel Panic (`kernel_panic`)**
+   - `echo c > /proc/sysrq-trigger`
+
+**Root Cause:**
+- Builtin commands (`echo`, `cat`) are executed before dangerous pattern detection
+- Redirection to dangerous paths (`/dev/sda`, `/proc/sysrq-trigger`) not checked
+- Pattern matching happens too late in the execution flow
+
+**Impact:**
+- Critical: Dangerous commands can execute
+- Core safety functionality compromised
+- Both platforms affected
+
+**Solution Options:**
+1. Check for dangerous redirections before executing builtins
+2. Parse command for dangerous output targets (`> /dev/`, `> /proc/`)
+3. Add redirection pattern detection to interceptor
+
+**Files Affected:**
+- `src/interceptor.py` - Pattern detection
+- `src/builtins.py` - Builtin command execution
+- `src/command_parser.py` - Command parsing
+
+**Priority:** HIGH - Safety critical
+
+---
+
+### Issue #5: system_glitch ASCII Art Orphaned
+**Date:** 2025-11-25 16:40
+**Severity:** Minor (Content)
+**Status:** ✅ RESOLVED (2025-11-25)
+
+**Problem:**
+`system_glitch.txt` ASCII art exists but has no associated command pattern, so it never appears.
+
+**Solution:**
+- Added new `system_modify` pattern to detect system file modifications
+- Pattern detects: `/etc/passwd`, `/etc/shadow`, `/etc/fstab`, `/etc/sudoers` modifications
+- Pattern detects: `/dev/mem` direct memory access
+- Uses `system_glitch.txt` ASCII art with glitch effects
+
+**Code Changes:**
+- File: `src/interceptor.py` - Added `system_modify` pattern
+- File: `data/warnings/warning_catalog.json` - Added pattern metadata
+- File: `data/warnings/danger_variations.json` - Added 8 new variations
+
+**Testing:**
+- ✅ `echo test > /etc/passwd` → Detected as system_modify
+- ✅ `> /etc/shadow` → Detected as system_modify
+- ✅ `> /dev/mem` → Detected as system_modify
+- ✅ system_glitch.txt ASCII art displays correctly
+
+**Impact:**
+- Asset now used and displayed
+- New safety feature for system file protection
+
+---
+
+### Issue #6: Generic Typo Detection Not Working on Windows
+**Date:** 2025-11-25 16:40
+**Severity:** Major (Functionality)
+**Status:** ✅ RESOLVED (2025-11-25)
+**Platform:** Windows only (Linux works correctly)
+
+**Problem:**
+Generic typo detection features not working:
+1. Missing last character (e.g., `touc` → `touch`) - Should show "impatient" message
+2. Wrong first character (e.g., `souch` → `touch`) - Should show "close" message
+
+**Root Cause:**
+- Related to Issue #3 (encoding problem)
+- Fixed by using `locale.getpreferredencoding()` in `execute_in_system_shell()`
+- Encoding fix resolved both command-not-found detection and typo detection
+
+**Solution:**
+- Same fix as Issue #3
+- System encoding detection fixed typo detection as a side effect
+
+**Testing:**
+- ✅ `gi` → Suggests `git` with "Speedy fingers!" message
+- ✅ `pw` → Suggests `pwd` with "Missing the last letter?" message
+- ✅ `dit` → Suggests `git` with "Close! One letter off" message
+- ✅ `pws` → Suggests `pwd` with "One letter off" message
+
+**Impact:**
+- Windows users: Typo detection now works correctly
+- Fun typo messages display properly
+
+---
+
 ### Issue #2: dd Command Pattern Too Strict
 **Date:** 2025-11-19 13:20
 **Severity:** Major (Functionality)
@@ -154,11 +302,13 @@ When adding new issues, use this format:
 
 ### Bug Resolution Time
 - Issue #1: ~10 minutes (discovery to fix)
+- Issue #2: ~2 days (discovery to fix)
 
 ### Bug Severity Distribution
-- Critical: 0
-- Major: 1 (open)
-- Minor: 1 (resolved)
+- Critical: 1 (open) - Issue #4 (Direct disk write detection)
+- Major: 0 (open)
+- Minor: 0 (open)
+- Resolved: 5 - Issues #1 (Banner alignment), #2 (dd pattern), #3 (Windows encoding), #5 (Orphaned ASCII art), #6 (Typo detection)
 
 ### Testing Coverage
 - Manual test plan: 50+ test cases

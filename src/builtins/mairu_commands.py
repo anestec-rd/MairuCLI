@@ -80,13 +80,13 @@ def cmd_help(args: List[str]) -> bool:
           "- Destroys disk directly (instant data loss)")
     print(f"  {EMOJI['disk']} mkfs /dev/sda   "
           "- Formats entire disk (everything gone)")
-    print(f"  {EMOJI['skull']} echo c > /proc/sysrq-trigger "
+    print(f"  {EMOJI['exclamation']} echo c > /proc/sysrq-trigger "
           "- Crashes kernel (instant reboot)")
     print(f"  {EMOJI['shredder']} shred /dev/sda  "
           "- Secure wipes disk (unrecoverable)")
-    print(f"  {EMOJI['fire']} DROP DATABASE   "
+    print(f"  {EMOJI['database']} DROP DATABASE   "
           "- Deletes entire database (career-ending)")
-    print(f"  {EMOJI['fire']} :()\u007b :|:& \u007d;: "
+    print(f"  {EMOJI['bomb']} :()\u007b :|:& \u007d;: "
           "- Fork bomb (freezes system)")
     print()
 
