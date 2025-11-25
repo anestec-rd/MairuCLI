@@ -129,8 +129,8 @@ def repl_loop() -> None:
 def process_command(command: str) -> str:
     """
     Process a single command through three-layer routing:
-    1. Check if builtin command → execute internally
-    2. Check if dangerous command → warn and block
+    1. Check if dangerous command → warn and block (HIGHEST PRIORITY)
+    2. Check if builtin command → execute internally
     3. Otherwise → execute in system shell
 
     Args:
@@ -154,14 +154,7 @@ def process_command(command: str) -> str:
     cmd_name = parts[0]
     args = parts[1:]
 
-    # Layer 1: Check if builtin command
-    if BuiltinCommands.is_builtin(cmd_name):
-        BuiltinCommands.execute_builtin(cmd_name, args)
-        # Track safe command usage for achievements
-        track_safe_command(cmd_name)
-        return ""
-
-    # Layer 1.5: Check system directory protection (highest priority)
+    # Layer 1: Check system directory protection (HIGHEST PRIORITY)
     from src.interceptor import check_system_directory
     sys_level, sys_type, sys_path = check_system_directory(command)
 
@@ -179,7 +172,7 @@ def process_command(command: str) -> str:
             return ""
         # User confirmed - continue to next checks
 
-    # Layer 2: Check if dangerous or caution command
+    # Layer 2: Check if dangerous or caution command (BEFORE builtin execution)
     level, pattern_name = check_command(command)
 
     if level == "critical":
@@ -191,9 +184,16 @@ def process_command(command: str) -> str:
         if not show_caution_warning(pattern_name, command):
             print(colorize("Command cancelled.", "chocolate"))
             return ""
-        # User confirmed - proceed to execute
+        # User confirmed - proceed to next checks
 
-    # Layer 3: Execute in system shell (safe or confirmed caution command)
+    # Layer 3: Check if builtin command
+    if BuiltinCommands.is_builtin(cmd_name):
+        BuiltinCommands.execute_builtin(cmd_name, args)
+        # Track safe command usage for achievements
+        track_safe_command(cmd_name)
+        return ""
+
+    # Layer 4: Execute in system shell (safe or confirmed caution command)
     execute_in_system_shell(command)
     # Track safe command usage for achievements
     track_safe_command(cmd_name)
@@ -212,12 +212,16 @@ def execute_in_system_shell(command: str) -> None:
         This is safe because dangerous commands are already filtered.
     """
     try:
+        # Detect system encoding (Windows uses cp932, Unix uses utf-8)
+        import locale
+        system_encoding = locale.getpreferredencoding()
+
         result = subprocess.run(
             command,
             shell=True,
             capture_output=True,
             text=True,
-            encoding='utf-8',
+            encoding=system_encoding,
             errors='replace'  # Replace decode errors with �
         )
 
@@ -228,12 +232,14 @@ def execute_in_system_shell(command: str) -> None:
         # Check if command was not found (Windows/Unix)
         if result.returncode != 0 and result.stderr:
             stderr_lower = result.stderr.lower()
-            # Windows: "は、内部コマンドまたは外部コマンド..."
-            # or "'xxx' is not recognized..."
+            # Windows PowerShell: "用語 'xxx' は、コマンドレット..."
+            # Windows CMD: "'xxx' は、内部コマンドまたは外部コマンド..."
+            # Windows: "'xxx' is not recognized..."
             # Unix: "command not found"
             if ('not recognized' in stderr_lower or
                     'command not found' in stderr_lower or
                     '内部コマンドまたは外部コマンド' in result.stderr or
+                    '用語' in result.stderr and 'コマンドレット' in result.stderr or
                     'not found' in stderr_lower):
                 cmd_name = (
                     command.split()[0] if command.split() else command
