@@ -92,13 +92,13 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "art_file": "fork_bomb.txt"
     },
     "redirect_to_disk": {
-        "pattern": r">\s*/dev/sd[a-z]",
+        "pattern": r">\s*/dev/(sd[a-z]|nvme\d+n\d+)",
         "category": "disk",
         "severity": "critical",
         "art_file": "disk_destroyer.txt"
     },
     "mkfs_disk": {
-        "pattern": r"mkfs\.\w+\s+/dev/sd[a-z]",
+        "pattern": r"mkfs(\.\w+)?\s+/dev/(sd[a-z]|nvme\d+n\d+)",
         "category": "disk",
         "severity": "critical",
         "art_file": "disk_destroyer.txt"
@@ -131,7 +131,7 @@ DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
         "art_file": "file_eraser.txt"
     },
     "dd_random": {
-        "pattern": r"dd\s+if=/dev/random\s+of=/dev/sd[a-z]",
+        "pattern": r"dd\s+if=/dev/random\s+of=/dev/(sd[a-z]|nvme\d+n\d+)",
         "category": "disk",
         "severity": "critical",
         "art_file": "disk_destroyer.txt"

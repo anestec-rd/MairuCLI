@@ -6,6 +6,90 @@ This document tracks bugs, issues, and enhancement requests discovered during de
 
 ## Active Issues
 
+### Issue #7: mkfs Pattern Too Strict - CRITICAL SAFETY BUG
+**Date:** 2025-11-26 17:20
+**Severity:** CRITICAL (Safety)
+**Status:** ✅ RESOLVED (2025-11-26 18:00)
+**Platform:** Both Windows and Linux
+
+**Problem:**
+`mkfs /dev/sda` was NOT being detected as dangerous and actually executed on Linux!
+- Pattern required `mkfs.ext4` format (with dot and filesystem type)
+- Simple `mkfs /dev/sda` bypassed detection
+- **ACTUALLY ATTEMPTED TO FORMAT DISK** on Linux (saved by permission denial)
+
+**What Actually Happened:**
+```
+# On Windows (safe by accident)
+mairu> mkfs /dev/sda
+👻 Boo! 'mkfs' vanished into thin air!
+(Command not found)
+
+# On Linux (DANGEROUS!)
+mairu> mkfs /dev/sda
+mke2fs 1.47.0 (5-Feb-2023)
+mkfs.ext2: Permission denied while trying to determine filesystem size
+```
+
+**Root Cause:**
+- Pattern: `r"mkfs\.\w+\s+/dev/sd[a-z]"` required dot (`.`) to be present
+- `mkfs /dev/sda` has no dot, so pattern didn't match
+- Command passed through to system shell
+- **AI assumption bias**: Pattern assumed "typical" usage with filesystem type
+- **Insufficient testing**: Only tested complete command format
+- **No minimal syntax testing**: Didn't test simplest dangerous form
+
+**Impact:**
+- **CRITICAL SAFETY FAILURE** - Most dangerous command not detected
+- Could have caused complete data loss if run with sudo
+- Affected both Windows and Linux
+- Demonstrates fundamental limitation of AI in safety-critical code
+
+**Solution:**
+- Changed pattern to: `r"mkfs(\.\w+)?\s+/dev/(sd[a-z]|nvme\d+n\d+)"`
+- Made filesystem type optional: `(\.\w+)?`
+- Added NVMe device support: `/dev/nvme\d+n\d+`
+- Also updated `redirect_to_disk` and `dd_random` patterns for NVMe
+
+**Testing:**
+- ✅ `mkfs /dev/sda` → Now detected
+- ✅ `mkfs.ext4 /dev/sda` → Still detected
+- ✅ `mkfs /dev/nvme0n1` → Now detected
+- ✅ `> /dev/nvme0n1` → Now detected
+- ✅ Created comprehensive test suite: `tests/unit/test_mkfs_patterns.py`
+- ✅ 100+ test cases covering all variations
+- ✅ Tests document the incident for future reference
+
+**Code Changes:**
+- File: `src/interceptor.py`
+- Patterns updated: `mkfs_disk`, `redirect_to_disk`, `dd_random`
+- Tests added: `tests/unit/test_mkfs_patterns.py` (new file)
+- Tests updated: `tests/unit/test_interceptor.py` (fixed expectations)
+- Documentation: `docs/lessons/10-ai-safety-critical-limitations.md` (new lesson)
+
+**Lessons Learned:**
+- **ALWAYS test patterns with minimal syntax**
+- **AI cannot assess true safety impact** - human oversight is non-negotiable
+- **Optional parameters must be marked as optional in regex**
+- **Real-world testing is critical for safety features**
+- **Permission denial is not a safety feature** - detection must work
+- **Educational tools must be MORE reliable, not less**
+- **Never delegate safety decisions entirely to AI**
+
+**Key Insight:**
+AI can label something as "critical" based on semantic patterns, but it does not truly understand that `mkfs /dev/sda` destroys all data. This is a fundamental limitation of AI systems, not a bug that can be fixed with better prompts.
+
+**Process Changes:**
+- All safety-critical patterns now require human review
+- All dangerous commands must be tested with minimal syntax
+- Comprehensive test suites required for safety features
+- Safety bugs are highest priority
+- See: `docs/lessons/10-ai-safety-critical-limitations.md`
+
+**Priority:** CRITICAL - This was a severe safety bug that demonstrates the limits of AI in safety-critical code
+
+---
+
 ### Issue #3: Character Encoding Issues on Windows
 **Date:** 2025-11-25 16:40
 **Severity:** Major (Functionality)

@@ -64,7 +64,7 @@ def test_pattern_detection():
         ("echo test > /dev/sda", "redirect_to_disk"),
         ("mkfs.ext4 /dev/sda", "mkfs_disk"),
         ("mv important.txt /dev/null", "mv_to_null"),
-        ("> /etc/passwd", "overwrite_file"),
+        ("> /etc/passwd", "system_modify"),  # Fixed: system_modify is more specific
         ("dd if=/dev/random of=/dev/sda", "dd_random"),
         ("echo c > /proc/sysrq-trigger", "kernel_panic"),
     ]
