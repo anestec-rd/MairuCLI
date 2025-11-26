@@ -71,6 +71,14 @@ The lessons are organized by topic for easier navigation and reference.
   - Motivation formula and sources
   - Practical recommendations
 
+### AI Safety Critical Limitations
+- **[10-ai-safety-critical-limitations.md](10-ai-safety-critical-limitations.md)** ⚠️ **CRITICAL**
+  - Real incident: mkfs command not detected on Linux
+  - AI cannot assess true safety impact
+  - Human oversight is non-negotiable
+  - Testing minimal syntax is essential
+  - Educational tools must be MORE reliable
+
 ---
 
 ## 🎯 How to Use This Documentation
@@ -132,10 +140,12 @@ When adding new lessons:
 
 ---
 
-**Last Updated:** November 24, 2025 (Day 8)
-**Total Lessons:** 9 major topics
-**Total Insights:** 35+ key learnings
+**Last Updated:** November 26, 2025 (Day 10)
+**Total Lessons:** 10 major topics
+**Total Insights:** 40+ key learnings
 **Status:** Active and evolving
+
+**⚠️ Critical Addition (Day 10):** Lesson 10 documents a critical safety bug that demonstrates fundamental AI limitations in safety-critical code. This is required reading for anyone using AI for safety-related development.
 
 ---
 
