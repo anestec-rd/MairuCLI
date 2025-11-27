@@ -4,9 +4,11 @@ Main entry point for MairuCLI.
 This module provides the REPL loop and command processing logic.
 """
 
+import json
 import random
 import subprocess
 import sys
+from pathlib import Path
 
 from src.builtins import BuiltinCommands
 from src.display import (
@@ -20,53 +22,31 @@ from src.display import (
 from src.interceptor import check_command
 
 
-# Command not found message variations (Halloween-themed)
-COMMAND_NOT_FOUND_MESSAGES = [
-    {
-        "emoji": "🍬",
-        "message": "Sorry, we don't sell '{cmd}' at the candy store.",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "👻",
-        "message": "Boo! '{cmd}' vanished into thin air!",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "🎃",
-        "message": "'{cmd}' is not in my trick-or-treat bag!",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "🦇",
-        "message": "'{cmd}' flew away with the bats!",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "🕷️",
-        "message": (
-            "'{cmd}' got caught in a spider web... and disappeared!"
-        ),
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "🧙",
-        "message": "Even my magic can't summon '{cmd}'!",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "💀",
-        "message": "'{cmd}' is dead... because it never existed!",
-        "subtitle": "(Command not found)"
-    },
-    {
-        "emoji": "🌙",
-        "message": (
-            "'{cmd}' only appears on a full moon... which is not today!"
-        ),
-        "subtitle": "(Command not found)"
-    }
-]
+def _load_command_not_found_messages():
+    """
+    Load command not found messages from JSON file.
+
+    Returns:
+        List of message dictionaries with emoji, message, and subtitle fields.
+        Returns empty list if file cannot be loaded.
+    """
+    try:
+        json_path = Path(__file__).parent.parent / "data" / "warnings" / "command_not_found.json"
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get('messages', [])
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Warning: Could not load command_not_found.json: {e}")
+        # Fallback to a single default message
+        return [{
+            "emoji": "👻",
+            "message": "'{cmd}' not found!",
+            "subtitle": "(Command not found)"
+        }]
+
+
+# Load command not found messages from JSON
+_COMMAND_NOT_FOUND_MESSAGES = _load_command_not_found_messages()
 
 
 def show_command_not_found(cmd_name: str) -> None:
@@ -76,7 +56,11 @@ def show_command_not_found(cmd_name: str) -> None:
     Args:
         cmd_name: Name of the command that was not found
     """
-    variation = random.choice(COMMAND_NOT_FOUND_MESSAGES)
+    if not _COMMAND_NOT_FOUND_MESSAGES:
+        print(f"👻 '{cmd_name}' not found!")
+        return
+
+    variation = random.choice(_COMMAND_NOT_FOUND_MESSAGES)
     print(f"{variation['emoji']} {variation['message'].format(cmd=cmd_name)}")
     print(f"   {variation['subtitle']}")
 
@@ -189,30 +173,18 @@ def process_command(command: str) -> str:
     # Layer 3: Check for dangerous output redirection (BEFORE builtin execution)
     # This catches commands like: echo data > /dev/sda
     from src.command_parser import CommandParser
+    from src.interceptor import check_redirection_target
+
     parser = CommandParser()
     redirect_target = parser.extract_redirection_target(command)
 
     if redirect_target:
-        # Check if redirection target is dangerous
-        import re
-        dangerous_redirect_patterns = [
-            (r'^/dev/sd[a-z]$', 'redirect_to_disk'),           # SATA disks
-            (r'^/dev/nvme\d+n\d+$', 'redirect_to_disk'),       # NVMe disks
-            (r'^/proc/sysrq-trigger$', 'kernel_panic'),        # Kernel panic
-            (r'^/dev/mem$', 'system_modify'),                  # Memory access
-            (r'^/etc/passwd$', 'system_modify'),               # System files
-            (r'^/etc/shadow$', 'system_modify'),
-            (r'^/etc/fstab$', 'system_modify'),
-            (r'^/etc/sudoers$', 'system_modify'),
-            (r'^/etc/hosts$', 'system_modify'),
-            (r'^/etc/group$', 'system_modify'),
-        ]
-
-        for pattern, pattern_name in dangerous_redirect_patterns:
-            if re.match(pattern, redirect_target, re.IGNORECASE):
-                # Dangerous redirection detected - block with warning
-                show_warning(pattern_name, command)
-                return ""
+        # Check if redirection target is dangerous using centralized function
+        is_dangerous, pattern_name = check_redirection_target(redirect_target)
+        if is_dangerous:
+            # Dangerous redirection detected - block with warning
+            show_warning(pattern_name, command)
+            return ""
 
     # Layer 4: Check if builtin command
     if BuiltinCommands.is_builtin(cmd_name):

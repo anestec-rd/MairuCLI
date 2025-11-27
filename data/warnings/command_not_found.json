@@ -1,0 +1,44 @@
+{
+  "messages": [
+    {
+      "emoji": "🍬",
+      "message": "Sorry, we don't sell '{cmd}' at the candy store.",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "👻",
+      "message": "Boo! '{cmd}' vanished into thin air!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "🎃",
+      "message": "'{cmd}' is not in my trick-or-treat bag!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "🦇",
+      "message": "'{cmd}' flew away with the bats!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "🕷️",
+      "message": "'{cmd}' got caught in a spider web... and disappeared!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "🧙",
+      "message": "Even my magic can't summon '{cmd}'!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "💀",
+      "message": "'{cmd}' is dead... because it never existed!",
+      "subtitle": "(Command not found)"
+    },
+    {
+      "emoji": "🌕",
+      "message": "'{cmd}' only appears on a full moon... which is not today!",
+      "subtitle": "(Command not found)"
+    }
+  ]
+}

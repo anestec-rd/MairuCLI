@@ -313,6 +313,51 @@ def check_generic_typo(command: str) -> Tuple[bool, str, str]:
     return False, "", ""
 
 
+def check_redirection_target(target: str) -> Tuple[bool, str]:
+    """
+    Check if a redirection target is dangerous.
+
+    This function checks output redirection targets (from > or >>)
+    against known dangerous paths.
+
+    Args:
+        target: The redirection target path (e.g., "/dev/sda", "/etc/passwd")
+
+    Returns:
+        Tuple of (is_dangerous, pattern_name)
+        is_dangerous: True if target is dangerous, False otherwise
+        pattern_name: Name of matched pattern, or empty string if safe
+
+    Examples:
+        >>> check_redirection_target("/dev/sda")
+        (True, "redirect_to_disk")
+        >>> check_redirection_target("/tmp/file")
+        (False, "")
+    """
+    import re
+
+    # Define dangerous redirection patterns
+    # These match the patterns in warning_catalog.json
+    dangerous_patterns = [
+        (r'^/dev/sd[a-z]$', 'redirect_to_disk'),           # SATA disks
+        (r'^/dev/nvme\d+n\d+$', 'redirect_to_disk'),       # NVMe disks
+        (r'^/proc/sysrq-trigger$', 'kernel_panic'),        # Kernel panic
+        (r'^/dev/mem$', 'system_modify'),                  # Memory access
+        (r'^/etc/passwd$', 'system_modify'),               # System files
+        (r'^/etc/shadow$', 'system_modify'),
+        (r'^/etc/fstab$', 'system_modify'),
+        (r'^/etc/sudoers$', 'system_modify'),
+        (r'^/etc/hosts$', 'system_modify'),
+        (r'^/etc/group$', 'system_modify'),
+    ]
+
+    for pattern, pattern_name in dangerous_patterns:
+        if re.match(pattern, target, re.IGNORECASE):
+            return True, pattern_name
+
+    return False, ""
+
+
 def check_command(command: str) -> Tuple[str, str]:
     """
     Check if command matches any dangerous, caution, or typo pattern.
