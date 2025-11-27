@@ -2,13 +2,13 @@
 
 ## Task List
 
-- [ ] 1. Set up project structure and data files
+- [x] 1. Set up project structure and data files
   - Create `data/educational/` directory structure
   - Create subdirectories: `command_breakdowns/`, `simulations/`, `incidents/`
   - Add `.gitkeep` files to ensure directories are tracked
   - _Requirements: 4.2, 4.3, 4.4_
 
-- [ ] 2. Implement EducationalLoader class
+- [x] 2. Implement EducationalLoader class
   - Create `src/display/educational_loader.py`
   - Implement `__init__` with base path and cache dictionaries
   - Implement `load_breakdown()` with file loading and caching
