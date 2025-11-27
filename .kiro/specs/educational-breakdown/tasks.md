@@ -125,7 +125,7 @@
   - Adjust formatting if needed
   - _Requirements: All requirements_
 
-- [ ] 16. Update documentation
+- [x] 16. Update documentation
   - Update README.md with breakdown mode feature
   - Add example screenshots/output
   - Document JSON schema in docs/
