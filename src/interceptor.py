@@ -4,9 +4,165 @@ Command interceptor for MairuCLI.
 This module provides pattern matching to detect dangerous commands and typos.
 """
 
+import json
+import os
 import re
 import sys
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional
+
+
+class PatternLoader:
+    """Load patterns from JSON files for data-driven architecture."""
+
+    def __init__(self, data_dir: str = "data/warnings"):
+        """
+        Initialize pattern loader.
+
+        Args:
+            data_dir: Directory containing pattern JSON files
+        """
+        self.data_dir = data_dir
+
+    def load_all_patterns(self) -> Tuple[Dict, Dict]:
+        """
+        Load all patterns from JSON files.
+
+        Returns:
+            Tuple of (dangerous_patterns, caution_patterns)
+        """
+        dangerous = self._load_dangerous_patterns()
+        caution = self._load_caution_patterns()
+        return dangerous, caution
+
+    def _load_dangerous_patterns(self) -> Dict:
+        """
+        Load dangerous patterns from warning_catalog.json.
+
+        Returns:
+            Dictionary of dangerous patterns (ordered by specificity)
+        """
+        catalog_path = os.path.join(self.data_dir, "warning_catalog.json")
+
+        try:
+            with open(catalog_path, 'r', encoding='utf-8') as f:
+                catalog = json.load(f)
+
+            patterns = {}
+            for name, data in catalog.get('warnings', {}).items():
+                if 'pattern' in data:
+                    patterns[name] = {
+                        'pattern': data['pattern'],
+                        'category': data.get('category', 'unknown'),
+                        'severity': data.get('severity', 'medium'),
+                        'art_file': data.get('ascii_art', 'default.txt')
+                    }
+
+            # Sort patterns by specificity (more specific patterns first)
+            # This ensures system_modify is checked before overwrite_file
+            return self._sort_patterns_by_specificity(patterns)
+
+        except FileNotFoundError:
+            print(f"Warning: {catalog_path} not found. Using empty patterns.")
+            return {}
+        except json.JSONDecodeError as e:
+            print(f"Warning: Invalid JSON in {catalog_path}: {e}")
+            return {}
+
+    def _sort_patterns_by_specificity(self, patterns: Dict) -> Dict:
+        """
+        Sort patterns by specificity (more specific first).
+
+        More specific patterns should be checked first to avoid
+        false matches by generic patterns.
+
+        Args:
+            patterns: Dictionary of patterns
+
+        Returns:
+            Ordered dictionary with specific patterns first
+        """
+        # Define priority order (higher number = higher priority)
+        priority_map = {
+            'system_modify': 100,  # Very specific (targets /etc/passwd, etc.)
+            'kernel_panic': 90,    # Very specific (targets /proc/sysrq-trigger)
+            'mkfs_disk': 80,       # Specific (targets /dev/sd*, /dev/nvme*)
+            'redirect_to_disk': 80,
+            'dd_random': 80,
+            'dd_zero': 80,
+            'fork_bomb': 70,       # Specific pattern
+            'drop_database': 70,
+            'rm_dangerous': 60,    # Moderately specific
+            'chmod_777': 60,
+            'chmod_000': 60,
+            'mv_to_null': 60,
+            'shred_secure': 60,
+            'overwrite_file': 10,  # Generic (matches any > /path)
+        }
+
+        # Sort by priority (highest first)
+        sorted_items = sorted(
+            patterns.items(),
+            key=lambda x: priority_map.get(x[0], 50),
+            reverse=True
+        )
+
+        # Return as ordered dict
+        return dict(sorted_items)
+
+    def _load_caution_patterns(self) -> Dict:
+        """
+        Load caution patterns from caution_catalog.json.
+
+        Returns:
+            Dictionary of caution patterns
+        """
+        catalog_path = os.path.join(self.data_dir, "caution_catalog.json")
+
+        try:
+            with open(catalog_path, 'r', encoding='utf-8') as f:
+                catalog = json.load(f)
+
+            patterns = {}
+            for name, data in catalog.get('cautions', {}).items():
+                if 'pattern' in data:
+                    patterns[name] = data
+
+            return patterns
+
+        except FileNotFoundError:
+            print(f"Warning: {catalog_path} not found. Using empty patterns.")
+            return {}
+        except json.JSONDecodeError as e:
+            print(f"Warning: Invalid JSON in {catalog_path}: {e}")
+            return {}
+
+
+class PatternCompiler:
+    """Compile regex patterns for efficient matching."""
+
+    def compile_patterns(self, patterns: Dict) -> Dict:
+        """
+        Compile all patterns in dictionary.
+
+        Args:
+            patterns: Dictionary of pattern data
+
+        Returns:
+            Dictionary with compiled regex patterns
+        """
+        compiled = {}
+
+        for name, data in patterns.items():
+            try:
+                # Compile the pattern
+                data['compiled'] = re.compile(data['pattern'], re.IGNORECASE)
+                compiled[name] = data
+            except re.error as e:
+                print(f"Warning: Invalid pattern '{name}': {e}")
+                # Skip invalid patterns
+                continue
+
+        return compiled
 
 
 # Protected system directories by platform
@@ -49,197 +205,9 @@ PROTECTED_DIRECTORIES = {
 }
 
 
-# Dangerous command patterns
-# Reference: docs/reference/cli-dangers.md
-DANGEROUS_PATTERNS: Dict[str, Dict[str, str]] = {
-    "rm_dangerous": {
-        "pattern": (
-            r"rm\s+(-rf|-fr|-r\s+-f|-f\s+-r)\s+"
-            r"(/|~|\$HOME|\*|\.(?:\s|$)|\$\w+)"
-        ),
-        "category": "deletion",
-        "severity": "critical",
-        "art_file": "fired.txt"
-    },
-    "chmod_777": {
-        "pattern": r"chmod\s+(-R\s+)?777",
-        "category": "permission",
-        "severity": "high",
-        "art_file": "permission_denied.txt"
-    },
-    "chmod_000": {
-        "pattern": r"chmod\s+(-R\s+)?000",
-        "category": "permission",
-        "severity": "critical",
-        "art_file": "permission_denied.txt"
-    },
-    "dd_zero": {
-        "pattern": r"dd\s+if=/dev/zero",
-        "category": "disk",
-        "severity": "critical",
-        "art_file": "zero_wipe.txt"
-    },
-    "drop_database": {
-        "pattern": r"DROP\s+DATABASE",
-        "category": "database",
-        "severity": "critical",
-        "art_file": "database_drop.txt"
-    },
-    "fork_bomb": {
-        "pattern": r":\(\)\s*\{\s*:\s*\|\s*:\s*&\s*\}\s*;?\s*:",
-        "category": "system",
-        "severity": "critical",
-        "art_file": "fork_bomb.txt"
-    },
-    "redirect_to_disk": {
-        "pattern": r">\s*/dev/(sd[a-z]|nvme\d+n\d+)",
-        "category": "disk",
-        "severity": "critical",
-        "art_file": "disk_destroyer.txt"
-    },
-    "mkfs_disk": {
-        "pattern": r"mkfs(\.\w+)?\s+/dev/(sd[a-z]|nvme\d+n\d+)",
-        "category": "disk",
-        "severity": "critical",
-        "art_file": "disk_destroyer.txt"
-    },
-    "mv_to_null": {
-        "pattern": r"mv\s+.+\s+/dev/null",
-        "category": "deletion",
-        "severity": "high",
-        "art_file": "data_void.txt"
-    },
-    "system_modify": {
-        "pattern": (
-            r"(>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
-            r"echo\s+.*>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
-            r"cat\s+.*>\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|"
-            r">\s*/dev/mem|"
-            r"dd\s+.*of=/dev/mem|"
-            r"chmod\s+.*\s+/etc/(passwd|shadow|sudoers)|"
-            r"chown\s+.*\s+/etc/(passwd|shadow|sudoers)|"
-            r"rm\s+.*\s+/etc/(passwd|shadow|fstab|sudoers|group))"
-        ),
-        "category": "system",
-        "severity": "critical",
-        "art_file": "system_glitch.txt"
-    },
-    "overwrite_file": {
-        "pattern": r"^\s*>\s+/\w+",
-        "category": "deletion",
-        "severity": "medium",
-        "art_file": "file_eraser.txt"
-    },
-    "dd_random": {
-        "pattern": r"dd\s+if=/dev/random\s+of=/dev/(sd[a-z]|nvme\d+n\d+)",
-        "category": "disk",
-        "severity": "critical",
-        "art_file": "disk_destroyer.txt"
-    },
-    "kernel_panic": {
-        "pattern": r"echo\s+c\s*>\s*/proc/sysrq-trigger",
-        "category": "system",
-        "severity": "critical",
-        "art_file": "kernel_panic.txt"
-    },
-    "shred_secure": {
-        "pattern": r"shred\s+.*(/dev/sd[a-z]|/dev/nvme|-n\s+\d{2,})",
-        "category": "disk",
-        "severity": "critical",
-        "art_file": "data_destroyer.txt"
-    }
-}
-
-# Caution patterns (risky but not immediately catastrophic)
-CAUTION_PATTERNS: Dict[str, Dict] = {
-    "sudo_shell": {
-        "pattern": r"sudo\s+(su|bash|sh|-i)(?:\s|$)",
-        "category": "privilege_escalation",
-        "severity": "medium",
-        "risk": "Entering root shell - all safety checks disabled",
-        "impact": "One mistake could damage the entire system",
-        "considerations": [
-            "Do you really need full root access?",
-            "Could you use 'sudo command' instead?",
-            "Are you in the right directory?"
-        ]
-    },
-    "chmod_permissive": {
-        "pattern": r"chmod\s+(-R\s+)?(666|755|775)",
-        "category": "permissions",
-        "severity": "medium",
-        "risk": "Making files readable/writable by others",
-        "impact": "Potential security vulnerability or data exposure",
-        "considerations": [
-            "Who needs access to this file?",
-            "Is 644 (read-only for others) sufficient?",
-            "Are you setting permissions on sensitive data?"
-        ]
-    },
-    "firewall_disable": {
-        "pattern": (
-            r"(iptables\s+-F|ufw\s+disable|"
-            r"systemctl\s+stop\s+firewalld)"
-        ),
-        "category": "security",
-        "severity": "high",
-        "risk": "Disabling firewall protection",
-        "impact": "System exposed to network attacks",
-        "considerations": [
-            "Is this a temporary debugging step?",
-            "Will you re-enable the firewall?",
-            "Are you on a trusted network?"
-        ]
-    },
-    "selinux_disable": {
-        "pattern": r"setenforce\s+0",
-        "category": "security",
-        "severity": "high",
-        "risk": "Disabling SELinux mandatory access control",
-        "impact": "Weakens system security significantly",
-        "considerations": [
-            "Could you fix the SELinux policy instead?",
-            "Is this permanent or temporary?",
-            "Do you understand the security implications?"
-        ]
-    },
-    "kill_force": {
-        "pattern": r"kill\s+-9\s+\d+",
-        "category": "process",
-        "severity": "medium",
-        "risk": "Force-killing process without cleanup",
-        "impact": "May cause data loss or corruption",
-        "considerations": [
-            "Did you try 'kill' (SIGTERM) first?",
-            "Will the process lose unsaved data?",
-            "Is this a critical system process?"
-        ]
-    },
-    "rm_node_modules": {
-        "pattern": r"rm\s+-rf\s+node_modules",
-        "category": "deletion",
-        "severity": "low",
-        "risk": "Deleting node_modules directory",
-        "impact": "Will need to run 'npm install' again (takes time)",
-        "considerations": [
-            "This will take a while to reinstall",
-            "Are you sure you want to delete dependencies?",
-            "Consider 'npm ci' for a clean install instead"
-        ]
-    },
-    "git_force_push": {
-        "pattern": r"git\s+push\s+(--force|-f)(?:\s|$)",
-        "category": "version_control",
-        "severity": "high",
-        "risk": "Force-pushing to remote repository",
-        "impact": "May overwrite teammates' work",
-        "considerations": [
-            "Have you coordinated with your team?",
-            "Could you use '--force-with-lease' instead?",
-            "Are you pushing to a shared branch?"
-        ]
-    }
-}
+# Dangerous and Caution patterns are now loaded from JSON files
+# See: data/warnings/warning_catalog.json and data/warnings/caution_catalog.json
+# This enables data-driven architecture where patterns can be managed without code changes
 
 # Typo patterns (special cases that need custom messages)
 # Note: Generic typo detection handles most common typos automatically
@@ -284,6 +252,30 @@ COMMON_COMMANDS = [
     "chmod", "chown", "grep", "find", "which", "whoami", "date", "hostname",
     "git", "exit", "clear", "help", "history", "alias", "tree"
 ]
+
+
+# Load patterns from JSON files (data-driven architecture)
+# JSON files are the ONLY source of pattern definitions
+_loader = PatternLoader()
+_compiler = PatternCompiler()
+
+# Load patterns from JSON
+_loaded_dangerous, _loaded_caution = _loader.load_all_patterns()
+
+# Compile patterns for performance
+DANGEROUS_PATTERNS = _compiler.compile_patterns(_loaded_dangerous)
+CAUTION_PATTERNS = _compiler.compile_patterns(_loaded_caution)
+
+# Validate that patterns were loaded successfully
+if not DANGEROUS_PATTERNS:
+    raise RuntimeError(
+        "Failed to load dangerous patterns from data/warnings/warning_catalog.json. "
+        "This file is required for MairuCLI to function."
+    )
+
+if not CAUTION_PATTERNS:
+    print("Warning: No caution patterns loaded from data/warnings/caution_catalog.json")
+    CAUTION_PATTERNS = {}  # Empty dict is acceptable for caution patterns
 
 
 def check_generic_typo(command: str) -> Tuple[bool, str, str]:
@@ -337,13 +329,25 @@ def check_command(command: str) -> Tuple[str, str]:
     """
     # Check critical patterns first (highest priority)
     for pattern_name, pattern_data in DANGEROUS_PATTERNS.items():
-        if re.search(pattern_data["pattern"], command, re.IGNORECASE):
-            return "critical", pattern_name
+        # Use compiled pattern if available (faster)
+        if 'compiled' in pattern_data:
+            if pattern_data['compiled'].search(command):
+                return "critical", pattern_name
+        else:
+            # Fallback to re.search for backward compatibility
+            if re.search(pattern_data["pattern"], command, re.IGNORECASE):
+                return "critical", pattern_name
 
     # Check caution patterns (medium priority)
     for pattern_name, pattern_data in CAUTION_PATTERNS.items():
-        if re.search(pattern_data["pattern"], command, re.IGNORECASE):
-            return "caution", pattern_name
+        # Use compiled pattern if available (faster)
+        if 'compiled' in pattern_data:
+            if pattern_data['compiled'].search(command):
+                return "caution", pattern_name
+        else:
+            # Fallback to re.search for backward compatibility
+            if re.search(pattern_data["pattern"], command, re.IGNORECASE):
+                return "caution", pattern_name
 
     # Check specific typo patterns (treated as critical for blocking)
     for pattern_name, pattern_data in TYPO_PATTERNS.items():

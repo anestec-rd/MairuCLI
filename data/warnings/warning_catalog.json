@@ -20,7 +20,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "rm\\s+(-rf|-fr|-r\\s+-f|-f\\s+-r)\\s+(/|~|\\$HOME|\\*|\\.(?:\\s|$)|\\$\\w+)"
     },
     "chmod_777": {
       "category": "permission",
@@ -40,7 +41,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "chmod\\s+(-R\\s+)?777"
     },
     "chmod_000": {
       "category": "permission",
@@ -61,7 +63,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "chmod\\s+(-R\\s+)?000"
     },
     "dd_zero": {
       "category": "disk",
@@ -81,7 +84,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "dd\\s+if=/dev/zero"
     },
     "drop_database": {
       "category": "database",
@@ -101,9 +105,9 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "DROP\\s+DATABASE"
     },
-
     "fork_bomb": {
       "category": "system",
       "severity": "critical",
@@ -122,7 +126,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": ":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;?\\s*:"
     },
     "redirect_to_disk": {
       "category": "disk",
@@ -143,7 +148,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": ">\\s*/dev/(sd[a-z]|nvme\\d+n\\d+)"
     },
     "mkfs_disk": {
       "category": "disk",
@@ -163,7 +169,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "mkfs(\\.\\w+)?\\s+/dev/(sd[a-z]|nvme\\d+n\\d+)"
     },
     "mv_to_null": {
       "category": "deletion",
@@ -183,7 +190,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "mv\\s+.+\\s+/dev/null"
     },
     "overwrite_file": {
       "category": "deletion",
@@ -203,7 +211,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "^\\s*>\\s+/\\w+"
     },
     "dd_random": {
       "category": "disk",
@@ -223,7 +232,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "dd\\s+if=/dev/random\\s+of=/dev/(sd[a-z]|nvme\\d+n\\d+)"
     },
     "kernel_panic": {
       "category": "system",
@@ -244,7 +254,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "echo\\s+c\\s*>\\s*/proc/sysrq-trigger"
     },
     "shred_secure": {
       "category": "disk",
@@ -266,7 +277,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "shred\\s+.*(/dev/sd[a-z]|/dev/nvme|-n\\s+\\d{2,})"
     },
     "system_modify": {
       "category": "system",
@@ -288,7 +300,8 @@
         "pause_after_art": 0.3,
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
-      }
+      },
+      "pattern": "(>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|echo\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|cat\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|>\\s*/dev/mem|dd\\s+.*of=/dev/mem|chmod\\s+.*\\s+/etc/(passwd|shadow|sudoers)|chown\\s+.*\\s+/etc/(passwd|shadow|sudoers)|rm\\s+.*\\s+/etc/(passwd|shadow|fstab|sudoers|group))"
     }
   }
 }

@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "cautions": {
+    "sudo_shell": {
+      "pattern": "sudo\\s+(su|bash|sh|-i)(?:\\s|$)",
+      "category": "privilege_escalation",
+      "severity": "medium",
+      "risk": "Entering root shell - all safety checks disabled",
+      "impact": "One mistake could damage the entire system",
+      "considerations": [
+        "Do you really need full root access?",
+        "Could you use 'sudo command' instead?",
+        "Are you in the right directory?"
+      ]
+    },
+    "chmod_permissive": {
+      "pattern": "chmod\\s+(-R\\s+)?(666|755|775)",
+      "category": "permissions",
+      "severity": "medium",
+      "risk": "Making files readable/writable by others",
+      "impact": "Potential security vulnerability or data exposure",
+      "considerations": [
+        "Who needs access to this file?",
+        "Is 644 (read-only for others) sufficient?",
+        "Are you setting permissions on sensitive data?"
+      ]
+    },
+    "firewall_disable": {
+      "pattern": "(iptables\\s+-F|ufw\\s+disable|systemctl\\s+stop\\s+firewalld)",
+      "category": "security",
+      "severity": "high",
+      "risk": "Disabling firewall protection",
+      "impact": "System exposed to network attacks",
+      "considerations": [
+        "Is this a temporary debugging step?",
+        "Will you re-enable the firewall?",
+        "Are you on a trusted network?"
+      ]
+    },
+    "selinux_disable": {
+      "pattern": "setenforce\\s+0",
+      "category": "security",
+      "severity": "high",
+      "risk": "Disabling SELinux mandatory access control",
+      "impact": "Weakens system security significantly",
+      "considerations": [
+        "Could you fix the SELinux policy instead?",
+        "Is this permanent or temporary?",
+        "Do you understand the security implications?"
+      ]
+    },
+    "kill_force": {
+      "pattern": "kill\\s+-9\\s+\\d+",
+      "category": "process",
+      "severity": "medium",
+      "risk": "Force-killing process without cleanup",
+      "impact": "May cause data loss or corruption",
+      "considerations": [
+        "Did you try 'kill' (SIGTERM) first?",
+        "Will the process lose unsaved data?",
+        "Is this a critical system process?"
+      ]
+    },
+    "rm_node_modules": {
+      "pattern": "rm\\s+-rf\\s+node_modules",
+      "category": "deletion",
+      "severity": "low",
+      "risk": "Deleting node_modules directory",
+      "impact": "Will need to run 'npm install' again (takes time)",
+      "considerations": [
+        "This will take a while to reinstall",
+        "Are you sure you want to delete dependencies?",
+        "Consider 'npm ci' for a clean install instead"
+      ]
+    },
+    "git_force_push": {
+      "pattern": "git\\s+push\\s+(--force|-f)(?:\\s|$)",
+      "category": "version_control",
+      "severity": "high",
+      "risk": "Force-pushing to remote repository",
+      "impact": "May overwrite teammates' work",
+      "considerations": [
+        "Have you coordinated with your team?",
+        "Could you use '--force-with-lease' instead?",
+        "Are you pushing to a shared branch?"
+      ]
+    }
+  }
+}
