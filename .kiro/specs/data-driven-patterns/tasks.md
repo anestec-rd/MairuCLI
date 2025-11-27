@@ -39,7 +39,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Add error handling for invalid JSON
   - _Requirements: 1.2, 1.3_
 
-- [ ]* 4.1 Write unit tests for PatternLoader
+- [x] 4.1 Write unit tests for PatternLoader
   - Test loading valid JSON files
   - Test handling missing files gracefully
   - Test handling invalid JSON syntax
@@ -54,7 +54,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Log compilation errors clearly
   - _Requirements: 2.2, 2.3_
 
-- [ ]* 5.1 Write unit tests for PatternCompiler
+- [x] 5.1 Write unit tests for PatternCompiler
   - Test compiling valid regex patterns
   - Test handling invalid regex gracefully
   - Test pattern matching with compiled patterns
@@ -69,7 +69,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Maintain same logic as existing functions
   - _Requirements: 1.1, 2.1, 5.1_
 
-- [ ]* 6.1 Write unit tests for CommandInterceptor
+- [x] 6.1 Write unit tests for CommandInterceptor
   - Test pattern detection with JSON-loaded patterns
   - Test all dangerous patterns are detected
   - Test all caution patterns are detected
@@ -129,7 +129,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Verify all patterns appear in help output
   - _Requirements: 8.7, 8.8_
 
-- [ ]* 12.1 Write tests for HelpGenerator
+- [x] 12.1 Write tests for HelpGenerator
   - Test that all dangerous patterns appear in help
   - Test that all caution patterns appear in help
   - Test category grouping
@@ -149,7 +149,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Report validation errors clearly
   - _Requirements: 6.3_
 
-- [ ] 14. Update documentation
+- [x] 14. Update documentation
   - Update README.md with new pattern addition process
   - Document JSON file structure (including help_example and help_description)
   - Add examples of adding new patterns

@@ -406,6 +406,89 @@ This is intentional! Learning includes seeing what happens with invalid commands
 - ✅ Educational value + entertainment
 - ✅ Clean, maintainable architecture
 
+## 🔧 Adding New Patterns
+
+MairuCLI uses a **data-driven architecture** - all patterns are stored in JSON files, not hardcoded in Python!
+
+### Adding a Dangerous Pattern
+
+1. **Add to `data/warnings/warning_catalog.json`:**
+
+```json
+{
+  "your_pattern_name": {
+    "category": "deletion",
+    "severity": "critical",
+    "variation_set": "your_pattern",
+    "ascii_art": "your_art.txt",
+    "color": "red",
+    "emoji": "fire",
+    "pattern": "your\\s+regex\\s+pattern",
+    "explanation": "What this command does",
+    "consequence": "Why it's dangerous",
+    "advice": ["Safe alternative 1", "Safe alternative 2"],
+    "help_example": "your command",
+    "help_description": "Short description (under 50 chars)",
+    "timing": {
+      "art_delay": 0.05,
+      "pause_after_art": 0.3,
+      "pause_before_explanation": 0.5,
+      "pause_before_achievement": 0.3
+    }
+  }
+}
+```
+
+2. **Add variations to `data/warnings/category_variations.json`** (if needed)
+3. **Add ASCII art to `data/ascii_art/`** (if needed)
+4. **Test:** Run `python -m src.main` and try your pattern
+
+**Important:** Use double backslashes in JSON regex patterns! (`\\s+` not `\s+`)
+
+### Adding a Caution Pattern
+
+Add to `data/warnings/caution_catalog.json`:
+
+```json
+{
+  "your_caution": {
+    "pattern": "your\\s+pattern",
+    "category": "security",
+    "severity": "medium",
+    "risk": "What could go wrong",
+    "impact": "Potential consequences",
+    "considerations": [
+      "Question 1 to make user think",
+      "Question 2 about alternatives",
+      "Question 3 about context"
+    ],
+    "help_example": "your command",
+    "help_description": "Short description"
+  }
+}
+```
+
+### Adding a Typo Pattern
+
+Add to `data/warnings/typo_messages.json`:
+
+```json
+{
+  "your_typo": {
+    "pattern": "^typo\\b",
+    "correct": "correct_command",
+    "message": "🎃 Fun message about the typo!",
+    "ascii_art": null
+  }
+}
+```
+
+### No Code Changes Needed!
+
+The pattern loader automatically picks up new patterns from JSON files. Just restart MairuCLI and your new pattern will work!
+
+---
+
 ## 🤝 Contributing
 
 This is a hackathon project. After the submission deadline, contributions will be welcome!

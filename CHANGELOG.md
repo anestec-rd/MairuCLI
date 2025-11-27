@@ -9,6 +9,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **Complete Data-Driven Architecture** - Day 11
+  - All patterns now loaded from JSON files (no hardcoded patterns)
+  - Builtin commands defined in `data/builtins/builtin_commands.json`
+  - COMMON_COMMANDS loaded from JSON (no duplication)
+  - Help command auto-generated from JSON data
+  - Pattern-specific emojis (chmod 000 = 🔒, chmod 777 = 🔓)
+  - Easy to add new patterns without touching code
+  - Single source of truth for all command information
 - **Complete ASCII Art Overhaul - Intense & Distinctive** - Day 7
   - **Enhanced existing (3):** fired.txt, permission_denied.txt, data_destroyer.txt
     - Added burning faces, screaming, flames, destruction effects
