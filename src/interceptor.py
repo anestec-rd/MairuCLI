@@ -23,16 +23,17 @@ class PatternLoader:
         """
         self.data_dir = data_dir
 
-    def load_all_patterns(self) -> Tuple[Dict, Dict]:
+    def load_all_patterns(self) -> Tuple[Dict, Dict, Dict]:
         """
         Load all patterns from JSON files.
 
         Returns:
-            Tuple of (dangerous_patterns, caution_patterns)
+            Tuple of (dangerous_patterns, caution_patterns, typo_patterns)
         """
         dangerous = self._load_dangerous_patterns()
         caution = self._load_caution_patterns()
-        return dangerous, caution
+        typo = self._load_typo_patterns()
+        return dangerous, caution, typo
 
     def _load_dangerous_patterns(self) -> Dict:
         """
@@ -136,6 +137,33 @@ class PatternLoader:
             print(f"Warning: Invalid JSON in {catalog_path}: {e}")
             return {}
 
+    def _load_typo_patterns(self) -> Dict:
+        """
+        Load typo patterns from typo_messages.json.
+
+        Returns:
+            Dictionary of typo patterns
+        """
+        typo_path = os.path.join(self.data_dir, "typo_messages.json")
+
+        try:
+            with open(typo_path, 'r', encoding='utf-8') as f:
+                typo_data = json.load(f)
+
+            patterns = {}
+            for name, data in typo_data.get('typos', {}).items():
+                if 'pattern' in data:
+                    patterns[name] = data
+
+            return patterns
+
+        except FileNotFoundError:
+            print(f"Warning: {typo_path} not found. Using empty patterns.")
+            return {}
+        except json.JSONDecodeError as e:
+            print(f"Warning: Invalid JSON in {typo_path}: {e}")
+            return {}
+
 
 class PatternCompiler:
     """Compile regex patterns for efficient matching."""
@@ -205,45 +233,9 @@ PROTECTED_DIRECTORIES = {
 }
 
 
-# Dangerous and Caution patterns are now loaded from JSON files
-# See: data/warnings/warning_catalog.json and data/warnings/caution_catalog.json
+# All patterns (Dangerous, Caution, and Typo) are now loaded from JSON files
+# See: data/warnings/warning_catalog.json, caution_catalog.json, and typo_messages.json
 # This enables data-driven architecture where patterns can be managed without code changes
-
-# Typo patterns (special cases that need custom messages)
-# Note: Generic typo detection handles most common typos automatically
-# Only define patterns here if they need special handling or custom messages
-TYPO_PATTERNS: Dict[str, Dict[str, str]] = {
-    "sl": {
-        "pattern": r"^sl$",
-        "correct": "ls",
-        "message": "🚂 Choo choo! All aboard the typo train!"
-    },
-    "gti": {
-        "pattern": r"^gti\b",
-        "correct": "git",
-        "message": "🚗 GTI? That's a car! You meant 'git', right?"
-    },
-    "tou": {
-        "pattern": r"^tou\b",
-        "correct": "touch",
-        "message": "⚡ Whoa, speedy fingers! You meant 'touch', right?"
-    },
-    "cd_stuck": {
-        "pattern": r"^cd\.\.$",
-        "correct": "cd ..",
-        "message": "🎃 Stuck together? Let me help you separate!"
-    },
-    "ls_stuck": {
-        "pattern": r"^ls-[a-z]+$",
-        "correct": "ls -[options]",
-        "message": "🎯 Missing space! Try 'ls -la' instead of 'ls-la'!"
-    },
-    "git_stuck": {
-        "pattern": r"^git-[a-z]+$",
-        "correct": "git [command]",
-        "message": "📝 Oops! Git commands need space: 'git status'!"
-    }
-}
 
 
 # Common command list for generic typo detection
@@ -260,11 +252,12 @@ _loader = PatternLoader()
 _compiler = PatternCompiler()
 
 # Load patterns from JSON
-_loaded_dangerous, _loaded_caution = _loader.load_all_patterns()
+_loaded_dangerous, _loaded_caution, _loaded_typo = _loader.load_all_patterns()
 
 # Compile patterns for performance
 DANGEROUS_PATTERNS = _compiler.compile_patterns(_loaded_dangerous)
 CAUTION_PATTERNS = _compiler.compile_patterns(_loaded_caution)
+TYPO_PATTERNS = _compiler.compile_patterns(_loaded_typo)
 
 # Validate that patterns were loaded successfully
 if not DANGEROUS_PATTERNS:
@@ -276,6 +269,10 @@ if not DANGEROUS_PATTERNS:
 if not CAUTION_PATTERNS:
     print("Warning: No caution patterns loaded from data/warnings/caution_catalog.json")
     CAUTION_PATTERNS = {}  # Empty dict is acceptable for caution patterns
+
+if not TYPO_PATTERNS:
+    print("Warning: No typo patterns loaded from data/warnings/typo_messages.json")
+    TYPO_PATTERNS = {}  # Empty dict is acceptable for typo patterns
 
 
 def check_generic_typo(command: str) -> Tuple[bool, str, str]:

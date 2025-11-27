@@ -8,14 +8,14 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
 
 ## Tasks
 
-- [ ] 1. Add pattern field to existing JSON files
+- [x] 1. Add pattern field to existing JSON files
   - Add `"pattern"` field to all entries in `data/warnings/warning_catalog.json`
   - Migrate regex patterns from `interceptor.py` DANGEROUS_PATTERNS
   - Ensure proper escaping (double backslashes in JSON)
   - Validate JSON syntax
   - _Requirements: 1.1, 2.1_
 
-- [ ] 2. Create caution_catalog.json
+- [x] 2. Create caution_catalog.json
   - Create new file `data/warnings/caution_catalog.json`
   - Migrate all CAUTION_PATTERNS from `interceptor.py`
   - Add `"pattern"` field to each entry
@@ -23,13 +23,13 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Validate JSON structure
   - _Requirements: 3.1, 3.2_
 
-- [ ] 3. Update typo_messages.json with patterns
+- [x] 3. Update typo_messages.json with patterns
   - Add `"pattern"` field to all entries in `data/warnings/typo_messages.json`
   - Migrate regex patterns from `interceptor.py` TYPO_PATTERNS
   - Ensure proper escaping
   - _Requirements: 4.1, 4.2_
 
-- [ ] 4. Implement PatternLoader class
+- [x] 4. Implement PatternLoader class
   - Create `PatternLoader` class in `interceptor.py`
   - Implement `load_all_patterns()` method
   - Implement `_load_dangerous_patterns()` method
@@ -46,7 +46,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Test handling missing pattern fields
   - _Requirements: 1.4_
 
-- [ ] 5. Implement PatternCompiler class
+- [x] 5. Implement PatternCompiler class
   - Create `PatternCompiler` class in `interceptor.py`
   - Implement `compile_patterns()` method
   - Implement `_compile_pattern_dict()` method

@@ -1,12 +1,41 @@
 {
-  "sl": {
-    "message": "🚂 Choo choo! All aboard the typo train!",
-    "correct": "ls",
-    "ascii_art": null
-  },
-  "cd_stuck": {
-    "message": "🎃 Stuck together? Let me help you separate!",
-    "correct": "cd ..",
-    "ascii_art": null
+  "version": "1.0",
+  "typos": {
+    "sl": {
+      "pattern": "^sl$",
+      "correct": "ls",
+      "message": "🚂 Choo choo! All aboard the typo train!",
+      "ascii_art": null
+    },
+    "gti": {
+      "pattern": "^gti\\b",
+      "correct": "git",
+      "message": "🚗 GTI? That's a car! You meant 'git', right?",
+      "ascii_art": null
+    },
+    "tou": {
+      "pattern": "^tou\\b",
+      "correct": "touch",
+      "message": "⚡ Whoa, speedy fingers! You meant 'touch', right?",
+      "ascii_art": null
+    },
+    "cd_stuck": {
+      "pattern": "^cd\\.\\.$",
+      "correct": "cd ..",
+      "message": "🎃 Stuck together? Let me help you separate!",
+      "ascii_art": null
+    },
+    "ls_stuck": {
+      "pattern": "^ls-[a-z]+$",
+      "correct": "ls -[options]",
+      "message": "🎯 Missing space! Try 'ls -la' instead of 'ls-la'!",
+      "ascii_art": null
+    },
+    "git_stuck": {
+      "pattern": "^git-[a-z]+$",
+      "correct": "git [command]",
+      "message": "📝 Oops! Git commands need space: 'git status'!",
+      "ascii_art": null
+    }
   }
 }
