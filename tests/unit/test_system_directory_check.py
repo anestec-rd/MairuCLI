@@ -165,14 +165,22 @@ class TestSystemDirectoryCheck:
         assert ptype == "system_critical"
 
     def test_dd_to_system_device(self):
-        """Test dd command targeting system device."""
+        """Test dd command targeting system device.
+
+        Note: dd commands with /dev/zero or /dev/sd* are handled by
+        dangerous pattern check (dd_zero, redirect_to_disk) which provides
+        more specific educational warnings. System protection defers to
+        dangerous patterns for better user education.
+        """
         if sys.platform == "win32":
             pytest.skip("Linux-specific test")
 
         level, ptype, path = check_system_directory("dd if=/dev/zero of=/dev/sda")
 
-        assert level == "critical"
-        assert ptype == "system_critical"
+        # Should be "safe" because dangerous pattern check handles this
+        assert level == "safe"
+        assert ptype == ""
+        assert path == ""
 
     def test_output_redirection_to_system_file(self):
         """Test output redirection to system file."""
