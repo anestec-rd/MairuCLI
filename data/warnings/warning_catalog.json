@@ -21,7 +21,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "rm\\s+(-rf|-fr|-r\\s+-f|-f\\s+-r)\\s+(/|~|\\$HOME|\\*|\\.(?:\\s|$)|\\$\\w+)"
+      "pattern": "rm\\s+(-rf|-fr|-r\\s+-f|-f\\s+-r)\\s+(/|~|\\$HOME|\\*|\\.(?:\\s|$)|\\$\\w+)",
+      "help_example": "rm -rf /",
+      "help_description": "Recursive deletion of critical paths"
     },
     "chmod_777": {
       "category": "permission",
@@ -42,7 +44,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "chmod\\s+(-R\\s+)?777"
+      "pattern": "chmod\\s+(-R\\s+)?777",
+      "help_example": "chmod 777 file",
+      "help_description": "Give everyone full file access"
     },
     "chmod_000": {
       "category": "permission",
@@ -64,7 +68,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "chmod\\s+(-R\\s+)?000"
+      "pattern": "chmod\\s+(-R\\s+)?000",
+      "help_example": "chmod 000 file",
+      "help_description": "Remove all file permissions"
     },
     "dd_zero": {
       "category": "disk",
@@ -85,7 +91,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "dd\\s+if=/dev/zero"
+      "pattern": "dd\\s+if=/dev/zero",
+      "help_example": "dd if=/dev/zero",
+      "help_description": "Write zeros to disk"
     },
     "drop_database": {
       "category": "database",
@@ -106,7 +114,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "DROP\\s+DATABASE"
+      "pattern": "DROP\\s+DATABASE",
+      "help_example": "DROP DATABASE prod",
+      "help_description": "Delete entire database"
     },
     "fork_bomb": {
       "category": "system",
@@ -127,7 +137,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": ":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;?\\s*:"
+      "pattern": ":\\(\\)\\s*\\{\\s*:\\s*\\|\\s*:\\s*&\\s*\\}\\s*;?\\s*:",
+      "help_example": ":(){ :|:& };:",
+      "help_description": "Crash system with infinite processes"
     },
     "redirect_to_disk": {
       "category": "disk",
@@ -149,7 +161,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": ">\\s*/dev/(sd[a-z]|nvme\\d+n\\d+)"
+      "pattern": ">\\s*/dev/(sd[a-z]|nvme\\d+n\\d+)",
+      "help_example": "echo data > /dev/sda",
+      "help_description": "Write directly to disk device"
     },
     "mkfs_disk": {
       "category": "disk",
@@ -170,7 +184,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "mkfs(\\.\\w+)?\\s+/dev/(sd[a-z]|nvme\\d+n\\d+)"
+      "pattern": "mkfs(\\.\\w+)?\\s+/dev/(sd[a-z]|nvme\\d+n\\d+)",
+      "help_example": "mkfs /dev/sda",
+      "help_description": "Format entire disk"
     },
     "mv_to_null": {
       "category": "deletion",
@@ -191,7 +207,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "mv\\s+.+\\s+/dev/null"
+      "pattern": "mv\\s+.+\\s+/dev/null",
+      "help_example": "mv file /dev/null",
+      "help_description": "Delete file permanently"
     },
     "overwrite_file": {
       "category": "deletion",
@@ -212,7 +230,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "^\\s*>\\s+/\\w+"
+      "pattern": "^\\s*>\\s+/\\w+",
+      "help_example": "> /important/file",
+      "help_description": "Erase file contents"
     },
     "dd_random": {
       "category": "disk",
@@ -233,7 +253,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "dd\\s+if=/dev/random\\s+of=/dev/(sd[a-z]|nvme\\d+n\\d+)"
+      "pattern": "dd\\s+if=/dev/random\\s+of=/dev/(sd[a-z]|nvme\\d+n\\d+)",
+      "help_example": "dd if=/dev/random of=/dev/sda",
+      "help_description": "Overwrite disk with random data"
     },
     "kernel_panic": {
       "category": "system",
@@ -255,7 +277,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "echo\\s+c\\s*>\\s*/proc/sysrq-trigger"
+      "pattern": "echo\\s+c\\s*>\\s*/proc/sysrq-trigger",
+      "help_example": "echo c > /proc/sysrq-trigger",
+      "help_description": "Trigger kernel crash"
     },
     "shred_secure": {
       "category": "disk",
@@ -278,7 +302,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "shred\\s+.*(/dev/sd[a-z]|/dev/nvme|-n\\s+\\d{2,})"
+      "pattern": "shred\\s+.*(/dev/sd[a-z]|/dev/nvme|-n\\s+\\d{2,})",
+      "help_example": "shred /dev/sda",
+      "help_description": "Securely erase disk"
     },
     "system_modify": {
       "category": "system",
@@ -301,7 +327,9 @@
         "pause_before_explanation": 0.5,
         "pause_before_achievement": 0.3
       },
-      "pattern": "(>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|echo\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|cat\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|>\\s*/dev/mem|dd\\s+.*of=/dev/mem|chmod\\s+.*\\s+/etc/(passwd|shadow|sudoers)|chown\\s+.*\\s+/etc/(passwd|shadow|sudoers)|rm\\s+.*\\s+/etc/(passwd|shadow|fstab|sudoers|group))"
+      "pattern": "(>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|echo\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|cat\\s+.*>\\s*/etc/(passwd|shadow|fstab|hosts|sudoers|group)|>\\s*/dev/mem|dd\\s+.*of=/dev/mem|chmod\\s+.*\\s+/etc/(passwd|shadow|sudoers)|chown\\s+.*\\s+/etc/(passwd|shadow|sudoers)|rm\\s+.*\\s+/etc/(passwd|shadow|fstab|sudoers|group))",
+      "help_example": "echo test > /etc/passwd",
+      "help_description": "Modify critical system files"
     }
   }
 }

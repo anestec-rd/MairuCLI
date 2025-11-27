@@ -60,7 +60,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Test pattern matching with compiled patterns
   - _Requirements: 2.4_
 
-- [ ] 6. Create CommandInterceptor class
+- [x] 6. Create CommandInterceptor class
   - Implement `CommandInterceptor` class
   - Implement `__init__` with pattern loading
   - Implement `_load_and_compile_patterns()` method
@@ -77,7 +77,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - _Requirements: 5.2_
 
 
-- [ ] 7. Add backward compatibility layer
+- [x] 7. Add backward compatibility layer
   - Create module-level `_interceptor` singleton
   - Implement `_get_interceptor()` function
   - Update `check_command()` to use new class
@@ -91,7 +91,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Compare results with old implementation
   - _Requirements: 5.4_
 
-- [ ] 8. Remove hardcoded pattern dictionaries
+- [x] 8. Remove hardcoded pattern dictionaries
   - Remove `DANGEROUS_PATTERNS` dictionary from `interceptor.py`
   - Remove `CAUTION_PATTERNS` dictionary from `interceptor.py`
   - Remove `TYPO_PATTERNS` dictionary from `interceptor.py`
@@ -99,14 +99,14 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Keep `COMMON_COMMANDS` (used for generic typo detection)
   - _Requirements: 1.5_
 
-- [ ] 9. Checkpoint - Ensure all tests pass
+- [x] 9. Checkpoint - Ensure all tests pass
   - Run all unit tests
   - Run all integration tests
   - Verify no regressions in pattern detection
   - Ask user if questions arise
   - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 10. Add help_example and help_description to JSON files
+- [x] 10. Add help_example and help_description to JSON files
   - Add `help_example` field to all patterns in `warning_catalog.json`
   - Add `help_description` field to all patterns in `warning_catalog.json`
   - Add `help_example` field to all patterns in `caution_catalog.json`
