@@ -114,7 +114,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Ensure descriptions are concise (50 characters or less)
   - _Requirements: 8.1, 8.2, 8.3_
 
-- [ ] 11. Implement HelpGenerator class
+- [x] 11. Implement HelpGenerator class
   - Create `HelpGenerator` class in `src/builtins/mairu_commands.py`
   - Implement `generate_dangerous_commands_help()` method
   - Implement `generate_caution_commands_help()` method
@@ -122,7 +122,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Load patterns from JSON dynamically
   - _Requirements: 8.4, 8.5, 8.6_
 
-- [ ] 12. Update help command to use HelpGenerator
+- [x] 12. Update help command to use HelpGenerator
   - Replace hardcoded dangerous command list with `HelpGenerator`
   - Add caution commands section (currently missing)
   - Ensure formatting and colors are consistent

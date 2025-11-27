@@ -1,0 +1,151 @@
+{
+  "version": "1.0",
+  "categories": {
+    "navigation": {
+      "title": "Navigation & File Management",
+      "color": "green",
+      "commands": [
+        {
+          "name": "cd [path]",
+          "description": "Change directory",
+          "emoji": "📁"
+        },
+        {
+          "name": "pwd",
+          "description": "Print working directory",
+          "emoji": "📍"
+        },
+        {
+          "name": "ls / dir",
+          "description": "List directory contents",
+          "emoji": "📋"
+        },
+        {
+          "name": "tree [path]",
+          "description": "Show directory tree structure",
+          "emoji": "🌳"
+        },
+        {
+          "name": "touch <file>",
+          "description": "Create empty file",
+          "emoji": "✨"
+        },
+        {
+          "name": "mkdir <dir>",
+          "description": "Create directory",
+          "emoji": "📁"
+        },
+        {
+          "name": "cat [file]",
+          "description": "Display file contents =^.^=",
+          "emoji": "🐱"
+        }
+      ]
+    },
+    "search": {
+      "title": "Search & Find",
+      "color": "green",
+      "commands": [
+        {
+          "name": "find <pattern>",
+          "description": "Find files by name",
+          "emoji": "🔍"
+        },
+        {
+          "name": "grep <pattern> <file>",
+          "description": "Search text in files",
+          "emoji": "🔎"
+        },
+        {
+          "name": "which <cmd>",
+          "description": "Show command location",
+          "emoji": "📍"
+        }
+      ]
+    },
+    "system_info": {
+      "title": "System Info",
+      "color": "green",
+      "commands": [
+        {
+          "name": "whoami",
+          "description": "Show current username",
+          "emoji": "👤"
+        },
+        {
+          "name": "hostname",
+          "description": "Show computer name",
+          "emoji": "💻"
+        },
+        {
+          "name": "date",
+          "description": "Show current date and time",
+          "emoji": "📅"
+        },
+        {
+          "name": "env",
+          "description": "Show environment variables",
+          "emoji": "🌍"
+        }
+      ]
+    },
+    "utilities": {
+      "title": "Utilities",
+      "color": "green",
+      "commands": [
+        {
+          "name": "echo [text]",
+          "description": "Print text to screen",
+          "emoji": "💬"
+        },
+        {
+          "name": "clear / cls",
+          "description": "Clear terminal screen",
+          "emoji": "🧹"
+        },
+        {
+          "name": "history",
+          "description": "Show command history",
+          "emoji": "📜"
+        },
+        {
+          "name": "alias",
+          "description": "Show available command aliases",
+          "emoji": "🔗"
+        }
+      ]
+    },
+    "mairu_specific": {
+      "title": "MairuCLI Specific",
+      "color": "green",
+      "commands": [
+        {
+          "name": "stats",
+          "description": "Show how many times I saved you",
+          "emoji": "📊"
+        },
+        {
+          "name": "help",
+          "description": "Show this help message",
+          "emoji": "❓"
+        },
+        {
+          "name": "exit/quit",
+          "description": "Exit MairuCLI",
+          "emoji": "👋"
+        }
+      ]
+    },
+    "system_commands": {
+      "title": "System Commands",
+      "color": "purple",
+      "commands": [
+        {
+          "name": "Any other command",
+          "description": "will be passed to your system shell (after safety checks, of course!)",
+          "emoji": "⚙️"
+        }
+      ]
+    }
+  }
+}

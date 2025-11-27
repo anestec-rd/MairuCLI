@@ -239,11 +239,30 @@ PROTECTED_DIRECTORIES = {
 
 
 # Common command list for generic typo detection
-COMMON_COMMANDS = [
-    "ls", "cd", "pwd", "cat", "echo", "touch", "mkdir", "rm", "mv", "cp",
-    "chmod", "chown", "grep", "find", "which", "whoami", "date", "hostname",
-    "git", "exit", "clear", "help", "history", "alias", "tree"
-]
+# Loaded from builtin_commands.json to avoid duplication
+def _load_common_commands() -> list:
+    """Load common command names from builtin_commands.json."""
+    try:
+        builtin_path = os.path.join("data", "builtins", "builtin_commands.json")
+        with open(builtin_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        commands = []
+        for category_data in data.get('categories', {}).values():
+            for cmd in category_data.get('commands', []):
+                # Extract command name (first word before space or special chars)
+                name = cmd.get('name', '').split()[0].split('/')[0].strip('<>')
+                # Skip generic descriptions like "Any other command"
+                if name and name.lower() not in ['any', 'other'] and name not in commands:
+                    commands.append(name)
+
+        return commands
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Warning: Could not load common commands: {e}")
+        # Fallback to minimal list
+        return ["ls", "cd", "pwd", "cat", "echo", "help", "exit"]
+
+COMMON_COMMANDS = _load_common_commands()
 
 
 # Load patterns from JSON files (data-driven architecture)

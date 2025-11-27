@@ -81,6 +81,22 @@ CAUTION_HELP_DATA = {
     "service_stop": {
         "help_example": "systemctl stop sshd",
         "help_description": "Stop critical service"
+    },
+    "selinux_disable": {
+        "help_example": "setenforce 0",
+        "help_description": "Disable SELinux security"
+    },
+    "kill_force": {
+        "help_example": "kill -9 <pid>",
+        "help_description": "Force kill process"
+    },
+    "rm_node_modules": {
+        "help_example": "rm -rf node_modules",
+        "help_description": "Delete node dependencies"
+    },
+    "git_force_push": {
+        "help_example": "git push --force",
+        "help_description": "Overwrite remote history"
     }
 }
 

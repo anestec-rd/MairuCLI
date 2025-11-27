@@ -53,7 +53,9 @@
         "Could you fix the SELinux policy instead?",
         "Is this permanent or temporary?",
         "Do you understand the security implications?"
-      ]
+      ],
+      "help_example": "setenforce 0",
+      "help_description": "Disable SELinux security"
     },
     "kill_force": {
       "pattern": "kill\\s+-9\\s+\\d+",
@@ -65,7 +67,9 @@
         "Did you try 'kill' (SIGTERM) first?",
         "Will the process lose unsaved data?",
         "Is this a critical system process?"
-      ]
+      ],
+      "help_example": "kill -9 <pid>",
+      "help_description": "Force kill process"
     },
     "rm_node_modules": {
       "pattern": "rm\\s+-rf\\s+node_modules",
@@ -77,7 +81,9 @@
         "This will take a while to reinstall",
         "Are you sure you want to delete dependencies?",
         "Consider 'npm ci' for a clean install instead"
-      ]
+      ],
+      "help_example": "rm -rf node_modules",
+      "help_description": "Delete node dependencies"
     },
     "git_force_push": {
       "pattern": "git\\s+push\\s+(--force|-f)(?:\\s|$)",
@@ -89,7 +95,9 @@
         "Have you coordinated with your team?",
         "Could you use '--force-with-lease' instead?",
         "Are you pushing to a shared branch?"
-      ]
+      ],
+      "help_example": "git push --force",
+      "help_description": "Overwrite remote history"
     }
   }
 }

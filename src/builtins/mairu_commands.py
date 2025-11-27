@@ -4,8 +4,141 @@ MairuCLI-specific commands.
 Provides MairuCLI-specific commands: help, stats
 """
 
-from typing import List
+import json
+from pathlib import Path
+from typing import List, Dict
 from src.config import DISPLAY_SEPARATOR_WIDTH
+
+
+class HelpGenerator:
+    """Generate help text from pattern catalogs."""
+
+    def __init__(self, data_dir: str = "data/warnings", builtins_dir: str = "data/builtins"):
+        """
+        Initialize help generator.
+
+        Args:
+            data_dir: Directory containing pattern JSON files
+            builtins_dir: Directory containing builtin commands JSON
+        """
+        self.data_dir = Path(data_dir)
+        self.builtins_dir = Path(builtins_dir)
+
+    def _load_patterns(self, filename: str, key: str) -> Dict:
+        """
+        Load patterns from JSON file.
+
+        Args:
+            filename: JSON filename
+            key: Key to extract patterns from
+
+        Returns:
+            Dictionary of patterns
+        """
+        try:
+            file_path = self.data_dir / filename
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return data.get(key, {})
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+
+    def _group_by_category(self, patterns: Dict) -> Dict[str, List]:
+        """
+        Group patterns by category.
+
+        Args:
+            patterns: Dictionary of patterns
+
+        Returns:
+            Dictionary mapping category to list of patterns
+        """
+        grouped = {}
+        for name, data in patterns.items():
+            category = data.get('category', 'other')
+            if category not in grouped:
+                grouped[category] = []
+            grouped[category].append({
+                'name': name,
+                'example': data.get('help_example', name),
+                'description': data.get('help_description', 'No description')
+            })
+        return grouped
+
+    def generate_dangerous_commands_help(self) -> List[str]:
+        """
+        Generate help text for dangerous commands.
+
+        Returns:
+            List of formatted help lines
+        """
+        from src.display import EMOJI
+
+        patterns = self._load_patterns('warning_catalog.json', 'warnings')
+        if not patterns:
+            return ["  (No dangerous patterns loaded)"]
+
+        lines = []
+        for name, data in patterns.items():
+            example = data.get('help_example', name)
+            description = data.get('help_description', 'Dangerous command')
+
+            # Use pattern-specific emoji if available
+            emoji_key = data.get('emoji', 'fire')
+            emoji = EMOJI.get(emoji_key, EMOJI['fire'])
+
+            # Pad example to 20 chars for alignment
+            padded_example = f"{example:<20}"
+            lines.append(f"  {emoji} {padded_example} - {description}")
+
+        return lines
+
+    def generate_caution_commands_help(self) -> List[str]:
+        """
+        Generate help text for caution commands.
+
+        Returns:
+            List of formatted help lines
+        """
+        from src.display import EMOJI
+
+        patterns = self._load_patterns('caution_catalog.json', 'cautions')
+        if not patterns:
+            return ["  (No caution patterns loaded)"]
+
+        lines = []
+        for name, data in patterns.items():
+            example = data.get('help_example', name)
+            description = data.get('help_description', 'Caution command')
+
+            # Use warning emoji for all caution commands
+            emoji = EMOJI['warning']
+
+            # Pad example to 20 chars for alignment
+            padded_example = f"{example:<20}"
+            lines.append(f"  {emoji} {padded_example} - {description}")
+
+        return lines
+
+    def generate_builtin_commands_help(self) -> Dict[str, Dict]:
+        """
+        Generate help text for builtin commands from JSON.
+
+        Returns:
+            Dictionary of categories with their commands
+        """
+        builtin_path = self.builtins_dir / "builtin_commands.json"
+
+        try:
+            with open(builtin_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return data.get('categories', {})
+        except FileNotFoundError:
+            print(f"Warning: {builtin_path} not found.")
+            return {}
+        except json.JSONDecodeError as e:
+            print(f"Warning: Invalid JSON in {builtin_path}: {e}")
+            return {}
 
 
 def cmd_help(args: List[str]) -> bool:
@@ -26,83 +159,41 @@ def cmd_help(args: List[str]) -> bool:
     print("=" * DISPLAY_SEPARATOR_WIDTH)
     print()
 
-    print(colorize("Navigation & File Management:", "green"))
-    print("  cd [path]    - Change directory")
-    print("  pwd          - Print working directory")
-    print("  ls / dir     - List directory contents")
-    print("  tree [path]  - Show directory tree structure")
-    print("  touch <file> - Create empty file")
-    print("  mkdir <dir>  - Create directory")
-    print("  cat [file]   - Display file contents =^.^=")
-    print()
+    # Generate builtin commands help from JSON
+    help_gen = HelpGenerator()
+    builtin_categories = help_gen.generate_builtin_commands_help()
 
-    print(colorize("Search & Find:", "green"))
-    print("  find <pattern> - Find files by name")
-    print("  grep <pattern> <file> - Search text in files")
-    print("  which <cmd>  - Show command location")
-    print()
+    for category_key, category_data in builtin_categories.items():
+        title = category_data.get('title', 'Commands')
+        color = category_data.get('color', 'green')
+        commands = category_data.get('commands', [])
 
-    print(colorize("System Info:", "green"))
-    print("  whoami       - Show current username")
-    print("  hostname     - Show computer name")
-    print("  date         - Show current date and time")
-    print("  env          - Show environment variables")
-    print()
+        print(colorize(f"{title}:", color))
+        for cmd in commands:
+            name = cmd.get('name', '')
+            description = cmd.get('description', '')
+            emoji = cmd.get('emoji', '')
 
-    print(colorize("Utilities:", "green"))
-    print("  echo [text]  - Print text to screen")
-    print("  clear / cls  - Clear terminal screen")
-    print("  history      - Show command history")
-    print("  alias        - Show available command aliases")
-    print()
+            # Pad name to 13 chars for alignment
+            padded_name = f"{name:<13}"
+            if emoji:
+                print(f"  {emoji} {padded_name} - {description}")
+            else:
+                print(f"  {padded_name} - {description}")
+        print()
 
-    print(colorize("MairuCLI Specific:", "green"))
-    print("  stats        - Show how many times I saved you")
-    print("  help         - Show this help message")
-    print("  exit/quit    - Exit MairuCLI")
-    print()
-
-    print(colorize("System Commands:", "purple"))
-    print("  Any other command will be passed to your system shell")
-    print("  (after safety checks, of course!)")
-    print()
-
+    # Generate dangerous commands help from JSON
     print(colorize("💀 Dangerous Commands (DON'T try these!):", "red"))
-    print(f"  {EMOJI['fire']} rm -rf /        "
-          "- Deletes EVERYTHING (seriously, don't)")
-    print(f"  {EMOJI['unlock']} chmod 777 file  "
-          "- Makes files world-writable (bad idea)")
-    print(f"  {EMOJI['lock']} chmod 000 file  "
-          "- Locks file completely (even you can't access)")
-    print(f"  {EMOJI['bomb']} dd if=/dev/zero "
-          "- Overwrites your disk (yikes!)")
-    print(f"  {EMOJI['disk']} > /dev/sda      "
-          "- Destroys disk directly (instant data loss)")
-    print(f"  {EMOJI['disk']} mkfs /dev/sda   "
-          "- Formats entire disk (everything gone)")
-    print(f"  {EMOJI['exclamation']} echo c > /proc/sysrq-trigger "
-          "- Crashes kernel (instant reboot)")
-    print(f"  {EMOJI['shredder']} shred /dev/sda  "
-          "- Secure wipes disk (unrecoverable)")
-    print(f"  {EMOJI['database']} DROP DATABASE   "
-          "- Deletes entire database (career-ending)")
-    print(f"  {EMOJI['bomb']} :()\u007b :|:& \u007d;: "
-          "- Fork bomb (freezes system)")
+    dangerous_lines = help_gen.generate_dangerous_commands_help()
+    for line in dangerous_lines:
+        print(line)
     print()
 
+    # Generate caution commands help from JSON
     print(colorize("⚠️  Caution Commands (Think twice!):", "purple"))
-    print(f"  {EMOJI['skull']} sudo su         "
-          "- Enters root shell (all safety off)")
-    print(f"  {EMOJI['skull']} chmod 666/755   "
-          "- Makes files readable by others")
-    print(f"  {EMOJI['skull']} iptables -F     "
-          "- Disables firewall (security risk)")
-    print(f"  {EMOJI['skull']} setenforce 0    "
-          "- Disables SELinux (weakens security)")
-    print(f"  {EMOJI['skull']} kill -9 <pid>   "
-          "- Force kills process (may lose data)")
-    print(f"  {EMOJI['skull']} git push --force "
-          "- Overwrites remote (may lose teammates' work)")
+    caution_lines = help_gen.generate_caution_commands_help()
+    for line in caution_lines:
+        print(line)
     print()
 
     print(colorize("Fun Typos to Try:", "chocolate"))
