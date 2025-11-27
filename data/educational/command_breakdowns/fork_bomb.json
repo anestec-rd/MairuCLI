@@ -1,78 +1,41 @@
 {
-  "title": "Understanding Fork Bomb - The Process Explosion",
   "command": ":(){ :|:& };:",
+  "quick_summary": "Creates an exponential explosion of processes that freezes your computer in seconds. 1 becomes 2, 2 becomes 4, 4 becomes 8... until your system crashes. Hard reboot required.",
   "parts": [
     {
       "part": ":()",
-      "explanation": "Define a function named ':' (colon)",
-      "danger_level": "low"
+      "emoji": "💣",
+      "meaning": "Define a function named ':' (colon) - the bomb itself",
+      "danger_level": "Harmless until executed"
     },
     {
       "part": ":|:",
-      "explanation": "Function calls itself and pipes to itself",
-      "danger_level": "high"
+      "emoji": "🔄",
+      "meaning": "Function calls itself and pipes to itself - creates 2 copies",
+      "danger_level": "CRITICAL - Exponential growth"
     },
     {
       "part": "&",
-      "explanation": "Run in background (allows exponential growth)",
-      "danger_level": "critical"
+      "emoji": "⚡",
+      "meaning": "Run in background - allows unlimited parallel execution",
+      "danger_level": "CATASTROPHIC - No limits"
     },
     {
       "part": ";:",
-      "explanation": "Execute the function to start the chain reaction",
-      "danger_level": "critical"
+      "emoji": "💥",
+      "meaning": "Execute the function - lights the fuse",
+      "danger_level": "BOOM - System freeze in 10 seconds"
     }
   ],
-  "what_happens": [
-    {
-      "step": "Function ':' is defined and executed",
-      "timing": "T+0s",
-      "impact": "low"
-    },
-    {
-      "step": "First process spawns 2 copies of itself",
-      "timing": "T+0.1s",
-      "impact": "low"
-    },
-    {
-      "step": "2 processes become 4, then 8, then 16... (exponential growth)",
-      "timing": "T+0.5s",
-      "impact": "medium"
-    },
-    {
-      "step": "Hundreds of processes consuming CPU and memory",
-      "timing": "T+1s",
-      "impact": "high"
-    },
-    {
-      "step": "Thousands of processes - system becomes unresponsive",
-      "timing": "T+2-3s",
-      "impact": "critical"
-    },
-    {
-      "step": "System runs out of process slots - can't start new programs",
-      "timing": "T+5s",
-      "impact": "critical"
-    },
-    {
-      "step": "System completely frozen - keyboard/mouse don't respond",
-      "timing": "T+10s",
-      "impact": "critical"
-    },
-    {
-      "step": "Only option: Hard reboot (hold power button)",
-      "timing": "When you give up",
-      "impact": "critical"
-    }
-  ],
-  "real_world_impact": "A fork bomb creates an exponential explosion of processes that consume all system resources in seconds. Your computer will freeze completely, and you'll have no choice but to force a hard reboot. Any unsaved work is lost. It's called a 'bomb' for a reason.",
-  "prevention_tips": [
-    "Never run commands you don't understand, especially cryptic ones",
-    "Set process limits with 'ulimit -u' to prevent fork bombs",
-    "Modern systems have protections, but they're not foolproof",
-    "If you see ':(){' or similar patterns, it's likely a fork bomb",
-    "Learn to recognize dangerous patterns before running them",
-    "Use virtual machines for testing suspicious commands"
+  "translation": "Define a function that creates two copies of itself in the background, then execute it. Exponential process explosion ensues.",
+  "halloween_analogy": "It's like a zombie virus that spreads exponentially. One zombie bites two people, those two bite four, those four bite eight... In minutes, the entire city is overrun and there's no stopping it. Your only option is to nuke the city (hard reboot).",
+  "safe_alternatives": [
+    "NEVER run cryptic commands you don't understand",
+    "Set process limits: ulimit -u 1000 (limits processes per user)",
+    "If you see ':(){' or similar patterns, it's a fork bomb - don't run it!",
+    "Use virtual machines for testing suspicious commands",
+    "Modern systems have some protections, but they're not foolproof",
+    "Learn to recognize dangerous patterns before executing them"
   ],
   "related_incidents": []
 }

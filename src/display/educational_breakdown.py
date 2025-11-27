@@ -63,37 +63,123 @@ class EducationalBreakdown:
             print("  This command is dangerous and could cause data loss.")
             print()
 
-    def show_full_breakdown(self, pattern_name: str) -> None:
+    def show_breakdown(self, pattern_name: str, show_simulation: bool = False,
+                      show_incidents: bool = False) -> bool:
         """
-        Show full breakdown with all components.
+        Show educational breakdown for a pattern.
 
         Args:
-            pattern_name: Name of the pattern
+            pattern_name: Name of the pattern (e.g., "rm_dangerous")
+            show_simulation: Whether to show timeline simulation
+            show_incidents: Whether to show related incident stories
+
+        Returns:
+            True if breakdown was shown, False if not available
         """
-        # Load all content
+        from src.display import colorize
+
+        # Load and display command breakdown
         breakdown = self.loader.load_breakdown(pattern_name)
-        simulation = self.loader.load_simulation(pattern_name)
-        incident_names = self.loader.get_related_incidents(pattern_name)
+        if not breakdown:
+            return False
 
-        # Show command breakdown
-        if breakdown:
-            output = self.formatter.format_command_breakdown(breakdown)
-            print(output)
-        else:
-            self._show_fallback_breakdown(pattern_name)
+        # Format and display breakdown slowly
+        output = self.formatter.format_command_breakdown(breakdown)
+        self.formatter.print_slowly(output, delay=0.03)
 
-        # Show timeline simulation
-        if simulation:
-            output = self.formatter.format_timeline_simulation(simulation)
-            print(output)
+        # Show simulation if requested
+        if show_simulation:
+            simulation = self.loader.load_simulation(pattern_name)
+            if simulation:
+                # Prompt user to continue
+                print()
+                print(colorize("Press Enter to see the timeline simulation...", "orange"))
+                try:
+                    input()
+                except (KeyboardInterrupt, EOFError):
+                    return True
 
-        # Show related incidents
-        if incident_names:
+                print("\n" + "=" * 70)
+                output = self.formatter.format_timeline_simulation(simulation)
+                self.formatter.print_slowly(output, delay=0.05)  # Slower for timeline
+
+        # Show related incidents if requested
+        if show_incidents:
+            incident_names = self.loader.get_related_incidents(pattern_name)
             for incident_name in incident_names:
                 incident = self.loader.load_incident(incident_name)
                 if incident:
+                    # Prompt user to continue
+                    print()
+                    print(colorize("Press Enter to see the real horror story...", "orange"))
+                    try:
+                        input()
+                    except (KeyboardInterrupt, EOFError):
+                        return True
+
+                    print("\n" + "=" * 70)
                     output = self.formatter.format_incident_story(incident)
-                    print(output)
+                    self.formatter.print_slowly(output, delay=0.04)
+
+        return True
+
+    def show_quick_breakdown(self, pattern_name: str) -> bool:
+        """
+        Show a quick breakdown (just the command breakdown, no extras).
+
+        Args:
+            pattern_name: Name of the pattern
+
+        Returns:
+            True if breakdown was shown, False if not available
+        """
+        return self.show_breakdown(pattern_name, show_simulation=False, show_incidents=False)
+
+    def show_full_breakdown(self, pattern_name: str) -> bool:
+        """
+        Show full breakdown with simulation and incidents.
+
+        Args:
+            pattern_name: Name of the pattern
+
+        Returns:
+            True if breakdown was shown, False if not available
+        """
+        return self.show_breakdown(pattern_name, show_simulation=True, show_incidents=True)
+
+    def has_breakdown(self, pattern_name: str) -> bool:
+        """
+        Check if a breakdown exists for a pattern.
+
+        Args:
+            pattern_name: Name of the pattern
+
+        Returns:
+            True if breakdown exists, False otherwise
+        """
+        breakdown = self.loader.load_breakdown(pattern_name)
+        return breakdown is not None
+
+    def list_available_breakdowns(self):
+        """
+        List all available breakdown patterns.
+
+        Returns:
+            List of pattern names that have breakdowns
+        """
+        import os
+        breakdowns_dir = self.loader.base_path / "command_breakdowns"
+
+        if not breakdowns_dir.exists():
+            return []
+
+        patterns = []
+        for file in os.listdir(breakdowns_dir):
+            if file.endswith('.json') and file != '.gitkeep':
+                pattern_name = file[:-5]  # Remove .json extension
+                patterns.append(pattern_name)
+
+        return sorted(patterns)
 
     def _show_fallback_breakdown(self, pattern_name: str) -> None:
         """

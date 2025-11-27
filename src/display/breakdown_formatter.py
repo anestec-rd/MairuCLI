@@ -4,12 +4,26 @@ Educational breakdown formatter for MairuCLI.
 Formats command breakdowns, simulations, and incident stories with Halloween theme.
 """
 
-from typing import Dict, List
+import time
+from typing import Dict
 from src.config import DISPLAY_SEPARATOR_WIDTH
 
 
 class BreakdownFormatter:
     """Format educational content with Halloween theme."""
+
+    def print_slowly(self, text: str, delay: float = 0.03) -> None:
+        """
+        Print text line by line with a delay for dramatic effect.
+
+        Args:
+            text: Text to print (can be multi-line)
+            delay: Delay in seconds between lines
+        """
+        lines = text.split('\n')
+        for line in lines:
+            print(line)
+            time.sleep(delay)
 
     def format_command_breakdown(self, breakdown: Dict) -> str:
         """

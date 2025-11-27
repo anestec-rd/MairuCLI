@@ -1,0 +1,35 @@
+{
+  "command": "dd if=/dev/zero of=/dev/sda",
+  "quick_summary": "Overwrites your entire hard drive with zeros, byte by byte. Everything - OS, programs, files - gets erased permanently. It's like taking a magnet to your hard drive.",
+  "parts": [
+    {
+      "part": "dd",
+      "emoji": "💾",
+      "meaning": "Disk Dump - copies data from one place to another, byte by byte",
+      "danger_level": "Safe when used correctly"
+    },
+    {
+      "part": "if=/dev/zero",
+      "emoji": "0️⃣",
+      "meaning": "Input file: /dev/zero produces infinite stream of zero bytes",
+      "danger_level": "Dangerous - Infinite zeros"
+    },
+    {
+      "part": "of=/dev/sda",
+      "emoji": "💀",
+      "meaning": "Output file: /dev/sda is your actual hard drive (not a file!)",
+      "danger_level": "CATASTROPHIC - Targets your disk"
+    }
+  ],
+  "translation": "Copy an infinite stream of zeros directly to your hard drive, overwriting everything.",
+  "halloween_analogy": "It's like taking a giant eraser to your entire life's work. Every photo, every document, every memory - systematically erased, one byte at a time. And unlike accidental deletion, this is nearly impossible to recover from.",
+  "safe_alternatives": [
+    "ALWAYS double-check the 'of=' parameter - that's what gets destroyed",
+    "Use 'lsblk' to see your disk layout before using dd",
+    "Practice dd commands on USB drives or virtual machines first",
+    "Use 'pv' with dd to see progress: dd if=... | pv | dd of=...",
+    "For USB creation, use safer tools like 'balenaEtcher' or 'Rufus'",
+    "Remember: dd is called 'disk destroyer' for a reason!"
+  ],
+  "related_incidents": []
+}
