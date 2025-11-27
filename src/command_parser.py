@@ -231,6 +231,32 @@ class CommandParser:
         parsed = self.parse(command)
         return parsed["paths"]
 
+    def extract_redirection_target(self, command: str) -> Optional[str]:
+        """
+        Extract output redirection target from command.
+
+        This is used to detect dangerous redirections like:
+        - echo data > /dev/sda (disk write)
+        - cat file > /proc/sysrq-trigger (kernel panic)
+        - echo test > /etc/passwd (system file modification)
+
+        Args:
+            command: Full command string
+
+        Returns:
+            Target path if redirection found, None otherwise
+
+        Examples:
+            >>> parser = CommandParser()
+            >>> parser.extract_redirection_target("echo test > /dev/sda")
+            '/dev/sda'
+            >>> parser.extract_redirection_target("cat file > /tmp/out")
+            '/tmp/out'
+            >>> parser.extract_redirection_target("ls -la")
+            None
+        """
+        return self._check_redirect(command)
+
     def _strip_quotes(self, path: str) -> str:
         """
         Strip surrounding quotes from path.

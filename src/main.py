@@ -186,14 +186,42 @@ def process_command(command: str) -> str:
             return ""
         # User confirmed - proceed to next checks
 
-    # Layer 3: Check if builtin command
+    # Layer 3: Check for dangerous output redirection (BEFORE builtin execution)
+    # This catches commands like: echo data > /dev/sda
+    from src.command_parser import CommandParser
+    parser = CommandParser()
+    redirect_target = parser.extract_redirection_target(command)
+
+    if redirect_target:
+        # Check if redirection target is dangerous
+        import re
+        dangerous_redirect_patterns = [
+            (r'^/dev/sd[a-z]$', 'redirect_to_disk'),           # SATA disks
+            (r'^/dev/nvme\d+n\d+$', 'redirect_to_disk'),       # NVMe disks
+            (r'^/proc/sysrq-trigger$', 'kernel_panic'),        # Kernel panic
+            (r'^/dev/mem$', 'system_modify'),                  # Memory access
+            (r'^/etc/passwd$', 'system_modify'),               # System files
+            (r'^/etc/shadow$', 'system_modify'),
+            (r'^/etc/fstab$', 'system_modify'),
+            (r'^/etc/sudoers$', 'system_modify'),
+            (r'^/etc/hosts$', 'system_modify'),
+            (r'^/etc/group$', 'system_modify'),
+        ]
+
+        for pattern, pattern_name in dangerous_redirect_patterns:
+            if re.match(pattern, redirect_target, re.IGNORECASE):
+                # Dangerous redirection detected - block with warning
+                show_warning(pattern_name, command)
+                return ""
+
+    # Layer 4: Check if builtin command
     if BuiltinCommands.is_builtin(cmd_name):
         BuiltinCommands.execute_builtin(cmd_name, args)
         # Track safe command usage for achievements
         track_safe_command(cmd_name)
         return ""
 
-    # Layer 4: Execute in system shell (safe or confirmed caution command)
+    # Layer 5: Execute in system shell (safe or confirmed caution command)
     execute_in_system_shell(command)
     # Track safe command usage for achievements
     track_safe_command(cmd_name)

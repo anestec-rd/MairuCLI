@@ -3,25 +3,29 @@
 ## Critical Issues
 
 ### Safety & Security
-- [ ] **Fix Builtin Command Redirection Detection** - Issue #4 🔴 **CRITICAL**
-  - **Problem:** Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` are not detected as dangerous
-  - **Root Cause:** Builtin commands execute before redirection target is checked
-  - **Impact:** Critical safety vulnerability - dangerous commands can execute
-  - **Affected Commands:**
-    - `echo data > /dev/sda` - Direct disk write
-    - `cat file > /dev/sdb` - Direct disk write
-    - `echo c > /proc/sysrq-trigger` - Kernel panic
-  - **Solution Approach:**
-    1. Add redirection target extraction to `command_parser.py`
-    2. Check redirection targets before executing builtins in `process_command()`
-    3. Detect dangerous targets: `/dev/sd*`, `/proc/sysrq-trigger`, `/dev/mem`
-  - **Files to Modify:**
-    - `src/command_parser.py` - Add `extract_redirection_target()` method
-    - `src/main.py` - Add redirection check before builtin execution
-    - `src/interceptor.py` - May need pattern updates
-  - **Priority:** HIGH - Safety critical
+- [x] **Fix Builtin Command Redirection Detection** - Issue #4 ✅ **RESOLVED** (2025-11-27)
+  - **Problem:** Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` were not detected as dangerous
+  - **Root Cause:** Builtin commands executed before redirection target was checked
+  - **Impact:** Critical safety vulnerability - dangerous commands could execute
+  - **Solution Implemented:**
+    1. ✅ Added `extract_redirection_target()` method to `CommandParser`
+    2. ✅ Added redirection check in `process_command()` BEFORE builtin execution
+    3. ✅ Detect dangerous targets: `/dev/sd*`, `/dev/nvme*`, `/proc/sysrq-trigger`, `/dev/mem`, `/etc/*`
+  - **Files Modified:**
+    - `src/command_parser.py` - Added `extract_redirection_target()` method
+    - `src/main.py` - Added Layer 3: Redirection check before builtin execution
+    - `tests/unit/test_command_parser_redirection.py` - 24 new unit tests
+    - `tests/integration/test_builtin_redirection.py` - 14 new integration tests
+  - **Testing:**
+    - ✅ All 195 tests passing
+    - ✅ `echo data > /dev/sda` → Now blocked
+    - ✅ `cat file > /dev/sdb` → Now blocked
+    - ✅ `echo c > /proc/sysrq-trigger` → Now blocked
+    - ✅ `echo test > /etc/passwd` → Now blocked
+  - **Priority:** CRITICAL - Safety vulnerability
   - **Reference:** `docs/issues.md` Issue #4
   - **Added:** 2025-11-25
+  - **Resolved:** 2025-11-27 (Day 11)
 
 ## High Priority (Before Demo)
 

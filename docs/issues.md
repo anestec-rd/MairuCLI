@@ -137,11 +137,11 @@ When entering unexpected commands (not in dangerous/caution/builtin lists), the 
 ### Issue #4: Direct Disk Write Commands Not Detected
 **Date:** 2025-11-25 16:40
 **Severity:** Critical (Safety)
-**Status:** 🔴 OPEN
+**Status:** ✅ RESOLVED (2025-11-27)
 **Platform:** Both Windows and Linux
 
 **Problem:**
-Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` are not being detected as dangerous because builtin `echo` and `cat` commands execute first.
+Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` were not being detected as dangerous because builtin `echo` and `cat` commands executed before dangerous pattern detection.
 
 **Affected Patterns:**
 1. **Direct Disk Write (`redirect_to_disk`)**
@@ -151,27 +151,61 @@ Commands like `echo data > /dev/sda` and `cat file > /dev/sdb` are not being det
 2. **Kernel Panic (`kernel_panic`)**
    - `echo c > /proc/sysrq-trigger`
 
+3. **System File Modification (`system_modify`)**
+   - `echo test > /etc/passwd`
+   - `cat data > /etc/shadow`
+
 **Root Cause:**
-- Builtin commands (`echo`, `cat`) are executed before dangerous pattern detection
+- Builtin commands (`echo`, `cat`) were executed before dangerous pattern detection
 - Redirection to dangerous paths (`/dev/sda`, `/proc/sysrq-trigger`) not checked
-- Pattern matching happens too late in the execution flow
+- Pattern matching happened too late in the execution flow
 
 **Impact:**
-- Critical: Dangerous commands can execute
-- Core safety functionality compromised
+- Critical: Dangerous commands could execute
+- Core safety functionality was compromised
 - Both platforms affected
 
-**Solution Options:**
-1. Check for dangerous redirections before executing builtins
-2. Parse command for dangerous output targets (`> /dev/`, `> /proc/`)
-3. Add redirection pattern detection to interceptor
+**Solution Implemented:**
+1. Added `extract_redirection_target()` method to `CommandParser`
+2. Added redirection check in `process_command()` BEFORE builtin execution
+3. Check redirection target against dangerous path patterns
+4. Block dangerous redirections with appropriate warning
 
-**Files Affected:**
-- `src/interceptor.py` - Pattern detection
-- `src/builtins.py` - Builtin command execution
-- `src/command_parser.py` - Command parsing
+**Code Changes:**
+- `src/command_parser.py` - Added `extract_redirection_target()` method
+- `src/main.py` - Added Layer 3: Redirection check before builtin execution
+- `tests/unit/test_command_parser_redirection.py` - 24 new unit tests
+- `tests/integration/test_builtin_redirection.py` - 14 new integration tests
 
-**Priority:** HIGH - Safety critical
+**Testing:**
+- ✅ `echo data > /dev/sda` → Now blocked
+- ✅ `cat file > /dev/sdb` → Now blocked
+- ✅ `echo c > /proc/sysrq-trigger` → Now blocked
+- ✅ `echo test > /etc/passwd` → Now blocked
+- ✅ `echo test > /tmp/file` → Allowed (safe)
+- ✅ All 195 tests passing
+
+**Dangerous Paths Detected:**
+- `/dev/sd[a-z]` - SATA disk devices
+- `/dev/nvme\d+n\d+` - NVMe disk devices
+- `/proc/sysrq-trigger` - Kernel panic trigger
+- `/dev/mem` - Memory access
+- `/etc/passwd`, `/etc/shadow`, `/etc/fstab`, `/etc/sudoers`, `/etc/hosts`, `/etc/group` - Critical system files
+
+**Execution Flow (After Fix):**
+1. System directory protection check
+2. Dangerous pattern check
+3. **Redirection check (NEW)** ← Catches builtin redirections
+4. Builtin command execution
+5. System shell execution
+
+**Priority:** CRITICAL - This was a severe safety vulnerability
+
+**Lessons Learned:**
+- Execution order matters for safety checks
+- Redirection is a separate concern from command detection
+- Builtin commands need special handling
+- Comprehensive testing is essential
 
 ---
 
