@@ -250,15 +250,16 @@
 
 **⚠️ Note:** Both features below require Spec creation before implementation (not simple pattern extensions)
 
-- [x] **System Directory Protection** - User feedback (Day 6) 🔴 **PRIORITY 1** ✅ Day 6
-  - **Status:** Tasks 1-9 complete (implementation + integration tests)
-  - **Remaining:** Task 10 (manual testing), Task 12 (safety review) - Deferred to Day 7
+- [x] **System Directory Protection** - User feedback (Day 6) 🔴 **PRIORITY 1** ✅ **COMPLETED**
+  - **Status:** All tasks complete (1-12)
   - **⚙️ Spec:** Created at .kiro/specs/system-directory-protection/
   - **Goal:** Prevent accidental damage to critical system directories and files
   - **Target Users:** Curious children and beginners learning CLI
   - **Educational Focus:** Teach which directories are dangerous to modify
-  - **Implementation:** COMPLETE (core functionality)
-  - **Testing:** Unit tests (35+) and integration tests (10+) passing
+  - **Implementation:** COMPLETE (all 12 tasks)
+  - **Testing:** Unit tests (63) and integration tests (10) passing
+  - **Documentation:** Complete (CHANGELOG, README, DANGEROUS_PATTERNS, DEMO_SCRIPT, TODO)
+  - **Completed:** 2025-11-27 (Day 11)
 
 - [ ] **Custom Alias/Shortcut Command System** - User suggestion (Day 6) 🟡 **PRIORITY 2**
   - **⚙️ Requires:** Spec creation (.kiro/specs/custom-alias-system/)
@@ -762,3 +763,74 @@
 
 **Last Updated:** 2025-11-17
 **Status:** Active Development - Refactoring Phase
+
+
+## Educational Content Enhancement (Future)
+
+### Real-World Incident Stories
+- [ ] **Add more real-world incident stories to educational breakdowns**
+  - **Goal:** Increase credibility and educational impact with actual documented cases
+  - **Current Status:** 1 incident documented (GitLab 2017)
+  - **Rationale:** Real incidents with URLs provide concrete evidence and make warnings more impactful
+
+  **High Priority Incidents:**
+  1. **Pixar Toy Story 2 (1998)** - rm -rf incident
+     - Story: Accidentally deleted 90% of Toy Story 2 movie data
+     - Impact: Nearly lost entire film, saved by employee's home backup
+     - Source: Multiple tech blogs and Pixar interviews
+     - Pattern: rm_dangerous
+     - Educational value: Shows even professionals make mistakes
+     - Estimated time: 15 minutes to research and document
+
+  2. **AWS S3 Outage (2017)** - Typo-induced deletion
+     - Story: Engineer typo'd command, deleted more servers than intended
+     - Impact: 4-hour S3 outage, affected thousands of websites
+     - Source: AWS official post-mortem
+     - Pattern: rm_dangerous or typo patterns
+     - Educational value: Shows impact of typos in production
+     - Estimated time: 15 minutes to research and document
+
+  3. **Web Server Hacking via chmod 777** - Generic pattern
+     - Story: Typical WordPress site compromise via 777 permissions
+     - Impact: Site defacement, malware injection, data theft
+     - Source: Security blogs, OWASP documentation
+     - Pattern: chmod_777
+     - Educational value: Shows real security consequences
+     - Note: Can use anonymized/composite example if specific case unavailable
+     - Estimated time: 20 minutes to research and document
+
+  **Medium Priority Incidents:**
+  4. **Data Recovery Statistics** - dd command accidents
+     - Story: Data recovery companies report X% of cases from dd mistakes
+     - Impact: Thousands of dollars in recovery costs
+     - Source: Data recovery industry reports
+     - Pattern: dd_zero
+     - Educational value: Shows frequency and cost of mistakes
+     - Estimated time: 20 minutes to research statistics
+
+  5. **Fork Bomb in Production** - DoS attack or accident
+     - Story: Fork bomb used in DoS attack or accidental execution
+     - Impact: System freeze, service disruption
+     - Source: Security incident reports
+     - Pattern: fork_bomb
+     - Note: May be difficult to find specific public case
+     - Educational value: Shows real-world attack vector
+     - Estimated time: 30 minutes to research (may not find good example)
+
+  **Implementation Notes:**
+  - Each incident needs: title, company/context, date, what_happened, root_cause, impact, resolution, lessons_learned, prevention, source URL
+  - Follow existing GitLab 2017 format in `data/educational/incidents/`
+  - Link incidents to patterns via `related_incidents` field in breakdown JSON
+  - Verify all facts and include source URLs for credibility
+
+  **Benefits:**
+  - Increases educational impact ("this really happened!")
+  - Provides concrete examples of consequences
+  - Source URLs allow users to learn more
+  - Builds trust in MairuCLI's educational mission
+  - Makes warnings more memorable
+
+  **Total Estimated Time:** 1.5-2 hours for all high-priority incidents
+  **Priority:** Medium (enhances existing feature, not critical for v1.2)
+  **Added:** 2025-11-27 (Day 11 - User feedback on incident importance)
+  **Next Step:** Research and document Pixar Toy Story 2 incident first (most famous)
