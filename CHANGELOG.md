@@ -9,6 +9,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **Educational Breakdown Mode** - Interactive learning system
+  - Three-level learning: Quick (5s), Full (breakdown + simulation + incident), Skip
+  - Command breakdowns explain each part of dangerous commands
+  - Timeline simulations show step-by-step consequences
+  - Real-world incident stories with verified sources
+  - 5 patterns with full educational content: rm -rf, chmod 777/000, dd, fork bomb
+  - JSON-based content system for easy expansion
+  - Components: EducationalBreakdown, EducationalLoader, BreakdownFormatter
+  - Graceful fallback for missing content
+  - Halloween-themed presentation maintains fun learning atmosphere
+  - Integration tests verify complete user flows
+  - Unit tests for all components (loader, formatter, breakdown)
+
 - **Complete Data-Driven Architecture** - Day 11
   - All patterns now loaded from JSON files (no hardcoded patterns)
   - Builtin commands defined in `data/builtins/builtin_commands.json`

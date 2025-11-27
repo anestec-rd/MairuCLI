@@ -97,6 +97,7 @@ Available commands:
 - **11 Dangerous Pattern Detection:** rm -rf variants, chmod 777/000, dd, DROP DATABASE, fork bomb, disk operations, kernel panic
 - **4 Caution-Level Warnings:** sudo su, chmod 666/755, firewall disable, SELinux disable
 - **2 Typo Entertainment:** sl → ls, cd.. → cd ..
+- **Educational Breakdown Mode:** Interactive learning with command breakdowns, timeline simulations, and real-world incident stories
 - **Achievement System:** Multiple unlockable achievements to discover (danger-related, safe exploration, system protection, and more...)
 - **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands, system protection
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
@@ -109,6 +110,14 @@ Available commands:
 - **ASCII Art Rendering:** Dramatic timing effects for impact
 - **Template-Based Messages:** Consistent formatting across warning types
 - **Graceful Error Handling:** Fallbacks for missing content
+
+### Educational Breakdown Mode
+- **Interactive Learning:** Choose your detail level (quick/full/skip)
+- **Command Breakdowns:** Understand what each part of a dangerous command means
+- **Timeline Simulations:** See step-by-step what would happen if executed
+- **Real-World Incidents:** Learn from actual production disasters (e.g., GitLab 2017)
+- **5 Patterns Covered:** rm -rf, chmod 777/000, dd, fork bomb
+- **JSON-Based Content:** Easy to add new educational content without code changes
 
 ### Dangerous Patterns
 
@@ -220,6 +229,9 @@ mairu-cli/
 │       ├── warning_components.py  # Warning display components
 │       ├── system_protection_warning.py # System directory warnings
 │       ├── caution_warning.py     # Caution-level warnings
+│       ├── educational_breakdown.py # Educational breakdown mode
+│       ├── educational_loader.py  # Educational content loader
+│       ├── breakdown_formatter.py # Educational content formatter
 │       ├── achievements.py        # Achievement tracking
 │       ├── statistics.py          # Statistics tracking
 │       └── content_loader.py      # JSON content management
@@ -229,6 +241,10 @@ mairu-cli/
 │   │   ├── danger_variations.json # Message variations
 │   │   ├── typo_messages.json     # Typo messages
 │   │   └── repeat_warnings.json   # Repeat warnings
+│   ├── educational/               # Educational content (JSON)
+│   │   ├── command_breakdowns/    # Command part explanations
+│   │   ├── simulations/           # Timeline simulations
+│   │   └── incidents/             # Real-world incident stories
 │   └── ascii_art/                 # ASCII art files
 │       ├── fired.txt
 │       ├── permission_denied.txt
@@ -254,6 +270,9 @@ The display system was refactored from a monolithic 400-line file into a modular
 - `MessageFormatter`: Template-based message formatting
 - `WarningComponents`: Modular warning displays (Danger, Typo, Repeat)
 - `ContentLoader`: JSON-based content management
+- `EducationalBreakdown`: Interactive learning mode orchestration
+- `EducationalLoader`: Loads educational content from JSON
+- `BreakdownFormatter`: Formats educational displays
 - `Statistics` & `Achievements`: Separated tracking logic
 
 **Benefits:**
@@ -374,6 +393,7 @@ This is intentional! Learning includes seeing what happens with invalid commands
 
 ### Design Documents
 - **[docs/CAUTION_WARNINGS_DESIGN.md](docs/CAUTION_WARNINGS_DESIGN.md)** - Three-tier warning system design
+- **[docs/educational-content-schema.md](docs/educational-content-schema.md)** - Educational content JSON schema
 - **[docs/ISSUES.md](docs/ISSUES.md)** - Known issues and limitations
 
 ### Kiro Steering Files
@@ -482,6 +502,16 @@ Add to `data/warnings/typo_messages.json`:
   }
 }
 ```
+
+### Adding Educational Content (Optional)
+
+To add educational breakdown content for your pattern:
+
+1. **Create command breakdown** in `data/educational/command_breakdowns/{pattern_name}.json`
+2. **Create timeline simulation** in `data/educational/simulations/{pattern_name}.json`
+3. **Add incident story** (optional) in `data/educational/incidents/{incident_id}.json`
+
+See [Educational Content Schema](docs/educational-content-schema.md) for detailed format.
 
 ### No Code Changes Needed!
 

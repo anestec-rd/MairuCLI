@@ -6,6 +6,126 @@ This document tracks bugs, issues, and enhancement requests discovered during de
 
 ## Active Issues
 
+### Issue #8: Command Chaining Bypass Vulnerability
+**Date:** 2025-11-27 (Discovered during bypass testing)
+**Severity:** CRITICAL (Security)
+**Status:** ✅ RESOLVED (2025-11-27)
+**Platform:** All platforms
+
+**Problem:**
+Command chaining operators (`;`, `&&`, `|`) could be used to bypass system directory protection. An attacker could chain a safe command with a dangerous one to circumvent protection:
+
+```bash
+# These were NOT blocked (vulnerability!)
+echo test; rm C:\Windows\System32\test.dll
+ls && rm /etc/passwd
+cat file | rm /bin/bash
+```
+
+**What Actually Happened:**
+During comprehensive bypass testing (29 test cases), 3 tests failed:
+- Test 27: Semicolon injection - ALLOWED (should be BLOCKED)
+- Test 28: Ampersand injection - ALLOWED (should be BLOCKED)
+- Test 29: Pipe injection - ALLOWED (should be BLOCKED)
+
+**Root Cause:**
+- `CommandParser.extract_all_paths()` only parsed the first command in the string
+- `shlex.split()` treated the entire chained command as one unit
+- Parser extracted paths from first command only (e.g., `echo test`)
+- Second command (e.g., `rm C:\Windows\System32\test.dll`) was ignored
+- System directory check missed the dangerous path
+- Command passed through to shell where chaining would execute
+
+**Impact:**
+- **CRITICAL SECURITY VULNERABILITY** - Protection could be completely bypassed
+- Affected all platforms (Windows, Linux, macOS)
+- Could allow system directory modification despite protection
+- Discovered during systematic security audit (bypass testing)
+
+**Attack Vectors:**
+1. Semicolon chaining: `safe_cmd; dangerous_cmd`
+2. Ampersand chaining: `safe_cmd && dangerous_cmd`
+3. Pipe chaining: `safe_cmd | dangerous_cmd`
+4. Multiple chains: `cmd1; cmd2; dangerous_cmd; cmd3`
+
+**Solution:**
+1. Added `_split_chained_commands()` method to `CommandParser`
+   - Splits command string by chaining operators (`;`, `&&`, `||`, `|`)
+   - Preserves quoted strings (doesn't split inside quotes)
+   - Returns list of individual sub-commands
+
+2. Modified `extract_all_paths()` to parse each sub-command
+   - Iterates through all sub-commands
+   - Extracts paths from each one separately
+   - Returns combined list of all paths
+
+3. Updated `check_system_directory()` fail-safe behavior
+   - Changed parsing failure from fail-open to fail-safe
+   - Now blocks command if parsing fails (prevents bypass via malformed input)
+
+**Code Changes:**
+- File: `src/command_parser.py`
+  - Added: `_split_chained_commands()` method
+  - Modified: `extract_all_paths()` to handle command chains
+  - Added proper quote handling in chain splitting
+
+- File: `src/interceptor.py`
+  - Changed: Parsing failure behavior from "safe" to "critical"
+  - Now blocks suspicious commands instead of allowing them
+
+- File: `tests/unit/test_command_parser.py`
+  - Added: 6 new unit tests for command chaining
+  - All tests pass
+
+**Testing:**
+✅ **Bypass Testing (29 tests):**
+- All 29 tests now PASS
+- 0 vulnerabilities found after fix
+
+✅ **Command Chaining Tests:**
+- `echo test; rm C:\Windows\System32\test.dll` → BLOCKED
+- `ls && rm /etc/passwd` → BLOCKED
+- `cat file | rm /bin/bash` → BLOCKED
+- `ls; rm /tmp/a; mv /tmp/b /tmp/c` → All paths extracted correctly
+- `echo "test"; rm "/etc/passwd"` → Quoted paths handled correctly
+
+✅ **Existing Tests:**
+- 275 unit tests: PASS
+- 11 integration tests: PASS
+- 0 regressions
+
+**Documentation:**
+- Created: `tests/manual/test_bypass_methods.py` (comprehensive bypass testing)
+- Created: `tests/manual/test_command_chaining.py` (chaining behavior tests)
+- Created: `docs/reports/bypass-testing-report.md` (detailed security audit)
+- Created: `tests/manual/BYPASS_TESTING_SUMMARY.md` (quick reference)
+
+**Performance Impact:**
+- Parsing time: < 1ms additional per command
+- Memory usage: Negligible (temporary list of sub-commands)
+- Overall impact: < 5% increase in processing time
+- Still well within 50ms target for system directory checks
+
+**Priority:** CRITICAL - This was a severe security vulnerability that could completely bypass protection
+
+**Lessons Learned:**
+- **Security testing must be comprehensive** - Systematic bypass testing found this
+- **Command chaining is a common attack vector** - Must be explicitly handled
+- **Parser assumptions can create vulnerabilities** - Don't assume simple command structure
+- **Fail-safe design is critical** - When in doubt, block the command
+- **Real-world attack techniques must be tested** - Not just happy path scenarios
+
+**Discovery Method:**
+- Found during systematic bypass testing (Task: "No bypass methods discovered")
+- Created comprehensive test suite covering 12 attack categories
+- Command injection category revealed the vulnerability
+- Immediate fix and verification
+
+**Key Insight:**
+Command chaining is a fundamental shell feature that attackers commonly use to bypass security checks. Any command validation system must explicitly handle chained commands, not just the first command in the string.
+
+---
+
 ### Issue #7: mkfs Pattern Too Strict - CRITICAL SAFETY BUG
 **Date:** 2025-11-26 17:20
 **Severity:** CRITICAL (Safety)
