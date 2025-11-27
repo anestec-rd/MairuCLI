@@ -496,12 +496,13 @@ def check_system_directory(command: str) -> Tuple[str, str, str]:
     parser = CommandParser()
     resolver = PathResolver()
 
-    # Extract paths from command
+    # Extract paths from command (handles command chaining)
     try:
         paths = parser.extract_all_paths(command)
     except Exception:
-        # If parsing fails, assume safe (fail-open for usability)
-        return "safe", "", ""
+        # If parsing fails, err on side of caution (fail-safe)
+        # Command chaining or complex syntax might hide dangerous operations
+        return "critical", "system_critical", command
 
     if not paths:
         # No paths found - safe

@@ -222,14 +222,95 @@ class CommandParser:
         """
         Convenience method to extract all paths from a command.
 
+        Handles command chaining (;, &&, ||, |) by splitting and parsing
+        each sub-command separately.
+
         Args:
-            command: Full command string
+            command: Full command string (may contain chained commands)
 
         Returns:
             List of all file paths found in the command
         """
-        parsed = self.parse(command)
-        return parsed["paths"]
+        all_paths = []
+
+        # Split by command chaining operators
+        # Handle: ; && || |
+        sub_commands = self._split_chained_commands(command)
+
+        # Parse each sub-command
+        for sub_cmd in sub_commands:
+            parsed = self.parse(sub_cmd)
+            all_paths.extend(parsed["paths"])
+
+        return all_paths
+
+    def _split_chained_commands(self, command: str) -> List[str]:
+        """
+        Split command string by chaining operators.
+
+        Handles: ; && || |
+
+        Args:
+            command: Full command string
+
+        Returns:
+            List of individual commands
+        """
+        import re
+
+        # Split by chaining operators while preserving quoted strings
+        # Pattern matches: ; or && or || or |
+        # But not inside quotes
+        parts = []
+        current = []
+        in_quotes = False
+        quote_char = None
+        i = 0
+
+        while i < len(command):
+            char = command[i]
+
+            # Handle quotes
+            if char in ['"', "'"]:
+                if not in_quotes:
+                    in_quotes = True
+                    quote_char = char
+                elif char == quote_char:
+                    in_quotes = False
+                    quote_char = None
+                current.append(char)
+                i += 1
+                continue
+
+            # Handle operators (only outside quotes)
+            if not in_quotes:
+                # Check for && or ||
+                if i + 1 < len(command):
+                    two_char = command[i:i+2]
+                    if two_char in ['&&', '||']:
+                        if current:
+                            parts.append(''.join(current).strip())
+                            current = []
+                        i += 2
+                        continue
+
+                # Check for ; or |
+                if char in [';', '|']:
+                    if current:
+                        parts.append(''.join(current).strip())
+                        current = []
+                    i += 1
+                    continue
+
+            current.append(char)
+            i += 1
+
+        # Add remaining
+        if current:
+            parts.append(''.join(current).strip())
+
+        # Filter out empty parts
+        return [p for p in parts if p]
 
     def extract_redirection_target(self, command: str) -> Optional[str]:
         """

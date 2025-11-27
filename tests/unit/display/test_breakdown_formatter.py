@@ -133,7 +133,7 @@ class TestBreakdownFormatter:
         incident_data = {
             "title": "Test Incident",
             "company": "Test Corp",
-            "date": "2024-01-01",
+            "date": "2025-01-01",
             "what_happened": "Something bad happened",
             "impact": ["Impact 1", "Impact 2"],
             "lesson": "Always test your code",
@@ -146,7 +146,7 @@ class TestBreakdownFormatter:
         assert "Real Horror Story" in result
         assert "Test Incident" in result
         assert "Test Corp" in result
-        assert "2024-01-01" in result
+        assert "2025-01-01" in result
         assert "Something bad happened" in result
 
     def test_format_incident_story_empty(self):

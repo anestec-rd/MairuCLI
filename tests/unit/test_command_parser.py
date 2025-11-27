@@ -206,3 +206,36 @@ class TestCommandParser:
         assert "/tmp/dest" in result["paths"]
         assert "/var/log/mv.log" in result["paths"]
         assert result["has_redirect"] is True
+
+    def test_extract_paths_from_chained_commands_semicolon(self):
+        """Test path extraction from semicolon-chained commands."""
+        paths = self.parser.extract_all_paths("echo test; rm /etc/passwd")
+        assert "/etc/passwd" in paths
+
+    def test_extract_paths_from_chained_commands_ampersand(self):
+        """Test path extraction from ampersand-chained commands."""
+        paths = self.parser.extract_all_paths("ls && rm /etc/passwd")
+        assert "/etc/passwd" in paths
+
+    def test_extract_paths_from_chained_commands_pipe(self):
+        """Test path extraction from pipe-chained commands."""
+        paths = self.parser.extract_all_paths("cat file.txt | rm /etc/passwd")
+        assert "/etc/passwd" in paths
+        assert "file.txt" in paths
+
+    def test_extract_paths_from_multiple_chained_commands(self):
+        """Test path extraction from multiple chained commands."""
+        paths = self.parser.extract_all_paths("ls; rm /tmp/a; mv /tmp/b /tmp/c")
+        assert "/tmp/a" in paths
+        assert "/tmp/b" in paths
+        assert "/tmp/c" in paths
+
+    def test_chained_commands_with_quotes(self):
+        """Test chained commands with quoted paths."""
+        paths = self.parser.extract_all_paths('echo "test"; rm "/etc/passwd"')
+        assert "/etc/passwd" in paths
+
+    def test_chained_commands_safe(self):
+        """Test safe chained commands."""
+        paths = self.parser.extract_all_paths("echo hello; echo world")
+        assert len(paths) == 0  # No file paths in echo commands
