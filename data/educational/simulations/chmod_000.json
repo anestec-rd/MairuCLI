@@ -1,0 +1,60 @@
+{
+  "title": "The Ghost File: A chmod 000 Story",
+  "scenario": "A developer tries to 'secure' their password file by removing all permissions with chmod 000. They soon discover why this is a terrible idea.",
+  "timeline": [
+    {
+      "time": "T+0s",
+      "description": "Developer runs: chmod 000 passwords.txt",
+      "severity": "warning"
+    },
+    {
+      "time": "T+1s",
+      "description": "File permissions changed to --------- (nobody can access it)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+5s",
+      "description": "Developer tries to read file: 'cat passwords.txt' → Permission denied",
+      "severity": "critical"
+    },
+    {
+      "time": "T+10s",
+      "description": "Developer tries to edit file: 'nano passwords.txt' → Permission denied",
+      "severity": "critical"
+    },
+    {
+      "time": "T+15s",
+      "description": "Developer tries to delete file: 'rm passwords.txt' → Permission denied (can't even delete it!)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+30s",
+      "description": "Developer realizes: 'I locked myself out of my own file!'",
+      "severity": "warning"
+    },
+    {
+      "time": "T+1 minute",
+      "description": "Developer tries: 'sudo cat passwords.txt' → Success! (root can still access it)",
+      "severity": "info"
+    },
+    {
+      "time": "T+2 minutes",
+      "description": "Developer fixes it: 'sudo chmod 600 passwords.txt' (owner can read/write)",
+      "severity": "success"
+    },
+    {
+      "time": "T+5 minutes",
+      "description": "Developer learns: chmod 000 doesn't protect files, it just locks everyone out (including you)",
+      "severity": "info"
+    }
+  ],
+  "outcome": "The file became a 'ghost file' - visible in directory listings but completely inaccessible. Even the owner couldn't read, write, or delete it without sudo. chmod 000 is not security, it's self-sabotage.",
+  "lessons_learned": [
+    "chmod 000 locks EVERYONE out, including the file owner",
+    "Root/sudo can still access 000 files, so it's not real security",
+    "For read-only files, use chmod 400 (owner can read)",
+    "For private files, use chmod 600 (owner can read and write)",
+    "Real security comes from encryption, not permission tricks",
+    "If you accidentally chmod 000, use 'sudo chmod' to fix it"
+  ]
+}

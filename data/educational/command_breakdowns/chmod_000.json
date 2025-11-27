@@ -1,0 +1,63 @@
+{
+  "title": "Understanding 'chmod 000' - The Self-Lockout",
+  "command": "chmod 000 important_file.txt",
+  "parts": [
+    {
+      "part": "chmod",
+      "explanation": "'Change mode' - modifies file permissions",
+      "danger_level": "low"
+    },
+    {
+      "part": "000",
+      "explanation": "Permission code: NOBODY gets ANY permissions (not even you!)",
+      "danger_level": "critical"
+    },
+    {
+      "part": "important_file.txt",
+      "explanation": "The file you're about to lock yourself out of",
+      "danger_level": "high"
+    }
+  ],
+  "what_happens": [
+    {
+      "step": "File permissions changed to --------- (000)",
+      "timing": "Immediately",
+      "impact": "critical"
+    },
+    {
+      "step": "Owner cannot read the file",
+      "timing": "Immediately",
+      "impact": "high"
+    },
+    {
+      "step": "Owner cannot write to the file",
+      "timing": "Immediately",
+      "impact": "high"
+    },
+    {
+      "step": "Owner cannot execute the file",
+      "timing": "Immediately",
+      "impact": "medium"
+    },
+    {
+      "step": "Nobody else can access it either",
+      "timing": "Immediately",
+      "impact": "medium"
+    },
+    {
+      "step": "File becomes a 'ghost file' - visible but untouchable",
+      "timing": "Permanently (until you fix it)",
+      "impact": "critical"
+    }
+  ],
+  "real_world_impact": "chmod 000 creates a 'ghost file' - you can see it exists, but you can't read it, edit it, or delete it normally. It's like locking yourself out of your own house and throwing away the key. You'll need root/sudo access to fix it.",
+  "prevention_tips": [
+    "Never use chmod 000 unless you have a very specific security reason",
+    "If you want to protect a file, use chmod 400 (read-only for owner)",
+    "Remember: Even as the owner, 000 locks YOU out too",
+    "Use 'ls -l' to check permissions before changing them",
+    "If you accidentally do this, use 'sudo chmod 644 filename' to fix it",
+    "For truly sensitive files, consider encryption instead of permission tricks"
+  ],
+  "related_incidents": []
+}

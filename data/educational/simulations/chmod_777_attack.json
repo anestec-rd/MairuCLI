@@ -1,0 +1,90 @@
+{
+  "title": "The Tale of chmod 777: A Security Horror Story",
+  "scenario": "A developer runs 'chmod -R 777 /var/www' to fix a permission issue on their web server. What follows is a cautionary tale in 4 chapters.",
+  "timeline": [
+    {
+      "time": "Chapter 1: The Careless Command",
+      "description": "🎃 Developer frustrated with permission errors, runs 'chmod -R 777 /var/www'",
+      "severity": "warning"
+    },
+    {
+      "time": "T+0s",
+      "description": "All web files now have rwxrwxrwx permissions - everyone can read, write, execute",
+      "severity": "critical"
+    },
+    {
+      "time": "T+5 minutes",
+      "description": "Permission errors fixed! Website works! Developer goes home happy. 🏠",
+      "severity": "info"
+    },
+    {
+      "time": "Chapter 2: The Midnight Visitor",
+      "description": "🐺 2:00 AM - Automated scanner finds the misconfigured server",
+      "severity": "critical"
+    },
+    {
+      "time": "T+6 hours",
+      "description": "Attacker uploads malicious PHP file to web directory (777 allows anyone to write)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+6h 5m",
+      "description": "Malicious script executed - attacker gains shell access to server",
+      "severity": "critical"
+    },
+    {
+      "time": "T+6h 10m",
+      "description": "Attacker installs backdoor, steals database credentials, downloads customer data",
+      "severity": "critical"
+    },
+    {
+      "time": "T+6h 30m",
+      "description": "As a 'gift', attacker runs 'chmod -R 000 /var/www' - locks everyone out",
+      "severity": "critical"
+    },
+    {
+      "time": "Chapter 3: The Morning Horror",
+      "description": "☀️ 9:00 AM - Developer arrives at work to find website completely down",
+      "severity": "critical"
+    },
+    {
+      "time": "T+15 hours",
+      "description": "Website shows 403 Forbidden - all files now have 000 permissions (nobody can access)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+15h 30m",
+      "description": "Security team discovers breach - customer database compromised, backdoor found",
+      "severity": "critical"
+    },
+    {
+      "time": "T+16 hours",
+      "description": "Emergency response: Server taken offline, forensics team called in",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1 day",
+      "description": "Damage assessment: 50,000 customer records stolen, server must be rebuilt from scratch",
+      "severity": "critical"
+    },
+    {
+      "time": "Chapter 4: The Lesson",
+      "description": "📚 Total cost: $150,000 in incident response, legal fees, and reputation damage",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1 week",
+      "description": "Developer learns: chmod 644 for files, 755 for directories. Never 777.",
+      "severity": "info"
+    }
+  ],
+  "outcome": "One careless chmod 777 command led to a complete security breach, data theft, and massive financial loss. The 5 seconds it took to type that command cost the company $150,000 and weeks of recovery time.",
+  "lessons_learned": [
+    "chmod 777 is never the right solution - it's a security disaster waiting to happen",
+    "Use proper permissions: 644 for files (rw-r--r--), 755 for directories (rwxr-xr-x)",
+    "Understand what each permission number means: 4=read, 2=write, 1=execute",
+    "The -R flag is dangerous - it applies permissions recursively to all files",
+    "If you have permission errors, fix the ownership (chown) or use specific permissions",
+    "Security scanners constantly search for misconfigured servers - they will find you"
+  ]
+}

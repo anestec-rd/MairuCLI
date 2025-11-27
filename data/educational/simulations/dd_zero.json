@@ -1,0 +1,70 @@
+{
+  "title": "The Disk Wipe: A dd Horror Story",
+  "scenario": "A system administrator wants to create a bootable USB drive. They accidentally target the wrong device with dd if=/dev/zero.",
+  "timeline": [
+    {
+      "time": "T+0s",
+      "description": "Admin runs: dd if=/dev/zero of=/dev/sda (meant to use /dev/sdb for USB)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+0.1s",
+      "description": "dd starts writing zeros to /dev/sda (the main hard drive!)",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1s",
+      "description": "Boot sector overwritten with zeros. System can no longer boot.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+5s",
+      "description": "Partition table destroyed. Operating system can't find any partitions.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+10s",
+      "description": "Admin notices something wrong: 'Why is this taking so long?'",
+      "severity": "warning"
+    },
+    {
+      "time": "T+15s",
+      "description": "Admin checks: 'lsblk' shows /dev/sda being written to. Panic sets in.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+20s",
+      "description": "Admin hits Ctrl+C to stop dd. But it's too late - first 10GB already zeroed.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+30s",
+      "description": "Admin tries to reboot. System shows: 'No bootable device found'",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1 hour",
+      "description": "Data recovery specialist consulted. Verdict: 'Boot sector and OS files are gone. Some data might be recoverable.'",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1 day",
+      "description": "Recovery cost: $1,500. Only 40% of data recovered. System must be rebuilt from scratch.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1 week",
+      "description": "Admin learns: Always double-check device names. Use 'lsblk' before dd. Consider using 'pv' to see progress.",
+      "severity": "info"
+    }
+  ],
+  "outcome": "One typo (sda instead of sdb) cost $1,500 in recovery fees, 60% data loss, and a week of downtime. The dd command earned its nickname: 'disk destroyer'.",
+  "lessons_learned": [
+    "dd is called 'disk destroyer' for a reason - it's unforgiving",
+    "Always use 'lsblk' to verify device names before using dd",
+    "The 'of=' parameter is what gets destroyed - triple-check it",
+    "Consider using 'pv' with dd to see progress and have time to cancel",
+    "One character difference (sda vs sdb) can destroy your entire system",
+    "Practice dd commands on virtual machines or test systems first"
+  ]
+}

@@ -18,7 +18,7 @@
   - Add error handling for FileNotFoundError and JSONDecodeError
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 8.4_
 
-- [ ] 3. Implement BreakdownFormatter class
+- [x] 3. Implement BreakdownFormatter class
   - Create `src/display/breakdown_formatter.py`
   - Implement `format_command_breakdown()` with Halloween theme
   - Implement `format_timeline_simulation()` with emoji and timing
@@ -27,7 +27,7 @@
   - Add helper methods for formatting sections and borders
   - _Requirements: 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 3.2, 3.3, 3.4, 3.5, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 4. Implement EducationalBreakdown class
+- [x] 4. Implement EducationalBreakdown class
   - Create `src/display/educational_breakdown.py`
   - Implement `__init__` with loader and formatter
   - Implement `show_breakdown_prompt()` to display options and get user choice
@@ -36,7 +36,7 @@
   - Add graceful fallback for missing content
   - _Requirements: 1.1, 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 5. Create educational content for rm_dangerous
+- [x] 5. Create educational content for rm_dangerous
   - Create `data/educational/command_breakdowns/rm_dangerous.json`
   - Define command parts: rm, -r, -f, /
   - Add emojis, meanings, danger levels
@@ -44,14 +44,14 @@
   - Add safe alternatives
   - _Requirements: 1.2, 1.3, 1.4, 1.5, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 6. Create simulation for rm_dangerous
+- [x] 6. Create simulation for rm_dangerous
   - Create `data/educational/simulations/rm_dangerous.json`
   - Define timeline events (T+0s to T+∞)
   - Add emojis and severity levels
   - Add final message with Halloween humor
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 7. Create GitLab incident story
+- [x] 7. Create GitLab incident story
   - Create `data/educational/incidents/gitlab_2017.json`
   - Add incident details (date, company, summary)
   - Add timeline of events
@@ -60,7 +60,7 @@
   - Link to rm_dangerous pattern
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 10.1, 10.2, 10.3, 10.4, 10.5_
 
-- [ ] 8. Create educational content for chmod_777
+- [x] 8. Create educational content for chmod_777
   - Create `data/educational/command_breakdowns/chmod_777.json`
   - Define command parts: chmod, 777
   - Explain permission format (owner/group/others)
@@ -68,7 +68,7 @@
   - Add safe alternatives (chmod 644)
   - _Requirements: 6.1, 6.2, 6.3, 6.5_
 
-- [ ] 9. Create chmod_777 attack simulation
+- [x] 9. Create chmod_777 attack simulation
   - Create `data/educational/simulations/chmod_777_attack.json`
   - Implement story mode with 4 chapters
   - Chapter 1: The Careless Command (explain 777)
@@ -77,7 +77,7 @@
   - Chapter 4: The Lesson (safe alternatives)
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 6.4_
 
-- [ ] 10. Integrate with main.py
+- [x] 10. Integrate with main.py
   - Import EducationalBreakdown, EducationalLoader, BreakdownFormatter
   - Initialize components at startup
   - After dangerous command detection, call `show_breakdown_prompt()`
@@ -85,7 +85,7 @@
   - Ensure command remains blocked after breakdown
   - _Requirements: 1.1, 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [ ] 11. Create educational content for 3 more patterns
+- [x] 11. Create educational content for 3 more patterns
   - Create breakdowns for: dd_zero, fork_bomb, chmod_000
   - Create simulations for: dd_zero, fork_bomb, chmod_000
   - Follow same JSON schema as rm_dangerous

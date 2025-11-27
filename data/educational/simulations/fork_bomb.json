@@ -1,0 +1,75 @@
+{
+  "title": "Fork Bomb Timeline: The 10-Second System Killer",
+  "scenario": "A curious developer finds a cryptic command online and decides to try it: ':(){ :|:& };:' - What could go wrong?",
+  "timeline": [
+    {
+      "time": "T+0s",
+      "description": "Command entered and executed. Function ':' is defined.",
+      "severity": "info"
+    },
+    {
+      "time": "T+0.1s",
+      "description": "First fork: 1 process becomes 2",
+      "severity": "info"
+    },
+    {
+      "time": "T+0.2s",
+      "description": "Second fork: 2 processes become 4",
+      "severity": "info"
+    },
+    {
+      "time": "T+0.5s",
+      "description": "Exponential growth begins: 16 → 32 → 64 processes",
+      "severity": "warning"
+    },
+    {
+      "time": "T+1s",
+      "description": "256 processes running. CPU usage spikes to 100%",
+      "severity": "warning"
+    },
+    {
+      "time": "T+2s",
+      "description": "1,024 processes. System starts lagging. Mouse cursor stutters.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+3s",
+      "description": "4,096 processes. Terminal becomes unresponsive. Can't type 'killall'",
+      "severity": "critical"
+    },
+    {
+      "time": "T+5s",
+      "description": "16,384 processes. System completely frozen. Keyboard doesn't respond.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+7s",
+      "description": "Process table full. Can't start any new programs. Can't even log in from another terminal.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+10s",
+      "description": "Developer realizes the mistake. Tries Ctrl+C. Nothing happens. System is dead.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+30s",
+      "description": "Developer holds power button. Hard reboot. All unsaved work lost.",
+      "severity": "critical"
+    },
+    {
+      "time": "T+2 minutes",
+      "description": "System reboots. Developer learns: Never run commands you don't understand.",
+      "severity": "info"
+    }
+  ],
+  "outcome": "Total system freeze in under 10 seconds. Hard reboot required. All unsaved work lost. The fork bomb lived up to its name - it exploded the system with exponential process growth.",
+  "lessons_learned": [
+    "Fork bombs exploit exponential growth - 1 becomes 2, 2 becomes 4, 4 becomes 8...",
+    "Modern systems can create thousands of processes per second",
+    "Once started, fork bombs are nearly impossible to stop without rebooting",
+    "Set process limits with 'ulimit -u 1000' to protect against fork bombs",
+    "Never run cryptic commands from the internet without understanding them",
+    "Use virtual machines or containers for testing suspicious commands"
+  ]
+}

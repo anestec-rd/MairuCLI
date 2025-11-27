@@ -19,6 +19,7 @@ from src.display.warning_components import (
 )
 from src.display.caution_warning import CautionWarning
 from src.display.system_protection_warning import SystemProtectionWarning
+from src.display.educational_breakdown import EducationalBreakdown
 
 # Initialize components
 _renderer = AsciiRenderer()
@@ -33,6 +34,7 @@ _typo_warning = TypoWarning(_renderer, _formatter, _content_loader)
 _repeat_warning = RepeatWarning(_renderer, _formatter, _content_loader)
 _caution_warning = CautionWarning(_renderer)
 _system_protection_warning = SystemProtectionWarning(_renderer)
+_educational_breakdown = EducationalBreakdown()
 
 
 def colorize(text: str, color_name: str) -> str:
@@ -139,6 +141,10 @@ def show_warning(pattern_name: str, command: str) -> None:
     # Check for achievements
     _achievement_tracker.check_achievements()
 
+    # Offer educational breakdown for dangerous commands (not typos)
+    if not pattern_name.startswith("typo_"):
+        _offer_educational_breakdown(pattern_name)
+
 
 def get_stats() -> Dict[str, int]:
     """
@@ -244,3 +250,27 @@ def show_system_protection_warning(
     _achievement_tracker.check_achievements()
 
     return result
+
+
+def _offer_educational_breakdown(pattern_name: str) -> None:
+    """
+    Offer educational breakdown for a dangerous pattern.
+
+    Args:
+        pattern_name: Name of the pattern that was matched
+    """
+    # Check if breakdown is available
+    if not _educational_breakdown.has_breakdown(pattern_name):
+        return
+
+    print()
+    print(colorize("📚 Want to learn more about this command?", "orange"))
+    print("Type 'breakdown' to see a detailed explanation, or press Enter to continue.")
+
+    try:
+        response = input("> ").strip().lower()
+        if response in ['breakdown', 'b', 'yes', 'y']:
+            print()
+            _educational_breakdown.show_full_breakdown(pattern_name)
+    except (KeyboardInterrupt, EOFError):
+        print()  # Clean exit on Ctrl+C or Ctrl+D

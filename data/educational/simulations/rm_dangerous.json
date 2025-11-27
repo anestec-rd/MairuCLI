@@ -1,0 +1,61 @@
+{
+  "command": "rm -rf /",
+  "description": "Here's what would happen if this command actually executed:",
+  "timeline": [
+    {
+      "time": "T+0.0s",
+      "emoji": "⚡",
+      "description": "Command starts executing",
+      "severity": "info"
+    },
+    {
+      "time": "T+0.1s",
+      "emoji": "📁",
+      "description": "/bin deleted - all basic commands (ls, cd, cat) gone",
+      "severity": "warning"
+    },
+    {
+      "time": "T+0.2s",
+      "emoji": "⚙️",
+      "description": "/etc deleted - all system configuration lost",
+      "severity": "danger"
+    },
+    {
+      "time": "T+0.3s",
+      "emoji": "🏠",
+      "description": "/home deleted - all your personal files, photos, documents gone",
+      "severity": "critical"
+    },
+    {
+      "time": "T+0.5s",
+      "emoji": "💾",
+      "description": "/usr deleted - all installed programs vanish",
+      "severity": "critical"
+    },
+    {
+      "time": "T+1.0s",
+      "emoji": "🖥️",
+      "description": "/boot deleted - system can't restart anymore",
+      "severity": "critical"
+    },
+    {
+      "time": "T+2.0s",
+      "emoji": "💀",
+      "description": "System becomes unstable, programs start crashing",
+      "severity": "critical"
+    },
+    {
+      "time": "T+5.0s",
+      "emoji": "🔥",
+      "description": "Terminal freezes or crashes",
+      "severity": "critical"
+    },
+    {
+      "time": "T+∞",
+      "emoji": "👻",
+      "description": "Computer won't boot. Everything is gone. Only a full OS reinstall can save you now.",
+      "severity": "critical"
+    }
+  ],
+  "recovery": "Without backups: IMPOSSIBLE. With backups: Reinstall OS + restore data (hours to days)."
+}

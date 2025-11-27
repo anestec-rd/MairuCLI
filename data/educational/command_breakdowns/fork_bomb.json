@@ -1,0 +1,78 @@
+{
+  "title": "Understanding Fork Bomb - The Process Explosion",
+  "command": ":(){ :|:& };:",
+  "parts": [
+    {
+      "part": ":()",
+      "explanation": "Define a function named ':' (colon)",
+      "danger_level": "low"
+    },
+    {
+      "part": ":|:",
+      "explanation": "Function calls itself and pipes to itself",
+      "danger_level": "high"
+    },
+    {
+      "part": "&",
+      "explanation": "Run in background (allows exponential growth)",
+      "danger_level": "critical"
+    },
+    {
+      "part": ";:",
+      "explanation": "Execute the function to start the chain reaction",
+      "danger_level": "critical"
+    }
+  ],
+  "what_happens": [
+    {
+      "step": "Function ':' is defined and executed",
+      "timing": "T+0s",
+      "impact": "low"
+    },
+    {
+      "step": "First process spawns 2 copies of itself",
+      "timing": "T+0.1s",
+      "impact": "low"
+    },
+    {
+      "step": "2 processes become 4, then 8, then 16... (exponential growth)",
+      "timing": "T+0.5s",
+      "impact": "medium"
+    },
+    {
+      "step": "Hundreds of processes consuming CPU and memory",
+      "timing": "T+1s",
+      "impact": "high"
+    },
+    {
+      "step": "Thousands of processes - system becomes unresponsive",
+      "timing": "T+2-3s",
+      "impact": "critical"
+    },
+    {
+      "step": "System runs out of process slots - can't start new programs",
+      "timing": "T+5s",
+      "impact": "critical"
+    },
+    {
+      "step": "System completely frozen - keyboard/mouse don't respond",
+      "timing": "T+10s",
+      "impact": "critical"
+    },
+    {
+      "step": "Only option: Hard reboot (hold power button)",
+      "timing": "When you give up",
+      "impact": "critical"
+    }
+  ],
+  "real_world_impact": "A fork bomb creates an exponential explosion of processes that consume all system resources in seconds. Your computer will freeze completely, and you'll have no choice but to force a hard reboot. Any unsaved work is lost. It's called a 'bomb' for a reason.",
+  "prevention_tips": [
+    "Never run commands you don't understand, especially cryptic ones",
+    "Set process limits with 'ulimit -u' to prevent fork bombs",
+    "Modern systems have protections, but they're not foolproof",
+    "If you see ':(){' or similar patterns, it's likely a fork bomb",
+    "Learn to recognize dangerous patterns before running them",
+    "Use virtual machines for testing suspicious commands"
+  ],
+  "related_incidents": []
+}

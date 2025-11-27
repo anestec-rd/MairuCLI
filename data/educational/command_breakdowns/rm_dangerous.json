@@ -1,0 +1,39 @@
+{
+  "command": "rm -rf /",
+  "quick_summary": "Deletes EVERYTHING on your computer - all files, all programs, the operating system itself. Instant digital apocalypse.",
+  "parts": [
+    {
+      "part": "rm",
+      "emoji": "🗑️",
+      "meaning": "Remove - deletes files and directories",
+      "danger_level": "Safe when used carefully"
+    },
+    {
+      "part": "-r",
+      "emoji": "🔄",
+      "meaning": "Recursive - goes into every folder and subfolder",
+      "danger_level": "Dangerous - affects everything inside"
+    },
+    {
+      "part": "-f",
+      "emoji": "⚡",
+      "meaning": "Force - no confirmation, no questions asked",
+      "danger_level": "CRITICAL - removes safety checks"
+    },
+    {
+      "part": "/",
+      "emoji": "💀",
+      "meaning": "Root directory - the top of your entire file system",
+      "danger_level": "CATASTROPHIC - targets everything"
+    }
+  ],
+  "translation": "Delete everything, recursively, without asking, starting from the root of the entire system.",
+  "halloween_analogy": "It's like setting your entire house on fire, including the foundation, while you're still inside. No 'undo' button, no fire extinguisher, just... gone.",
+  "safe_alternatives": [
+    "rm -i filename - Interactive mode asks before each deletion",
+    "rm -rf ./specific_folder - Only delete a specific folder",
+    "trash-cli - Moves files to trash instead of permanent deletion",
+    "Always double-check the path before pressing Enter!"
+  ],
+  "related_incidents": ["gitlab_2017"]
+}

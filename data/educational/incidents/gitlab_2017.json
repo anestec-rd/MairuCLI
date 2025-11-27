@@ -1,0 +1,47 @@
+{
+  "title": "GitLab.com Database Incident - The rm -rf Horror Story",
+  "date": "February 1, 2017",
+  "company": "GitLab",
+  "what_happened": "A tired engineer accidentally ran 'rm -rf' on the wrong database server during a stressful incident, deleting 300GB of production data. The command was meant for a test server but was executed on the primary database instead.",
+  "impact": [
+    "300GB of production database data deleted",
+    "6 hours of user data lost (issues, merge requests, comments)",
+    "18 hours of downtime for GitLab.com",
+    "Affected thousands of users and projects worldwide",
+    "Exposed backup system failures (5 out of 5 backup methods failed)"
+  ],
+  "timeline": [
+    {
+      "time": "01:00 AM",
+      "event": "Database replication lag detected"
+    },
+    {
+      "time": "01:20 AM",
+      "event": "Engineer attempts to remove directory on wrong server"
+    },
+    {
+      "time": "01:21 AM",
+      "event": "Realizes mistake - hits Ctrl+C but too late"
+    },
+    {
+      "time": "01:25 AM",
+      "event": "300GB of data already deleted"
+    },
+    {
+      "time": "01:30 AM",
+      "event": "Backup restoration attempts begin"
+    },
+    {
+      "time": "02:00 AM",
+      "event": "Discovers all 5 backup methods have issues"
+    },
+    {
+      "time": "19:00 PM",
+      "event": "Service restored with 6 hours of data loss"
+    }
+  ],
+  "lesson": "Even experienced engineers make mistakes under stress. This is why MairuCLI exists - to catch these mistakes BEFORE they happen. Always double-check which server you're on, and always verify the path before running destructive commands.",
+  "halloween_twist": "This is a real horror story, not a Halloween tale. The engineer's 'oh no' moment when they realized what they'd done is the stuff of nightmares. Don't let this be your story!",
+  "source": "https://about.gitlab.com/blog/2017/02/01/gitlab-dot-com-database-incident/",
+  "related_patterns": ["rm_dangerous"]
+}

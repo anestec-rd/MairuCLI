@@ -1,0 +1,65 @@
+{
+  "title": "Understanding 'chmod 777' - The Permission Disaster",
+  "command": "chmod 777 file.txt",
+  "parts": [
+    {
+      "part": "chmod",
+      "explanation": "'Change mode' - modifies file permissions (who can read/write/execute)",
+      "danger_level": "low"
+    },
+    {
+      "part": "777",
+      "explanation": "Permission code: Everyone (owner/group/others) gets ALL permissions (read+write+execute)",
+      "danger_level": "critical"
+    },
+    {
+      "part": "file.txt",
+      "explanation": "The target file - but this could be a directory with -R flag!",
+      "danger_level": "medium"
+    }
+  ],
+  "what_happens": [
+    {
+      "step": "File permissions changed to rwxrwxrwx (777)",
+      "timing": "Immediately",
+      "impact": "high"
+    },
+    {
+      "step": "Owner can read, write, and execute the file",
+      "timing": "Immediately",
+      "impact": "low"
+    },
+    {
+      "step": "Group members can read, write, and execute the file",
+      "timing": "Immediately",
+      "impact": "medium"
+    },
+    {
+      "step": "EVERYONE on the system can read, write, and execute the file",
+      "timing": "Immediately",
+      "impact": "critical"
+    },
+    {
+      "step": "Any user can modify or delete your file",
+      "timing": "Anytime after",
+      "impact": "critical"
+    },
+    {
+      "step": "Malicious users can inject code into executable files",
+      "timing": "If file is executable",
+      "impact": "critical"
+    }
+  ],
+  "real_world_impact": "chmod 777 is like leaving your house with all doors and windows wide open, and putting a sign saying 'Come in, take what you want!' Anyone on the system can read your private files, modify your documents, or inject malicious code into your programs. It's a security nightmare.",
+  "prevention_tips": [
+    "Use chmod 644 for regular files (owner can write, others can only read)",
+    "Use chmod 755 for executable files (owner can write, others can read and execute)",
+    "Use chmod 600 for sensitive files (only owner can read and write)",
+    "Never use 777 unless you have a very specific reason and understand the risks",
+    "Use 'ls -l' to check current permissions before changing them",
+    "Remember: 4=read, 2=write, 1=execute. Add them up for each group (owner/group/others)"
+  ],
+  "related_incidents": [
+    "web_server_hack_2018"
+  ]
+}
