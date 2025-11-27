@@ -75,6 +75,14 @@ The lessons are organized by topic for easier navigation and reference.
 - **[10-ai-safety-critical-limitations.md](10-ai-safety-critical-limitations.md)** ⚠️ **CRITICAL**
   - Real incident: mkfs command not detected on Linux
   - AI cannot assess true safety impact
+  - Human oversight is non-negotiable for safety code
+
+### Spec-Driven Testing
+- **[11-spec-driven-testing-benefits-and-concerns.md](11-spec-driven-testing-benefits-and-concerns.md)**
+  - Benefits of AI-generated unit tests
+  - Concerns about coverage and edge cases
+  - Test quality requires human review
+  - Balance between automation and oversight
   - Human oversight is non-negotiable
   - Testing minimal syntax is essential
   - Educational tools must be MORE reliable
