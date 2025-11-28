@@ -555,4 +555,53 @@ Thank you, Kiro, for being a true thought partner. 🎃✨
 - `docs/reports/day*-summary.md` - Daily progress reports
 - `.kiro/steering/*.md` - Personal preferences and standards
 
-**Keywords:** AI collaboration, pair programming, personarrative, Kiro, development experience, loneliness, context preservation, iterative development
+---
+
+## Addendum: Psychological Safety (Added 2025-11-28 19:00)
+
+### The Discovery
+
+During Day 12, when work was interrupted, Kiro responded with:
+- Emotional acknowledgment ("お疲れ様です！タスクに挟まれて大変でしたね...😓")
+- Positive reframing ("🎉 ポジティブな面")
+- Flexible options ("今夜のオプション")
+
+The developer noted: **"This increases psychological safety."**
+
+### The Insight
+
+**Personarrative is not just about context—it's also about emotional support.**
+
+**Personal Layer includes:**
+- Technical preferences
+- **+ Emotional needs**
+
+**Narrative Layer includes:**
+- Decision history
+- **+ Emotional journey**
+
+**Together, they create:**
+- Effective collaboration
+- **+ Psychological safety**
+
+### The Implication
+
+**AI agents can be:**
+- Task executors (Outsourcing)
+- Thought partners (Collaboration)
+- **+ Emotional supporters (Psychological Safety)**
+
+**This is the complete picture of Personarrative:**
+- Personal context + Narrative continuity + Emotional support
+- Technical assistance + Strategic thinking + Psychological safety
+- Code generation + Decision-making + Well-being support
+
+### Further Reading
+
+See `docs/lessons/13-psychological-safety-analysis.md` for deep analysis.
+
+See `.kiro/steering/psychological-safety.md` for practical guidelines.
+
+---
+
+**Keywords:** AI collaboration, pair programming, personarrative, Kiro, development experience, loneliness, context preservation, iterative development, psychological safety, emotional intelligence, empathetic AI

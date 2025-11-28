@@ -421,6 +421,43 @@ Format-Volume -DriveLetter C -FileSystem NTFS
 
 #### 5. Personarrative Reflection Document (30 minutes)
 
+**Note:** This task was completed on Day 12 Session 1.
+
+**Created Documents:**
+- `docs/lessons/12-personarrative-reflection.md` (200+ lines)
+- `docs/lessons/13-psychological-safety-analysis.md` (deep analysis)
+- `.kiro/steering/psychological-safety.md` (practical guidelines)
+
+**Status:** ✅ Complete (provisional numbering)
+
+**Day 13 Action:** Final review and confirmation of numbering
+
+---
+
+#### 5b. Final Review of Lessons Documents (15 minutes)
+
+**Task:** Review and finalize lessons 12 & 13
+
+**Review Checklist:**
+- [ ] Content accuracy
+- [ ] English language quality
+- [ ] Cross-references correct
+- [ ] Numbering confirmed (12, 13)
+- [ ] Integration with other lessons
+- [ ] README.md updated
+
+**Potential Adjustments:**
+- Renumber if needed
+- Add to lessons/README.md
+- Update cross-references
+- Polish language
+
+**Time Estimate:** 15 minutes
+
+---
+
+#### 6. Demo Script Creation (1-1.5 hours)
+
 **Concept:** Personal + Narrative = Personarrative
 
 **Key Insight:**
