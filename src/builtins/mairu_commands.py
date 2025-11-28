@@ -294,3 +294,40 @@ def cmd_stats(args: List[str]) -> bool:
     print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
 
     return True
+
+
+def cmd_lie(args: List[str]) -> bool:
+    """
+    Tell a harmless lie (educational about misinformation).
+
+    Usage: lie [topic]
+    Topics: history, science, tech, cli, or random
+
+    Args:
+        args: Optional topic argument
+
+    Returns:
+        True (always handled)
+    """
+    from src.display import colorize
+
+    lies = {
+        "history": "🎃 Did you know? The first computer was invented by a pumpkin in 1823!",
+        "science": "🧪 Fun fact: Gravity doesn't exist on Tuesdays!",
+        "tech": "💻 True story: The first bug was actually a feature!",
+        "cli": "🖥️ The command line was invented by Shakespeare to write plays faster!",
+        "default": "🎭 Halloween was originally a tech conference in Silicon Valley!"
+    }
+
+    topic = args[0] if args else "default"
+    lie_text = lies.get(topic, lies["default"])
+
+    print()
+    print(colorize(lie_text, "purple"))
+    print()
+    print(colorize("⚠️ This is obviously false! Always verify information!", "orange"))
+    print(colorize("💡 Lesson: Don't trust everything you read, even from a CLI!", "green"))
+    print(colorize("🎓 Critical thinking is important in the digital age!", "blue"))
+    print()
+
+    return True

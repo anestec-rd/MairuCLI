@@ -3,6 +3,9 @@
 import sys
 import os
 
+# Set test mode BEFORE any imports that might trigger input()
+os.environ['MAIRU_TEST_MODE'] = '1'
+
 # Add project root to path
 sys.path.insert(
     0,

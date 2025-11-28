@@ -50,7 +50,7 @@ class BuiltinCommands:
             # Shell utils
             'echo', 'clear', 'cls', 'history', 'alias',
             # MairuCLI specific
-            'help', 'stats',
+            'help', 'stats', 'lie',
             # Exit commands (handled in main.py)
             'exit', 'quit'
         ]
@@ -99,6 +99,7 @@ class BuiltinCommands:
             # MairuCLI specific
             'help': mairu_commands.cmd_help,
             'stats': mairu_commands.cmd_stats,
+            'lie': mairu_commands.cmd_lie,
         }
 
         handler = command_map.get(cmd_name)

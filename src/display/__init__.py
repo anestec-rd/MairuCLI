@@ -259,6 +259,11 @@ def _offer_educational_breakdown(pattern_name: str) -> None:
     Args:
         pattern_name: Name of the pattern that was matched
     """
+    # Skip in test mode to avoid input() blocking pytest
+    import os
+    if os.environ.get('MAIRU_TEST_MODE') == '1':
+        return
+
     # Check if breakdown is available
     if not _educational_breakdown.has_breakdown(pattern_name):
         return

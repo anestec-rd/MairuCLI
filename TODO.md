@@ -327,9 +327,10 @@
   - Testing and polish: 15 min
   - **Total with Spec:** 65-90 minutes
 
-  **Priority:** Medium (nice-to-have for v1.2) - PRIORITY 2
+  **Priority:** Medium (nice-to-have for v1.6.0) - PRIORITY 2
   **Implementation:** Requires Spec-Driven Development approach
   **Added:** 2025-11-22 (Day 6 - User suggestion)
+  **Documented:** 2025-11-28 (Day 12 - Task 5 complete) ✅
 
 - [ ] **System Directory Protection** - User feedback (Day 6)
   - **Goal:** Prevent accidental damage to critical system directories and files

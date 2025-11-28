@@ -91,13 +91,15 @@ class EducationalBreakdown:
         if show_simulation:
             simulation = self.loader.load_simulation(pattern_name)
             if simulation:
-                # Prompt user to continue
-                print()
-                print(colorize("Press Enter to see the timeline simulation...", "orange"))
-                try:
-                    input()
-                except (KeyboardInterrupt, EOFError):
-                    return True
+                # Prompt user to continue (skip in test mode)
+                import os
+                if os.environ.get('MAIRU_TEST_MODE') != '1':
+                    print()
+                    print(colorize("Press Enter to see the timeline simulation...", "orange"))
+                    try:
+                        input()
+                    except (KeyboardInterrupt, EOFError):
+                        return True
 
                 print("\n" + "=" * 70)
                 output = self.formatter.format_timeline_simulation(simulation)
@@ -109,13 +111,15 @@ class EducationalBreakdown:
             for incident_name in incident_names:
                 incident = self.loader.load_incident(incident_name)
                 if incident:
-                    # Prompt user to continue
-                    print()
-                    print(colorize("Press Enter to see the real horror story...", "orange"))
-                    try:
-                        input()
-                    except (KeyboardInterrupt, EOFError):
-                        return True
+                    # Prompt user to continue (skip in test mode)
+                    import os
+                    if os.environ.get('MAIRU_TEST_MODE') != '1':
+                        print()
+                        print(colorize("Press Enter to see the real horror story...", "orange"))
+                        try:
+                            input()
+                        except (KeyboardInterrupt, EOFError):
+                            return True
 
                     print("\n" + "=" * 70)
                     output = self.formatter.format_incident_story(incident)
