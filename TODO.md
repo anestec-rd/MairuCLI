@@ -628,6 +628,104 @@
 - [ ] Add code coverage reporting
 
 ### Feature Enhancements
+
+- [ ] **Lie Command Enhancement - File Content Inverter** 🎭 **NEW IDEA** (Day 12)
+  - **Current:** `lie` command tells random lies (5 topics)
+  - **Status:** Basic implementation complete (hidden Easter egg command)
+  - **Enhancement Idea:** Add file content inversion feature
+
+  **Proposed Feature:**
+  ```bash
+  mairu> lie                    # Current: Random lie
+  mairu> lie history            # Current: Topic-specific lie
+  mairu> lie document.txt       # NEW: Invert file content
+  ```
+
+  **How It Works:**
+  1. Read file content (display only, never save)
+  2. Replace words with opposites from dictionary
+  3. Randomize numbers (non-zero)
+  4. Display inverted content
+  5. Show warning: "This is a lie! Original file unchanged."
+
+  **Opposite Dictionary (20-30 pairs):**
+  - true ↔ false
+  - big ↔ small
+  - long ↔ short
+  - hot ↔ cold
+  - good ↔ bad
+  - yes ↔ no
+  - up ↔ down
+  - left ↔ right
+  - fast ↔ slow
+  - high ↔ low
+  - new ↔ old
+  - easy ↔ hard
+  - safe ↔ dangerous
+  - start ↔ stop
+  - open ↔ close
+  - increase ↔ decrease
+  - success ↔ failure
+  - correct ↔ incorrect
+  - enable ↔ disable
+  - maximum ↔ minimum
+  - (+ 10 more pairs)
+
+  **Number Transformation:**
+  - 0 → keep as 0
+  - Non-zero → random number (1-999)
+  - Preserves decimal points: 3.14 → 7.89
+
+  **Safety Features:**
+  - ✅ Display only (never write to file)
+  - ✅ Clear warning message
+  - ✅ Original file completely unchanged
+  - ✅ Educational about misinformation
+
+  **Educational Value:**
+  - Shows how easy text manipulation is
+  - Teaches about information integrity
+  - Demonstrates importance of source verification
+  - Critical thinking exercise
+
+  **Implementation:**
+  - Data file: `data/builtins/lie_opposites.json`
+  - Update: `src/builtins/mairu_commands.py` cmd_lie()
+  - Add: Word replacement logic
+  - Add: Number randomization logic
+  - Testing: Unit tests for word/number replacement
+
+  **Example Output:**
+  ```
+  Original file (config.txt):
+  enable_feature = true
+  max_connections = 100
+  speed = fast
+
+  mairu> lie config.txt
+
+  🎭 Lie Version of config.txt:
+  ============================================================
+  disable_feature = false
+  minimum_connections = 42
+  speed = slow
+  ============================================================
+
+  ⚠️ This is a LIE! The original file is unchanged.
+  💡 Lesson: Text can be easily manipulated. Always verify sources!
+  ```
+
+  **Estimated Time:** 45-60 minutes
+  - Opposite dictionary JSON: 10 min
+  - Word replacement logic: 15 min
+  - Number randomization: 10 min
+  - File reading and display: 10 min
+  - Testing: 10 min
+
+  **Priority:** Low (fun feature, not critical)
+  **Added:** 2025-11-28 (Day 12 - User idea during Session 2)
+  **Status:** Documented, ready for future implementation
+
 - [ ] More dangerous command patterns
 - [ ] More typo patterns
 - [ ] Configuration file support
