@@ -1,7 +1,8 @@
 # Day 12 Plan - Documentation & Final Polish
 
-**Date:** 2025-11-28 (Planned)
-**Estimated Time:** 5-7 hours
+**Date:** 2025-11-28 (In Progress)
+**Start Time:** 17:25
+**Estimated Time:** 6-7 hours
 **Focus:** Documentation updates, code polish, and demo preparation
 
 ---
@@ -255,7 +256,95 @@ We appreciate community testing and contributions!
 - [ ] Achievements unlock properly
 - [ ] Exit message displays
 
-#### 9. Create v1.5.0 Release (15 minutes)
+#### 9. Fix Integration Test Input Issue (15 minutes)
+
+**Problem:** Integration tests fail due to `input()` in educational breakdown
+
+**Error:**
+```
+OSError: pytest: reading from stdin while output is captured!
+File: tests/integration/test_all_features.py
+Cause: _offer_educational_breakdown() calls input()
+```
+
+**Solution Options:**
+
+**Option 1: Add test mode flag (Recommended)**
+```python
+# In src/display/__init__.py
+def _offer_educational_breakdown(pattern_name: str) -> None:
+    """Offer educational breakdown for a dangerous pattern."""
+    # Skip in test mode
+    if os.environ.get('MAIRU_TEST_MODE') == '1':
+        return
+
+    if not _educational_breakdown.has_breakdown(pattern_name):
+        return
+    # ... rest of code
+```
+
+**Option 2: Mock input in tests**
+```python
+# In test file
+from unittest.mock import patch
+
+@patch('builtins.input', return_value='')
+def test_warning_display(mock_input):
+    show_warning("rm_dangerous", "rm -rf /")
+```
+
+**Recommended:** Option 1 (simpler, cleaner)
+
+**Implementation:**
+1. Add `MAIRU_TEST_MODE` check to `_offer_educational_breakdown()`
+2. Set environment variable in test files
+3. Verify all integration tests pass
+
+#### 10. Review and Update Kiro Hooks (30 minutes)
+
+**Current Hooks:**
+- `.kiro/hooks/auto-test-on-save.kiro.hook`
+- `.kiro/hooks/run-integration-tests.kiro.hook`
+- `.kiro/hooks/test-system-protection.kiro.hook`
+
+**Issues:**
+- Integration tests have increased significantly
+- Some hooks may be running outdated test commands
+- Hook execution time may have increased
+
+**Review Tasks:**
+1. **Check each hook configuration**
+   - Verify test commands are correct
+   - Check if test paths are up-to-date
+   - Ensure hooks don't run too many tests
+
+2. **Update hook commands if needed**
+   - Use specific test files instead of full suite
+   - Add timeout limits if needed
+   - Consider disabling slow hooks temporarily
+
+3. **Test hook execution**
+   - Trigger each hook manually
+   - Verify execution time is acceptable
+   - Confirm tests pass
+
+**Specific Updates Needed:**
+```json
+// Example: Update to run only fast tests
+{
+  "name": "Quick Test on Save",
+  "trigger": "onSave",
+  "command": "python -m pytest tests/unit/ -x --tb=short",
+  "description": "Run unit tests only (fast)"
+}
+```
+
+**Decision Points:**
+- Keep integration test hooks? (slow but comprehensive)
+- Run only unit tests on save? (fast but limited)
+- Disable hooks during demo prep? (avoid interruptions)
+
+#### 11. Create v1.5.0 Release (15 minutes)
 
 **Version Decision:** v1.5.0 (not v1.4.0)
 
