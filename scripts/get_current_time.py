@@ -1,19 +1,27 @@
 """
-Get current time and save to session_time.txt for tracking.
+Get current date and time and save to session_time.txt for tracking.
 This file is gitignored and used for accurate time tracking in commits.
 """
 
 from datetime import datetime
 from pathlib import Path
 
+def get_current_datetime():
+    """Get current date and time in YYYY-MM-DD HH:MM format."""
+    return datetime.now().strftime("%Y-%m-%d %H:%M")
+
 def get_current_time():
-    """Get current time in HH:MM format."""
+    """Get current time in HH:MM format (for backward compatibility)."""
     return datetime.now().strftime("%H:%M")
 
+def get_current_date():
+    """Get current date in YYYY-MM-DD format."""
+    return datetime.now().strftime("%Y-%m-%d")
+
 def save_session_start():
-    """Save session start time."""
+    """Save session start date and time."""
     time_file = Path("session_time.txt")
-    current = get_current_time()
+    current = get_current_datetime()
 
     with open(time_file, 'w', encoding='utf-8') as f:
         f.write(f"Session Start: {current}\n")
@@ -23,9 +31,9 @@ def save_session_start():
     return current
 
 def update_time():
-    """Update last update time."""
+    """Update last update date and time."""
     time_file = Path("session_time.txt")
-    current = get_current_time()
+    current = get_current_datetime()
 
     if time_file.exists():
         with open(time_file, 'r', encoding='utf-8') as f:
@@ -42,17 +50,17 @@ def update_time():
     return current
 
 def get_session_times():
-    """Get session start and current time."""
+    """Get session start and current date/time."""
     time_file = Path("session_time.txt")
 
     if not time_file.exists():
-        return save_session_start(), get_current_time()
+        return save_session_start(), get_current_datetime()
 
     with open(time_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
-    start = lines[0].split(": ")[1].strip() if len(lines) > 0 else get_current_time()
-    current = get_current_time()
+    start = lines[0].split(": ")[1].strip() if len(lines) > 0 else get_current_datetime()
+    current = get_current_datetime()
 
     # Update last update time
     with open(time_file, 'w', encoding='utf-8') as f:
