@@ -55,9 +55,11 @@ class TestEducationalBreakdownFlow:
         """Test showing full breakdown for non-existent pattern."""
         breakdown = EducationalBreakdown()
 
-        breakdown.show_full_breakdown("nonexistent_pattern")
+        result = breakdown.show_full_breakdown("nonexistent_pattern")
 
         captured = capsys.readouterr()
+        # Should return False for non-existent pattern
+        assert result is False
         # Should show fallback message
         assert "not yet available" in captured.out
 

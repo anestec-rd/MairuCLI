@@ -81,6 +81,13 @@ class EducationalBreakdown:
         # Load and display command breakdown
         breakdown = self.loader.load_breakdown(pattern_name)
         if not breakdown:
+            # Show fallback message
+            print()
+            print(colorize("📚 Educational Breakdown", "orange"))
+            print()
+            print(colorize(f"Educational content for '{pattern_name}' is not yet available.", "chocolate"))
+            print(colorize("But remember: if MairuCLI blocked it, it's dangerous!", "chocolate"))
+            print()
             return False
 
         # Format and display breakdown slowly

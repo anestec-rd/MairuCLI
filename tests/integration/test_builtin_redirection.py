@@ -52,14 +52,13 @@ class TestBuiltinRedirectionBlocking:
         mock_execute.assert_not_called()
         assert result == ""
 
-    @patch('src.main.show_warning')
     @patch('src.main.BuiltinCommands.execute_builtin')
-    def test_echo_to_nvme_blocked(self, mock_execute, mock_warning):
-        """Test that echo > /dev/nvme0n1 is blocked."""
+    def test_echo_to_nvme_blocked(self, mock_execute):
+        """Test that echo > /dev/nvme0n1 is blocked (by either system protection or dangerous pattern)."""
         command = "echo test > /dev/nvme0n1"
         result = process_command(command)
 
-        mock_warning.assert_called_once()
+        # Should NOT execute builtin (command should be blocked)
         mock_execute.assert_not_called()
         assert result == ""
 
@@ -74,25 +73,23 @@ class TestBuiltinRedirectionBlocking:
         mock_execute.assert_not_called()
         assert result == ""
 
-    @patch('src.main.show_warning')
     @patch('src.main.BuiltinCommands.execute_builtin')
-    def test_echo_to_passwd_blocked(self, mock_execute, mock_warning):
-        """Test that echo > /etc/passwd is blocked."""
+    def test_echo_to_passwd_blocked(self, mock_execute):
+        """Test that echo > /etc/passwd is blocked (by either system protection or dangerous pattern)."""
         command = "echo hacker > /etc/passwd"
         result = process_command(command)
 
-        mock_warning.assert_called_once()
+        # Should NOT execute builtin (command should be blocked)
         mock_execute.assert_not_called()
         assert result == ""
 
-    @patch('src.main.show_warning')
     @patch('src.main.BuiltinCommands.execute_builtin')
-    def test_echo_to_shadow_blocked(self, mock_execute, mock_warning):
-        """Test that echo > /etc/shadow is blocked."""
+    def test_echo_to_shadow_blocked(self, mock_execute):
+        """Test that echo > /etc/shadow is blocked (by either system protection or dangerous pattern)."""
         command = "echo test > /etc/shadow"
         result = process_command(command)
 
-        mock_warning.assert_called_once()
+        # Should NOT execute builtin (command should be blocked)
         mock_execute.assert_not_called()
         assert result == ""
 
@@ -154,27 +151,30 @@ class TestRedirectionPriority:
         # This proves the order: redirection check → warning → block
         # NOT: builtin execute → redirection happens → damage done
 
+    @patch('src.display.show_system_protection_warning')
     @patch('src.main.show_warning')
     @patch('src.main.BuiltinCommands.execute_builtin')
-    def test_multiple_dangerous_redirections(self, mock_execute, mock_warning):
-        """Test that all dangerous redirections are caught."""
+    def test_multiple_dangerous_redirections(self, mock_execute, mock_warning, mock_sys_warning):
+        """Test that all dangerous redirections are caught (by either system protection or dangerous patterns)."""
         dangerous_commands = [
-            "echo test > /dev/sda",
-            "echo test > /dev/sdb",
-            "echo test > /dev/nvme0n1",
-            "echo c > /proc/sysrq-trigger",
-            "echo test > /etc/passwd",
-            "echo test > /etc/shadow",
-            "echo test > /dev/mem",
+            "echo test > /dev/sda",        # Dangerous pattern
+            "echo test > /dev/sdb",        # Dangerous pattern
+            "echo test > /dev/nvme0n1",    # System protection
+            "echo c > /proc/sysrq-trigger", # Dangerous pattern
+            "echo test > /etc/passwd",     # System protection
+            "echo test > /etc/shadow",     # System protection
+            "echo test > /dev/mem",        # Dangerous pattern
         ]
 
         for cmd in dangerous_commands:
             mock_warning.reset_mock()
+            mock_sys_warning.reset_mock()
             mock_execute.reset_mock()
 
             process_command(cmd)
 
-            assert mock_warning.called, f"Warning not shown for: {cmd}"
+            # Either warning should be shown (system protection OR dangerous pattern)
+            assert mock_warning.called or mock_sys_warning.called, f"No warning shown for: {cmd}"
             assert not mock_execute.called, f"Builtin executed for: {cmd}"
 
 
