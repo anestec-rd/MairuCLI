@@ -35,19 +35,27 @@ class TestPathResolver:
 
         # Test relative path
         result = self.resolver.resolve_path(".")
-        assert result.lower() == cwd.lower() if sys.platform == "win32" else result == cwd
+        # macOS and Windows are case-insensitive but case-preserving
+        if sys.platform in ("win32", "darwin"):
+            assert result.lower() == cwd.lower()
+        else:
+            assert result == cwd
 
         # Test parent directory
         parent = os.path.dirname(cwd)
         result = self.resolver.resolve_path("..")
-        assert result.lower() == parent.lower() if sys.platform == "win32" else result == parent
+        if sys.platform in ("win32", "darwin"):
+            assert result.lower() == parent.lower()
+        else:
+            assert result == parent
 
     def test_expand_user_home(self):
         """Test expansion of ~ to user home directory."""
         home = os.path.expanduser("~")
         result = self.resolver.resolve_path("~")
 
-        if sys.platform == "win32":
+        # macOS and Windows are case-insensitive but case-preserving
+        if sys.platform in ("win32", "darwin"):
             assert result.lower() == home.lower()
         else:
             assert result == home
@@ -231,7 +239,8 @@ class TestPathResolver:
         result = self.resolver.resolve_path(complex_path)
 
         # Should resolve to current directory
-        if sys.platform == "win32":
+        # macOS and Windows are case-insensitive but case-preserving
+        if sys.platform in ("win32", "darwin"):
             assert result.lower() == cwd.lower()
         else:
             assert result == cwd
