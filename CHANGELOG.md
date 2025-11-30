@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Pauses between steps for dramatic effect (0.8s)
   - Makes timeline simulations more engaging and memorable
   - Implemented in `breakdown_formatter.py`
-  - All existing tests pass (321/321)
+  - All existing tests pass (322 tests)
 
 - **Lie Command File Inversion** - Educational misinformation awareness
   - `lie <filename>` displays inverted file content
@@ -36,7 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Documentation Updates for Contest Submission**
   - Updated README.md to v1.5.0
   - Added Platform Support section (Windows/Linux/macOS verified)
-  - Added Test Coverage section (321 tests, 100% pass rate)
+  - Added Test Coverage section (322 tests, 100% pass rate)
   - Added Quick Verification guide with step-by-step commands
   - Updated feature list to include Educational Breakdown and System Protection
   - Emphasized "Built 100% with Kiro AI" at top of README
@@ -44,7 +44,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Added `lie` command to builtin commands list (21 total)
 
 - **Test Coverage Milestone**
-  - 321 total tests (274 unit + 47 integration)
+  - 322 total tests (274 unit + 47 integration + 1 platform-specific)
   - 100% pass rate on all platforms
   - Cross-platform verification (Windows, Linux, macOS)
   - Comprehensive coverage of all features
@@ -56,7 +56,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Updated version number throughout documentation
 
 ### Quality Metrics
-- **Total Tests**: 321 (274 unit + 47 integration)
+- **Total Tests**: 322 (274 unit + 47 integration + 1 platform-specific)
 - **Pass Rate**: 100%
 - **Platforms**: Windows, Linux, macOS (all verified)
 - **Features**: 21 builtin commands, 11 dangerous patterns, 4 caution patterns

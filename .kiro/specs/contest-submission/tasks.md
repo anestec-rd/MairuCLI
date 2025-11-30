@@ -18,7 +18,7 @@ Convert the contest submission design into actionable tasks. Each task builds in
 
 - [x] 1. Update README.md with Platform Support and Verification
   - Add Platform Support section (Windows/Linux/macOS verified)
-  - Add Test Coverage section (321 tests, 100% pass)
+  - Add Test Coverage section (322 tests, 100% pass)
   - Add Quick Verification guide with commands
   - Update feature list to include Educational Breakdown
   - Update feature list to include System Protection
@@ -32,7 +32,7 @@ Convert the contest submission design into actionable tasks. Each task builds in
   - Document Educational Breakdown System
   - Document System Directory Protection
   - Document macOS compatibility verification
-  - Document test coverage (321 tests)
+  - Document test coverage (322 tests)
   - Document timeline real-time display (if implemented)
   - Document lie command enhancement (if implemented)
   - _Requirements: 1.4_
@@ -65,7 +65,7 @@ Convert the contest submission design into actionable tasks. Each task builds in
   - Write What it does section (features overview)
   - Write How we built it section (Kiro + Spec-Driven Development)
   - Write Challenges section (cross-platform, balance, testing)
-  - Write Accomplishments section (321 tests, productivity, architecture)
+  - Write Accomplishments section (322 tests, productivity, architecture)
   - Write What we learned section (Kiro power, education, testing)
   - Write What's next section (future features, community)
   - Emphasize 100% Kiro-exclusive development

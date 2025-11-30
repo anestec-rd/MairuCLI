@@ -7,7 +7,7 @@
 [![Hackathon](https://img.shields.io/badge/Hackathon-Kiroween%202025-orange)](https://kiroween.devpost.com/)
 [![Built with Kiro](https://img.shields.io/badge/Built%20100%25%20with-Kiro%20AI-blue)](https://kiro.dev/)
 [![Version](https://img.shields.io/badge/Version-1.5.0-green)](https://github.com/yourusername/mairu-cli)
-[![Tests](https://img.shields.io/badge/Tests-321%20passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-322%20passing-brightgreen)](tests/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)](README.md#platform-support)
 
 ## 🎉 What is MairuCLI?
@@ -189,7 +189,7 @@ MairuCLI has been **verified and tested** on:
   - Windows: `C:\Windows`, `C:\Program Files`, etc.
   - Linux/macOS: `/bin`, `/usr`, `/etc`, etc.
 - ✅ **All dangerous patterns** detected consistently
-- ✅ **All tests pass** on all platforms (321/321)
+- ✅ **All tests pass** on all platforms (322 tests)
 - ✅ **ASCII art** renders correctly on all terminals
 
 ### Quick Verification

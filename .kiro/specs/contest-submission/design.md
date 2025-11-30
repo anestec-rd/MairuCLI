@@ -38,7 +38,7 @@ MairuCLI is not just a security tool - it's an educational experience that makes
    - Measurable results
 
 4. **Technical Excellence**
-   - 321 tests (100% pass rate)
+   - 322 tests (100% pass rate)
    - Cross-platform verified (Windows/Linux/macOS)
    - Clean, extensible architecture
 
@@ -91,7 +91,7 @@ Contest Submission
 
 **Components:**
 - Platform Support section (Windows/Linux/macOS)
-- Test Coverage section (321 tests)
+- Test Coverage section (322 tests)
 - Quick Verification guide
 - Updated feature list
 - Link verification
@@ -136,7 +136,7 @@ Contest Submission
 2. What it does (Features overview)
 3. How we built it (Kiro + Spec-Driven Development)
 4. Challenges (Cross-platform, balance, testing)
-5. Accomplishments (321 tests, productivity, architecture)
+5. Accomplishments (322 tests, productivity, architecture)
 6. What we learned (Kiro power, education, testing)
 7. What's next (Future features, community)
 ```

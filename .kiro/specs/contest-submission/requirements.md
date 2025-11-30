@@ -67,7 +67,7 @@ MairuCLI is ready for contest submission. This spec defines what needs to be com
 
 1. WHEN timeline simulation is shown THEN the system SHALL display steps in real-time with dramatic effect
 2. WHEN lie command is used with file THEN the system SHALL display inverted content without modifying original file
-3. WHEN all features are tested THEN the system SHALL pass 321 tests (274 unit + 47 integration) on all platforms
+3. WHEN all features are tested THEN the system SHALL pass 322 tests (274 unit + 47 integration + 1 platform-specific) on all platforms
 4. WHEN features are demonstrated THEN the system SHALL showcase educational value and entertainment fusion
 5. WHEN architecture is reviewed THEN the system SHALL demonstrate clean, extensible design
 
@@ -117,7 +117,7 @@ MairuCLI is ready for contest submission. This spec defines what needs to be com
 
 **Technical Constraints:**
 - All features must work on Windows/Linux/macOS
-- All tests must pass (321 tests)
+- All tests must pass (322 tests)
 - No external dependencies (Python standard library only)
 
 **Quality Constraints:**
