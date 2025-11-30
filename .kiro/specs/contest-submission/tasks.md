@@ -47,7 +47,7 @@ Convert the contest submission design into actionable tasks. Each task builds in
   - _Requirements: 1.3_
   - _Time: 15 minutes_
 
-- [ ] 3.1 Document Kiro Workflow and Features
+- [x] 3.1 Document Kiro Workflow and Features
   - Create `docs/kiro-workflow.md` with comprehensive Kiro usage documentation
   - Document Spec-Driven Development workflow (requirements → design → tasks)
   - Document all 15 Steering Files with purpose and impact

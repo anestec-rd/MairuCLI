@@ -420,7 +420,7 @@ Kiro's Spec-Driven Development methodology was used throughout:
 **Key Artifacts:**
 - `.kiro/specs/mairu-cli/` - Original project spec
 - `.kiro/specs/display-refactoring/` - Refactoring spec
-- `.kiro/steering/` - Development standards and guidelines
+- `.kiro/steering/` - Development standards and guidelines (15 files)
 
 ### Productivity Gains
 
@@ -438,6 +438,26 @@ Kiro's Spec-Driven Development methodology was used throughout:
 - Complete documentation
 
 This demonstrates the power of Kiro + Spec-Driven Development.
+
+### Learn More About Kiro Workflow
+
+**Want to see how Kiro made this possible?**
+
+📖 **[Read the Complete Kiro Workflow Documentation](docs/kiro-workflow.md)**
+
+This comprehensive guide covers:
+- **Spec-Driven Development:** Requirements → Design → Tasks → Implementation
+- **15 Steering Files:** Development standards that ensure consistency
+- **Productivity Metrics:** How we achieved 7.5-9x speed improvements
+- **Real Examples:** Detailed case studies from MairuCLI development
+- **Best Practices:** How to leverage Kiro for your own projects
+
+**Key Features Documented:**
+- ✅ How specs structure complex features
+- ✅ How steering files provide persistent guidance
+- ✅ How incremental task execution enables validation
+- ✅ How context awareness eliminates repetition
+- ✅ Real productivity metrics with time tracking
 
 ## 🧪 Testing & Quality Assurance
 
