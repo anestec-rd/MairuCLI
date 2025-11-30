@@ -15,15 +15,24 @@
         "terminal.integrated.profiles.linux": {
           "bash": {
             "path": "bash",
-            "icon": "terminal-bash"
+            "icon": "terminal-bash",
+            "env": {
+              "LANG": "en_US.UTF-8",
+              "LC_ALL": "en_US.UTF-8"
+            }
           }
         },
         "terminal.integrated.cursorStyle": "block",
         "terminal.integrated.fontSize": 14,
-        "terminal.integrated.fontFamily": "monospace"
+        "terminal.integrated.fontFamily": "'Cascadia Code', 'Courier New', monospace",
+        "terminal.integrated.fontWeightBold": "normal"
       }
     }
   },
   "forwardPorts": [],
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "remoteEnv": {
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8"
+  }
 }
