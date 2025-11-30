@@ -302,14 +302,17 @@ def cmd_lie(args: List[str]) -> bool:
 
     Usage: lie [topic]
     Topics: history, science, tech, cli, or random
+    Usage: lie <filename>
+    Display inverted file content (opposites + randomized numbers)
 
     Args:
-        args: Optional topic argument
+        args: Optional topic argument or filename
 
     Returns:
         True (always handled)
     """
     from src.display import colorize
+    import os
 
     lies = {
         "history": "🎃 Did you know? The first computer was invented by a pumpkin in 1823!",
@@ -319,6 +322,12 @@ def cmd_lie(args: List[str]) -> bool:
         "default": "🎭 Halloween was originally a tech conference in Silicon Valley!"
     }
 
+    # Check if argument is a file
+    if args and os.path.isfile(args[0]):
+        _show_inverted_file(args[0])
+        return True
+
+    # Otherwise, show a lie based on topic
     topic = args[0] if args else "default"
     lie_text = lies.get(topic, lies["default"])
 
@@ -331,3 +340,130 @@ def cmd_lie(args: List[str]) -> bool:
     print()
 
     return True
+
+
+def _show_inverted_file(filename: str) -> None:
+    """
+    Display file content with inverted words and randomized numbers.
+
+    Args:
+        filename: Path to file to invert
+    """
+    from src.display import colorize
+
+    try:
+        # Read file content
+        with open(filename, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Invert the content
+        inverted = _invert_text(content)
+
+        # Display inverted content
+        print()
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+        print(colorize(f"🎭 Inverted Content of '{filename}' 🎭", "purple"))
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+        print()
+        print(inverted)
+        print()
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+        print(colorize("⚠️ THIS IS A LIE! Original file is unchanged!", "orange"))
+        print(colorize("💡 Lesson: Don't trust everything you see!", "green"))
+        print(colorize("🎓 Always verify information from multiple sources!", "blue"))
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+        print()
+
+    except FileNotFoundError:
+        print()
+        print(colorize(f"❌ File not found: {filename}", "red"))
+        print()
+    except Exception as e:
+        print()
+        print(colorize(f"❌ Error reading file: {e}", "red"))
+        print()
+
+
+def _invert_text(text: str) -> str:
+    """
+    Invert text by replacing words with opposites and randomizing numbers.
+
+    Args:
+        text: Text to invert
+
+    Returns:
+        Inverted text
+    """
+    import re
+    import random
+
+    # Load opposites dictionary
+    opposites = _load_opposites()
+
+    # Build a single regex pattern that matches any of the words
+    # Sort by length (longest first) to avoid partial replacements
+    sorted_words = sorted(opposites.keys(), key=len, reverse=True)
+
+    # Create pattern that matches any word
+    pattern = r'\b(' + '|'.join(re.escape(word) for word in sorted_words) + r')\b'
+
+    def replace_word(match):
+        matched = match.group(0)
+        matched_lower = matched.lower()
+
+        # Find the opposite
+        opposite = opposites.get(matched_lower, matched)
+
+        # Preserve case
+        if matched.isupper():
+            return opposite.upper()
+        elif matched[0].isupper():
+            return opposite.capitalize()
+        else:
+            return opposite
+
+    # Replace words
+    result = re.sub(pattern, replace_word, text, flags=re.IGNORECASE)
+
+    # Randomize numbers (first digit 1-9, remaining digits 0-9)
+    def randomize_number(match):
+        num_str = match.group(0)
+
+        # Check if it's a decimal number
+        if '.' in num_str:
+            parts = num_str.split('.')
+            decimal_part = parts[1]
+
+            # Generate integer part: first digit 1-9, rest 0-9
+            new_integer = random.randint(1, 999)
+
+            # Randomize decimal part (all digits 0-9)
+            new_decimal = ''.join(str(random.randint(0, 9)) for _ in range(len(decimal_part)))
+
+            return f"{new_integer}.{new_decimal}"
+        else:
+            # Integer number: first digit 1-9, rest 0-9
+            return str(random.randint(1, 999))
+
+    # Match numbers (integers and decimals)
+    result = re.sub(r'\b\d+\.?\d*\b', randomize_number, result)
+
+    return result
+
+
+def _load_opposites() -> Dict[str, str]:
+    """
+    Load word opposites from JSON file.
+
+    Returns:
+        Dictionary of word opposites
+    """
+    opposites_path = Path("data/builtins/lie_opposites.json")
+
+    try:
+        with open(opposites_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data.get('opposites', {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        # Return empty dict if file not found or invalid
+        return {}

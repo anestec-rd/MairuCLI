@@ -130,6 +130,11 @@
           "emoji": "❓"
         },
         {
+          "name": "lie [topic]",
+          "description": "Tell harmless lies (try with a filename...)",
+          "emoji": "🎭"
+        },
+        {
           "name": "exit/quit",
           "description": "Exit MairuCLI",
           "emoji": "👋"

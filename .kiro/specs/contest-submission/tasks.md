@@ -128,7 +128,7 @@ Convert the contest submission design into actionable tasks. Each task builds in
   - _Requirements: 4.1, 4.3_
   - _Time: 1 hour_
 
-- [ ]* 10. Implement Lie Command File Inversion
+- [x] 10. Implement Lie Command File Inversion
   - Create `data/builtins/lie_opposites.json`
   - Update `src/builtins/mairu_commands.py`
   - Add file detection logic
