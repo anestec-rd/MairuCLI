@@ -14,7 +14,7 @@
 **Tests:** All MairuCLI features (commands, warnings, achievements, etc.)
 
 ### 2. System Directory Protection
-**File:** `SYSTEM_PROTECTION_CHECKLIST.md`
+**File:** `system-protection-checklist.md`
 **Time:** 10-15 minutes
 **Tests:** System directory protection (Windows/Linux/macOS)
 
@@ -32,6 +32,10 @@
 **File:** `demo_session.py`
 **Time:** 5 minutes
 **Tests:** Demo flow practice
+
+### 6. Additional Manual Tests
+**Files:** Various `test_*.py` scripts
+**Purpose:** Specific feature verification (variations, achievements, bypass testing, etc.)
 
 ---
 
@@ -96,7 +100,7 @@ Each manual test file focuses on specific observation points:
 - **Observes:** General feature functionality, visual quality, message clarity
 - **Verifies:** Startup, builtins, dangerous commands, achievements, typos
 
-### `SYSTEM_PROTECTION_CHECKLIST.md`
+### `system-protection-checklist.md`
 - **Observes:** System protection accuracy, educational messages, performance
 - **Verifies:** Windows/Linux/macOS protection, path resolution, edge cases
 
@@ -111,6 +115,15 @@ Each manual test file focuses on specific observation points:
 ### `demo_session.py`
 - **Observes:** Demo flow, presentation readiness
 - **Verifies:** Commands work in demo order
+
+### Additional Test Scripts
+- `test_category_variations.py` - Verify category-based variation system
+- `test_realtime_simulation.py` - Test educational timeline simulation
+- `test_bypass_methods.py` - Verify security against bypass attempts
+- `test_false_positives.py` - Check for incorrect dangerous pattern detection
+- `test_false_negatives.py` - Check for missed dangerous patterns
+- `test_achievements_live.txt` - Achievement unlock verification
+- And more... (see directory for complete list)
 
 ---
 

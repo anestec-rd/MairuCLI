@@ -118,7 +118,7 @@ Available commands:
 - **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands, system protection
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
 - **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
-- **Modular Architecture:** Clean separation with 15+ modules, 321 passing tests (274 unit + 47 integration)
+- **Modular Architecture:** Clean separation with 15+ modules, 322 passing tests
 
 ### Display System (Refactored Architecture)
 - **Modular Components:** Separated concerns for maintainability
@@ -198,9 +198,9 @@ Verify MairuCLI works on your system:
 
 ```bash
 # 1. Run the test suite
-python -m pytest tests/ -v
+python -m pytest tests/unit tests/integration -v
 
-# Expected: 321 tests passed
+# Expected: 322 passed, 8 skipped
 
 # 2. Try a safe command
 python -m src.main
@@ -227,9 +227,11 @@ MairuCLI has **comprehensive test coverage** to ensure reliability:
 
 | Test Type | Count | Status |
 |-----------|-------|--------|
-| **Unit Tests** | 274 | ✅ 100% Pass |
-| **Integration Tests** | 47 | ✅ 100% Pass |
-| **Total** | **321** | ✅ **100% Pass** |
+| **Unit Tests** | ~275 | ✅ All Passing |
+| **Integration Tests** | ~47 | ✅ All Passing |
+| **Total** | **322** | ✅ **All Passing** |
+
+**Note:** Test counts are approximate. Run `pytest tests/unit tests/integration -v` for exact count.
 
 ### Test Categories
 
@@ -254,8 +256,8 @@ MairuCLI has **comprehensive test coverage** to ensure reliability:
 ### Running Tests
 
 ```bash
-# Run all tests
-python -m pytest tests/ -v
+# Run all tests (unit + integration)
+python -m pytest tests/unit tests/integration -v
 
 # Run specific test category
 python -m pytest tests/unit/ -v
@@ -442,8 +444,8 @@ This demonstrates the power of Kiro + Spec-Driven Development.
 ### Automated Testing
 
 ```bash
-# Run all tests (321 tests)
-python -m pytest tests/ -v
+# Run all tests (322 tests)
+python -m pytest tests/unit tests/integration -v
 
 # Run specific test suites
 python -m pytest tests/unit/ -v           # 274 unit tests
@@ -467,8 +469,8 @@ python tests/manual/test_system_protection_manual.py
 
 ### Quality Metrics
 
-- ✅ **321 tests** (274 unit + 47 integration)
-- ✅ **100% pass rate** on all platforms
+- ✅ **322 automated tests** (unit + integration)
+- ✅ **All tests passing** on all platforms
 - ✅ **Zero breaking changes** during refactoring
 - ✅ **Backward compatibility** maintained
 - ✅ **Cross-platform verified** (Windows, Linux, macOS)
