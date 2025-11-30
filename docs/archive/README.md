@@ -4,10 +4,11 @@ This directory contains the complete development process archive for the MairuCL
 
 ## Directory Structure
 
-- **daily/** - Daily development summaries (Day 1-13)
+- **daily/** - Daily development summaries (Day 1-14)
 - **planning/** - Planning documents and action plans
 - **analysis/** - Analysis reports and reviews
 - **testing/** - Test reports and verification results
+- **TODO.md** - Development task history (archived)
 - **development-timeline.md** - Complete development timeline
 - **ideas-log.md** - Initial ideas and brainstorming
 - **initial-brainstorm.md** - Project inception notes
@@ -203,6 +204,20 @@ This directory contains the complete development process archive for the MairuCL
 
 ---
 
+### Day 14 (2025-11-30)
+**File:** [daily/day14-summary.md](daily/day14-summary.md)
+
+**Summary:** Contest submission preparation
+- Comprehensive Kiro workflow documentation created (500+ lines)
+- Documented all 15 steering files with examples
+- Documented Spec-Driven Development methodology
+- Updated LESSONS_LEARNED.md (removed outdated references)
+- Archived TODO.md to preserve development history
+- Final README.md cleanup for v1.5.0 release
+- Time: ~4.5 hours (including breaks and discussion)
+
+---
+
 ## Report Format
 
 Each daily report typically includes:
@@ -244,10 +259,12 @@ These reports serve multiple purposes:
 
 ---
 
-**Total Development Time:** ~6-7 hours active development
-**Total Features:** 20+ features implemented
-**Total Commits:** 50+ commits
-**Code Quality:** Production-ready
+**Development Period:** November 17-30, 2025 (13 days)
+**Total Active Development:** ~15-20 hours
+**Total Features:** 21 builtin commands, 11 dangerous patterns, 5 educational breakdowns
+**Test Coverage:** 322 automated tests (100% passing)
+**Documentation:** 15 steering files, 5 complete specs, 15 lesson documents
+**Code Quality:** Production-ready, cross-platform verified
 
 ---
 

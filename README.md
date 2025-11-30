@@ -6,9 +6,9 @@
 
 [![Hackathon](https://img.shields.io/badge/Hackathon-Kiroween%202025-orange)](https://kiroween.devpost.com/)
 [![Built with Kiro](https://img.shields.io/badge/Built%20100%25%20with-Kiro%20AI-blue)](https://kiro.dev/)
-[![Version](https://img.shields.io/badge/Version-1.5.0-green)](https://github.com/yourusername/mairu-cli)
-[![Tests](https://img.shields.io/badge/Tests-322%20passing-brightgreen)](tests/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)](README.md#platform-support)
+![Version](https://img.shields.io/badge/Version-1.5.0-green)
+![Tests](https://img.shields.io/badge/Tests-322%20passing-brightgreen)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
 ## 🎉 What is MairuCLI?
 
@@ -468,7 +468,7 @@ This comprehensive guide covers:
 python -m pytest tests/unit tests/integration -v
 
 # Run specific test suites
-python -m pytest tests/unit/ -v           # 274 unit tests
+python -m pytest tests/unit/ -v           # 275 unit tests
 python -m pytest tests/integration/ -v    # 47 integration tests
 
 # Run with coverage report
@@ -533,7 +533,7 @@ This is intentional! Learning includes seeing what happens with invalid commands
 ### Core Documentation
 - **[LESSONS_LEARNED.md](LESSONS_LEARNED.md)** - Development insights, AI collaboration, and philosophy
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
-- **[TODO.md](TODO.md)** - Planned features and improvements
+- **[Kiro Workflow Documentation](docs/kiro-workflow.md)** - How Kiro enabled rapid development
 
 ### Development Archive
 - **[docs/archive/](docs/archive/)** - Complete development process archive
@@ -694,7 +694,6 @@ For now:
 
 ## 📞 Contact
 
-- **GitHub:** [Your GitHub Profile]
 - **Devpost:** [Submission Link - Coming Soon]
 - **Demo Video:** [YouTube Link - Coming Soon]
 
