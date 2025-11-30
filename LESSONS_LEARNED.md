@@ -8,26 +8,25 @@ For better readability and maintainability, lessons are organized in the `docs/l
 
 ## Quick Access
 
-### **→ [Full Lessons Archive](docs/lessons/FULL_ARCHIVE.md)**
-Complete, unabridged lessons learned (1200+ lines)
-
-### **→ [Organized Index](docs/lessons/README.md)**
-Topic-based navigation and overview
+### **→ [Organized Lessons Index](docs/lessons/README.md)**
+15 topic-based lessons with navigation and overview
 
 ---
 
 ## 📊 Key Statistics
 
 **Project Timeline:**
-- **Day 1**: 4 hours → Core functionality
-- **Day 2**: 1 hour → Spec creation
-- **Day 3**: 20 minutes → Major refactoring (7.5-9x faster!)
-- **Day 4**: 70 minutes → Content expansion + quality review
+- **Development Period:** November 17-30, 2025 (13 days)
+- **Total Active Development:** ~15-20 hours
+- **Features Implemented:** 21 builtin commands, 11 dangerous patterns, 5 educational breakdowns
+- **Test Coverage:** 322 automated tests (100% passing)
+- **Documentation:** 15 steering files, 5 complete specs, 15 lesson documents
 
 **Productivity Gains:**
-- Display refactoring: **7.5-9x faster** than estimated
-- Caution system: **12x faster** than estimated
-- Average: **4-6x faster** than traditional development
+- Display refactoring: **7.5-9x faster** than estimated (20 min vs 2.5-3 hours)
+- System protection: **4x faster** than estimated
+- Educational breakdown: **3x faster** than estimated
+- **Average: 4-6x faster** than traditional development
 
 ---
 
@@ -99,19 +98,20 @@ For in-depth exploration of each topic, see:
 - **Commit Message Paradox** - Psychological impact, solutions
 - **Practical Challenges** - Session length, real-world patterns
 
-**→ [View Full Archive](docs/lessons/FULL_ARCHIVE.md)**
+**→ [View All Lessons](docs/lessons/README.md)**
 
 ---
 
 ## 📝 About This Documentation
 
 **Project:** MairuCLI - Halloween-themed CLI safety wrapper
-**Development Period:** November 16-19, 2025 (4 days)
+**Development Period:** November 17-30, 2025 (13 days)
 **AI Tool Used:** Kiro (exclusively - no other AI tools)
 **Methodology:** Spec-Driven Development
-**Total Development Time:** ~6 hours active work
-**Lines of Code:** ~3000+
-**Result:** Fully functional, polished, professional educational tool
+**Total Development Time:** ~15-20 hours active work
+**Lines of Code:** ~4500+ (source + tests)
+**Test Coverage:** 322 automated tests (100% passing)
+**Result:** Production-ready, cross-platform educational tool
 
 **Documentation Philosophy:**
 - Evidence-based (actual experience, not assumptions)
@@ -121,9 +121,9 @@ For in-depth exploration of each topic, see:
 
 ---
 
-**Last Updated:** November 19, 2025 (Day 4)
-**Status:** Organized for scalability
-**Format:** Full archive + quick reference
+**Last Updated:** November 30, 2025 (Day 14)
+**Status:** Complete and organized
+**Format:** Topic-based lessons with comprehensive coverage
 
 ---
 

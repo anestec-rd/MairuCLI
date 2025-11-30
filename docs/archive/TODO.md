@@ -1,4 +1,17 @@
-# MairuCLI - TODO List
+# MairuCLI - TODO List (Development Archive)
+
+**Status:** Archived - Development complete
+**Purpose:** Historical record of development tasks and decisions
+**Period:** November 17-30, 2025 (Days 1-14)
+
+This document tracked tasks during active development. It has been archived to preserve the development history while keeping the root directory clean for contest submission.
+
+**For current project status, see:**
+- [README.md](../../README.md) - Project overview and features
+- [CHANGELOG.md](../../CHANGELOG.md) - Version history
+- [docs/lessons/](../lessons/) - Lessons learned
+
+---
 
 ## Critical Issues
 
