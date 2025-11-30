@@ -153,19 +153,32 @@ Each pattern includes real-world incidents, why it's dangerous, and safe alterna
 
 ### Option 1: GitHub Codespaces (Recommended - No Installation!)
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/anestec-rd/mairu-cli?quickstart=1)
+**Method A: Direct Link (Easiest)**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/anestec-rd/MairuCLI?quickstart=1)
+
+**Method B: From Repository**
+
+1. Go to [MairuCLI Repository](https://github.com/anestec-rd/MairuCLI)
+2. Click the green **"Code"** button
+3. Select **"Codespaces"** tab
+4. Click **"Create codespace on main"**
 
 **Click the button above to try MairuCLI in your browser - no installation required!**
 
-Once Codespaces opens (takes ~30 seconds):
-1. Terminal will open automatically with welcome message
-2. Run: `python -m src.main`
-3. Try dangerous commands safely:
+**Steps:**
+1. Click the "Open in GitHub Codespaces" button above
+2. If prompted, select **"anestec-rd/MairuCLI"** repository (should be pre-selected)
+3. Click **"Create codespace"** (green button)
+4. Wait ~30 seconds for environment to load
+5. Terminal will open automatically with welcome message
+6. Run: `python -m src.main`
+7. Try dangerous commands safely:
    - `rm -rf /` - See the 🔥 YOU'RE FIRED! warning
    - `chmod 777 file` - Permission chaos warning
    - `sl` - Typo entertainment (steam locomotive!)
    - `stats` - Check your safety statistics
-4. Type `exit` to quit
+8. Type `exit` to quit
 
 **Perfect for judges and reviewers!** 🎃
 
@@ -179,8 +192,8 @@ Once Codespaces opens (takes ~30 seconds):
 
 ```bash
 # Clone the repository
-git clone https://github.com/anestec-rd/mairu-cli.git
-cd mairu-cli
+git clone https://github.com/anestec-rd/MairuCLI.git
+cd MairuCLI
 
 # Run MairuCLI
 python -m src.main
