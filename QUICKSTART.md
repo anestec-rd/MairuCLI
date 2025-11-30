@@ -36,7 +36,7 @@ cd..
 
 ### More to Discover
 
-There are **11 dangerous patterns**, **4 caution-level warnings**, and **8 achievements** to unlock!
+There are **11 dangerous patterns**, **4 caution-level warnings**, and **hidden achievements** to unlock!
 
 Can you find them all? 🏆
 
