@@ -149,17 +149,37 @@ MairuCLI detects **11 dangerous command patterns** including:
 
 Each pattern includes real-world incidents, why it's dangerous, and safe alternatives.
 
-## 🚀 Installation
+## 🚀 Try It Out
 
-### Prerequisites
+### Option 1: GitHub Codespaces (Recommended - No Installation!)
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/anestec-rd/mairu-cli?quickstart=1)
+
+**Click the button above to try MairuCLI in your browser - no installation required!**
+
+Once Codespaces opens (takes ~30 seconds):
+1. Terminal will open automatically with welcome message
+2. Run: `python -m src.main`
+3. Try dangerous commands safely:
+   - `rm -rf /` - See the 🔥 YOU'RE FIRED! warning
+   - `chmod 777 file` - Permission chaos warning
+   - `sl` - Typo entertainment (steam locomotive!)
+   - `stats` - Check your safety statistics
+4. Type `exit` to quit
+
+**Perfect for judges and reviewers!** 🎃
+
+### Option 2: Local Installation
+
+**Prerequisites:**
 - Python 3.8 or higher
-- Linux, macOS, or Windows (via WSL)
+- Linux, macOS, or Windows
 
-### Quick Start
+**Quick Start:**
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mairu-cli.git
+git clone https://github.com/anestec-rd/mairu-cli.git
 cd mairu-cli
 
 # Run MairuCLI
@@ -172,7 +192,7 @@ chmod +x run.sh
 
 No external dependencies required - uses Python standard library only!
 
-**Want to try it out quickly?** See [QUICKSTART.md](QUICKSTART.md) for a fun guided tour! 🎃
+**Want a guided tour?** See [QUICKSTART.md](QUICKSTART.md) for a fun walkthrough! 🎃
 
 ## 🖥️ Platform Support
 
