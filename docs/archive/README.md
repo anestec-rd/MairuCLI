@@ -15,7 +15,7 @@ This directory contains the complete development process archive for the MairuCL
 ## Report Index
 
 ### Development Timeline
-**File:** [DEVELOPMENT_TIMELINE.md](DEVELOPMENT_TIMELINE.md)
+**File:** [development-timeline.md](development-timeline.md)
 
 **Summary:** Complete development timeline from specification to implementation
 - Session-by-session breakdown
@@ -25,7 +25,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 1 (2025-11-17)
-**File:** [DAY1_SUMMARY.md](DAY1_SUMMARY.md)
+**File:** [daily/day01-summary.md](daily/day01-summary.md)
 
 **Summary:** Initial development session
 - Core functionality implementation
@@ -37,7 +37,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 2 Session 1 (2025-11-17)
-**File:** [DAY2-1_SUMMARY.md](DAY2-1_SUMMARY.md)
+**File:** [daily/day02-1-summary.md](daily/day02-1-summary.md)
 
 **Summary:** Feature additions
 - Repeat warning system
@@ -47,7 +47,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 2 Session 2 (2025-11-17)
-**File:** [DAY2-2_SUMMARY.md](DAY2-2_SUMMARY.md)
+**File:** [daily/day02-2-summary.md](daily/day02-2-summary.md)
 
 **Summary:** Spec creation
 - Created comprehensive spec for display refactoring
@@ -57,7 +57,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 3 (2025-11-18)
-**File:** [DAY3_SUMMARY.md](DAY3_SUMMARY.md)
+**File:** [daily/day03-summary.md](daily/day03-summary.md)
 
 **Summary:** Display system refactoring
 - 20-minute miracle refactoring
@@ -66,12 +66,10 @@ This directory contains the complete development process archive for the MairuCL
 - 100% backward compatibility
 - Time: 20 minutes (estimated 2.5-3 hours)
 
-**Action Plan:** [DAY3_ACTION_PLAN.md](DAY3_ACTION_PLAN.md)
-
 ---
 
 ### Day 4 (2025-11-19)
-**File:** [DAY4_SUMMARY.md](DAY4_SUMMARY.md)
+**File:** [daily/day04-summary.md](daily/day04-summary.md)
 
 **Summary:** Content expansion and quality review
 - Three-tier warning system (Critical/Caution/Safe)
@@ -84,9 +82,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 5 (2025-11-21)
-**Files:**
-- [DAY5_SUMMARY.md](DAY5_SUMMARY.md) - Complete day summary
-- [DAY5_TEST_REPORT.md](DAY5_TEST_REPORT.md) - Automated test report
+**File:** [daily/day05-summary.md](daily/day05-summary.md)
 
 **Summary:** Bug fixes, testing, and documentation
 - Fixed 2 bugs (dd command, fork bomb pattern)
@@ -101,7 +97,7 @@ This directory contains the complete development process archive for the MairuCL
 ---
 
 ### Day 6 (2025-11-22)
-**File:** [DAY6_SUMMARY.md](DAY6_SUMMARY.md)
+**File:** [daily/day06-summary.md](daily/day06-summary.md)
 
 **Summary:** User testing and feature enhancements
 - Conducted user testing with multiple participants
@@ -110,8 +106,100 @@ This directory contains the complete development process archive for the MairuCL
 - Command not found message variations (8 themes)
 - Closed GitHub Issue #1
 - Added 2 future feature proposals (system protection, custom aliases)
-- Morning: 70 minutes
-- Evening: In progress
+- Time: 70 minutes
+
+---
+
+### Day 7 (2025-11-23)
+**File:** [daily/day07-summary.md](daily/day07-summary.md)
+
+**Summary:** Code quality improvements
+- Magic number refactoring (Phase 1-3 complete)
+- Timing constants, achievement thresholds, display formatting
+- 9 new builtin commands added
+- Echo command variable expansion
+- Achievement categorization system
+- Time: ~90 minutes
+
+---
+
+### Day 8 (2025-11-24)
+**File:** [daily/day08-summary.md](daily/day08-summary.md)
+
+**Summary:** Content expansion and variation system
+- Category-based variation system implemented
+- 35 new warning variations added
+- 11 unique ASCII arts created
+- 4 new caution patterns added
+- Generic typo detection system
+- Version 1.2 release
+- Time: 75 minutes
+
+---
+
+### Day 9 (2025-11-25)
+**File:** [daily/day09-summary.md](daily/day09-summary.md)
+
+**Summary:** Educational breakdown system
+- Educational breakdown system implemented
+- Timeline simulation feature
+- Real-world incident integration (GitLab 2017)
+- Step-by-step consequence explanation
+- 14 new tests added
+- Time: ~60 minutes
+
+---
+
+### Day 10 (2025-11-26)
+**File:** [daily/day10-summary.md](daily/day10-summary.md)
+
+**Summary:** Critical safety bug discovery
+- Discovered mkfs command not detected on Linux
+- AI safety limitations documented
+- Lesson 10 created (AI Safety Critical Limitations)
+- Human oversight emphasized
+- Version 1.3 release
+- Time: ~45 minutes
+
+---
+
+### Day 11 (2025-11-27)
+**File:** [daily/day11-summary.md](daily/day11-summary.md)
+
+**Summary:** System directory protection implementation
+- System directory protection spec created and implemented
+- Cross-platform protection (Windows/Linux/macOS)
+- 63 unit tests, 10 integration tests added
+- Path resolution module created
+- Issue #4 resolved (builtin redirection detection)
+- Version 1.4 release
+- Time: ~3 hours
+
+---
+
+### Day 12 (2025-11-28)
+**Files:**
+- [daily/day12-session1-interrupted.md](daily/day12-session1-interrupted.md) - Interrupted session
+- [daily/day12-summary.md](daily/day12-summary.md) - Complete day summary
+
+**Summary:** Personarrative reflection and documentation
+- Personarrative concept documented (Lesson 12)
+- Psychological safety analysis (Lesson 13)
+- Lie command enhancement documented
+- Interruption handling experience
+- Time: ~90 minutes (interrupted)
+
+---
+
+### Day 13 (2025-11-29)
+**File:** [daily/day13-summary.md](daily/day13-summary.md)
+
+**Summary:** Document management and organization
+- Document proliferation problem identified
+- "Update First, Create Last" principle established
+- Document management steering file created (Lesson 14)
+- Final sprint plan consolidated
+- Time: ~60 minutes
 
 ---
 

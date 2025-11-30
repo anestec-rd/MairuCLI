@@ -7,10 +7,10 @@ This document provides detailed information about all dangerous patterns that Ma
 ## Overview
 
 MairuCLI protects you from commands that could cause:
-- �  System directory damage (Windows, Linux, macOS)
-- � SData loss (deletion, overwriting)
-- � Syecurity vulnerabilities (permission issues)
-- � SDystem crashes (kernel panic, fork bombs)
+- 🛡️ System directory damage (Windows, Linux, macOS)
+- 💥 Data loss (deletion, overwriting)
+- 🔓 Security vulnerabilities (permission issues)
+- 💀 System crashes (kernel panic, fork bombs)
 - 🗄️ Database destruction
 
 Each pattern below includes:
