@@ -10,7 +10,17 @@
       ],
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "workbench.colorTheme": "Default Dark Modern",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          }
+        },
+        "terminal.integrated.cursorStyle": "block",
+        "terminal.integrated.fontSize": 14,
+        "terminal.integrated.fontFamily": "monospace"
       }
     }
   },
