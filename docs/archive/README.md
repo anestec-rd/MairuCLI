@@ -1,6 +1,16 @@
-# MairuCLI Development Reports
+# MairuCLI Development Archive
 
-This directory contains daily development reports and summaries from the MairuCLI project.
+This directory contains the complete development process archive for the MairuCLI project, including daily reports, planning documents, analysis, and test reports.
+
+## Directory Structure
+
+- **daily/** - Daily development summaries (Day 1-13)
+- **planning/** - Planning documents and action plans
+- **analysis/** - Analysis reports and reviews
+- **testing/** - Test reports and verification results
+- **development-timeline.md** - Complete development timeline
+- **ideas-log.md** - Initial ideas and brainstorming
+- **initial-brainstorm.md** - Project inception notes
 
 ## Report Index
 

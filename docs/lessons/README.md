@@ -87,6 +87,27 @@ The lessons are organized by topic for easier navigation and reference.
   - Testing minimal syntax is essential
   - Educational tools must be MORE reliable
 
+### Personarrative: AI Agent UI/UX
+- **[12-personarrative-reflection.md](12-personarrative-reflection.md)**
+  - Personal settings + Narrative context = Personarrative
+  - How AI agents create unique interaction experiences
+  - The role of shared understanding and decision history
+  - Beyond simple task execution
+
+### Psychological Safety in AI Collaboration
+- **[13-psychological-safety-analysis.md](13-psychological-safety-analysis.md)**
+  - Emotional support alongside technical assistance
+  - Patterns and techniques for supportive AI interaction
+  - Real experiences from Day 12 interruption handling
+  - Implications for future AI agent design
+
+### Document Management
+- **[14-document-proliferation.md](14-document-proliferation.md)**
+  - The problem of creating duplicate documents
+  - "Update First, Create Last" principle
+  - Preventing document proliferation in AI-assisted development
+  - Practical solutions and steering file creation
+
 ---
 
 ## 🎯 How to Use This Documentation
@@ -148,12 +169,17 @@ When adding new lessons:
 
 ---
 
-**Last Updated:** November 26, 2025 (Day 10)
-**Total Lessons:** 10 major topics
-**Total Insights:** 40+ key learnings
+**Last Updated:** November 30, 2025 (Day 14)
+**Total Lessons:** 14 major topics
+**Total Insights:** 50+ key learnings
 **Status:** Active and evolving
 
 **⚠️ Critical Addition (Day 10):** Lesson 10 documents a critical safety bug that demonstrates fundamental AI limitations in safety-critical code. This is required reading for anyone using AI for safety-related development.
+
+**🆕 Recent Additions (Day 12-13):**
+- Lesson 12: Personarrative concept - AI agent UI/UX framework
+- Lesson 13: Psychological safety in AI collaboration
+- Lesson 14: Document proliferation problem and solutions
 
 ---
 

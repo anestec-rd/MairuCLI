@@ -513,17 +513,18 @@ This is intentional! Learning includes seeing what happens with invalid commands
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history and changes
 - **[TODO.md](TODO.md)** - Planned features and improvements
 
-### Development Reports
-- **[docs/reports/](docs/reports/)** - Daily development reports and summaries
-  - Day 1: Initial development (4 hours)
-  - Day 2: Feature additions and spec creation
-  - Day 3: 20-minute refactoring miracle
-  - Day 4: Content expansion and quality review
-  - Day 5: Bug fixes and automated testing
+### Development Archive
+- **[docs/archive/](docs/archive/)** - Complete development process archive
+  - Daily summaries (Day 1-13)
+  - Planning documents
+  - Analysis reports
+  - Test reports
+  - Development timeline
+  - See [docs/README.md](docs/README.md) for full documentation structure
 
 ### Design Documents
-- **[docs/caution-warnings-design.md](docs/caution-warnings-design.md)** - Three-tier warning system design
-- **[docs/educational-content-schema.md](docs/educational-content-schema.md)** - Educational content JSON schema
+- **[docs/design/caution-warnings-design.md](docs/design/caution-warnings-design.md)** - Three-tier warning system design
+- **[docs/design/educational-content-schema.md](docs/design/educational-content-schema.md)** - Educational content JSON schema
 - **[docs/issues.md](docs/issues.md)** - Known issues and limitations
 
 ### Kiro Steering Files
