@@ -71,6 +71,12 @@ Convert the contest submission design into actionable tasks. Each task builds in
   - Emphasize 100% Kiro-exclusive development
   - Include GitLab 300GB loss example
   - Include 7.5-9x productivity gain
+  - **Consider including personal storyline** from `docs/lessons/15-power-of-deficiency.md`
+    - "The Power of Deficiency" reflection
+    - AI as converter: deficiency → feature
+    - Honest reflection on AI partnership
+    - Light and shadow of AI development
+    - Optional: May be too personal, decide based on tone
   - _Requirements: 3.1, 3.5_
   - _Time: 1 hour_
 

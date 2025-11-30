@@ -108,6 +108,10 @@ The lessons are organized by topic for easier navigation and reference.
   - Preventing document proliferation in AI-assisted development
   - Practical solutions and steering file creation
 
+### The Power of Deficiency
+- **[15-power-of-deficiency.md](15-power-of-deficiency.md)** 💭 **PERSONAL**
+  - AI as a converter: turning deficiency into features
+
 ---
 
 ## 🎯 How to Use This Documentation
@@ -170,16 +174,17 @@ When adding new lessons:
 ---
 
 **Last Updated:** November 30, 2025 (Day 14)
-**Total Lessons:** 14 major topics
+**Total Lessons:** 15 major topics
 **Total Insights:** 50+ key learnings
 **Status:** Active and evolving
 
 **⚠️ Critical Addition (Day 10):** Lesson 10 documents a critical safety bug that demonstrates fundamental AI limitations in safety-critical code. This is required reading for anyone using AI for safety-related development.
 
-**🆕 Recent Additions (Day 12-13):**
+**🆕 Recent Additions (Day 12-14):**
 - Lesson 12: Personarrative concept - AI agent UI/UX framework
 - Lesson 13: Psychological safety in AI collaboration
 - Lesson 14: Document proliferation problem and solutions
+- Lesson 15: The power of deficiency - Personal reflection on AI partnership
 
 ---
 
