@@ -129,6 +129,70 @@ class BreakdownFormatter:
         lines.append("=" * DISPLAY_SEPARATOR_WIDTH)
         return "\n".join(lines)
 
+    def _format_simulation_realtime(self, simulation: Dict) -> None:
+        """
+        Format and display timeline simulation in real-time with dramatic effect.
+
+        This method prints each step of the simulation with pauses between them,
+        creating a dramatic, real-time effect that shows the progression of events.
+
+        Args:
+            simulation: Dictionary with simulation data
+        """
+        from src.display import colorize
+        from src.config import TIMING_PAUSE_SHORT
+
+        # Print header
+        print("\n" + "=" * DISPLAY_SEPARATOR_WIDTH)
+        print(colorize("⏱️  Timeline Simulation", "orange"))
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+        print()
+
+        if 'description' in simulation:
+            print(simulation['description'])
+            print()
+
+        # Timeline events - print in real-time
+        if 'timeline' in simulation:
+            print(colorize("📅 What happens:", "purple"))
+            print()
+
+            for event in simulation['timeline']:
+                time_str = event.get('time', '')
+                emoji = event.get('emoji', '•')
+                description = event.get('description', '')
+                severity = event.get('severity', 'info')
+
+                # Color based on severity
+                color_map = {
+                    'info': 'green',
+                    'warning': 'orange',
+                    'danger': 'red',
+                    'critical': 'red'
+                }
+                color = color_map.get(severity, 'green')
+
+                # Print time and emoji with color
+                print(f"  {colorize(time_str, color)} {emoji}")
+                # Print description
+                print(f"    {description}")
+                print()
+
+                # Pause for dramatic effect
+                # Longer pause for critical events
+                if severity == 'critical':
+                    time.sleep(TIMING_PAUSE_SHORT * 1.5)  # 0.75s for critical
+                else:
+                    time.sleep(TIMING_PAUSE_SHORT)  # 0.5s for others
+
+        # Print recovery info if available
+        if 'recovery' in simulation:
+            print(colorize("🔧 Recovery:", "orange"))
+            print(f"  {simulation['recovery']}")
+            print()
+
+        print("=" * DISPLAY_SEPARATOR_WIDTH)
+
     def format_incident_story(self, incident: Dict) -> str:
         """
         Format real-world incident story.

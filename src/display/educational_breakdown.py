@@ -108,9 +108,8 @@ class EducationalBreakdown:
                     except (KeyboardInterrupt, EOFError):
                         return True
 
-                print("\n" + "=" * 70)
-                output = self.formatter.format_timeline_simulation(simulation)
-                self.formatter.print_slowly(output, delay=0.05)  # Slower for timeline
+                # Use real-time display for dramatic effect
+                self.formatter._format_simulation_realtime(simulation)
 
         # Show related incidents if requested
         if show_incidents:
