@@ -10,7 +10,7 @@
 ![Tests](https://img.shields.io/badge/Tests-322%20passing-brightgreen)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-## 🎥 demonstration
+## 🎥 Demonstration
 
 https://github.com/user-attachments/assets/2578294a-a23b-4034-a822-ec51f59dbd97
 
