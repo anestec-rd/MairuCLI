@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Warning Catalog Schema",
+  "description": "Schema for dangerous command pattern definitions",
+  "type": "object",
+  "required": ["version", "warnings"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "warnings": {
+      "type": "object",
+      "description": "Dictionary of warning patterns",
+      "patternProperties": {
+        "^[a-z0-9_]+$": {
+          "type": "object",
+          "required": ["pattern", "category", "severity"],
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Regular expression pattern for matching commands",
+              "minLength": 1
+            },
+            "category": {
+              "type": "string",
+              "description": "Category of the dangerous command",
+              "enum": ["deletion", "permission", "disk", "database", "system"]
+            },
+            "severity": {
+              "type": "string",
+              "description": "Severity level of the warning",
+              "enum": ["critical", "high", "medium", "low"]
+            },
+            "variation_set": {
+              "type": "string",
+              "description": "Name of variation set for display messages"
+            },
+            "ascii_art": {
+              "type": "string",
+              "description": "Filename of ASCII art to display"
+            },
+            "color": {
+              "type": "string",
+              "description": "Color theme for display",
+              "enum": ["red", "orange", "purple", "yellow"]
+            },
+            "emoji": {
+              "type": "string",
+              "description": "Emoji identifier for display"
+            },
+            "explanation": {
+              "type": "string",
+              "description": "Explanation of what the command does"
+            },
+            "consequence": {
+              "type": "string",
+              "description": "Description of potential consequences"
+            },
+            "advice": {
+              "type": "array",
+              "description": "List of safe alternatives or advice",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "timing": {
+              "type": "object",
+              "description": "Timing configuration for display animation",
+              "properties": {
+                "art_delay": {
+                  "type": "number",
+                  "description": "Delay between ASCII art characters (seconds)",
+                  "minimum": 0
+                },
+                "pause_after_art": {
+                  "type": "number",
+                  "description": "Pause after ASCII art (seconds)",
+                  "minimum": 0
+                },
+                "pause_before_explanation": {
+                  "type": "number",
+                  "description": "Pause before explanation (seconds)",
+                  "minimum": 0
+                },
+                "pause_before_achievement": {
+                  "type": "number",
+                  "description": "Pause before achievement display (seconds)",
+                  "minimum": 0
+                }
+              }
+            },
+            "help_example": {
+              "type": "string",
+              "description": "Example command for help display"
+            },
+            "help_description": {
+              "type": "string",
+              "description": "Brief description for help display",
+              "maxLength": 50
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

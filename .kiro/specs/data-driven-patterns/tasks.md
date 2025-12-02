@@ -136,7 +136,7 @@ This implementation plan converts the hardcoded pattern dictionaries in `interce
   - Test missing fields are handled gracefully
   - _Requirements: 8.8_
 
-- [ ] 13. Add JSON schema validation (optional)
+- [x] 13. Add JSON schema validation (optional)
   - Create JSON schema for `warning_catalog.json`
   - Create JSON schema for `caution_catalog.json`
   - Create JSON schema for `typo_messages.json`

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Caution Catalog Schema",
+  "description": "Schema for caution-level command pattern definitions",
+  "type": "object",
+  "required": ["version", "cautions"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "cautions": {
+      "type": "object",
+      "description": "Dictionary of caution patterns",
+      "patternProperties": {
+        "^[a-z0-9_]+$": {
+          "type": "object",
+          "required": ["pattern", "category", "severity", "risk", "impact", "considerations"],
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Regular expression pattern for matching commands",
+              "minLength": 1
+            },
+            "category": {
+              "type": "string",
+              "description": "Category of the caution command"
+            },
+            "severity": {
+              "type": "string",
+              "description": "Severity level of the caution",
+              "enum": ["high", "medium", "low"]
+            },
+            "risk": {
+              "type": "string",
+              "description": "Description of the risk"
+            },
+            "impact": {
+              "type": "string",
+              "description": "Description of potential impact"
+            },
+            "considerations": {
+              "type": "array",
+              "description": "List of considerations before proceeding",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "help_example": {
+              "type": "string",
+              "description": "Example command for help display"
+            },
+            "help_description": {
+              "type": "string",
+              "description": "Brief description for help display",
+              "maxLength": 50
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

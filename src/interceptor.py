@@ -10,18 +10,89 @@ import re
 import sys
 from typing import Dict, Tuple, Optional
 
+try:
+    import jsonschema
+    JSONSCHEMA_AVAILABLE = True
+except ImportError:
+    JSONSCHEMA_AVAILABLE = False
+
 
 class PatternLoader:
     """Load patterns from JSON files for data-driven architecture."""
 
-    def __init__(self, data_dir: str = "data/warnings"):
+    def __init__(self, data_dir: str = "data/warnings", validate_schema: bool = True):
         """
         Initialize pattern loader.
 
         Args:
             data_dir: Directory containing pattern JSON files
+            validate_schema: Whether to validate JSON against schemas (default: True)
         """
         self.data_dir = data_dir
+        self.validate_schema = validate_schema and JSONSCHEMA_AVAILABLE
+        self._schemas = {}
+
+        if validate_schema and not JSONSCHEMA_AVAILABLE:
+            print("Warning: jsonschema library not available. Schema validation disabled.")
+            print("Install with: pip install jsonschema")
+
+    def _load_schema(self, schema_name: str) -> Optional[Dict]:
+        """
+        Load JSON schema from file.
+
+        Args:
+            schema_name: Name of schema file (without .json extension)
+
+        Returns:
+            Schema dictionary or None if not found
+        """
+        if schema_name in self._schemas:
+            return self._schemas[schema_name]
+
+        schema_path = os.path.join(self.data_dir, "schemas", f"{schema_name}.json")
+
+        try:
+            with open(schema_path, 'r', encoding='utf-8') as f:
+                schema = json.load(f)
+            self._schemas[schema_name] = schema
+            return schema
+        except FileNotFoundError:
+            print(f"Warning: Schema file {schema_path} not found. Skipping validation.")
+            return None
+        except json.JSONDecodeError as e:
+            print(f"Warning: Invalid JSON in schema {schema_path}: {e}")
+            return None
+
+    def _validate_json(self, data: Dict, schema_name: str, file_path: str) -> bool:
+        """
+        Validate JSON data against schema.
+
+        Args:
+            data: JSON data to validate
+            schema_name: Name of schema to validate against
+            file_path: Path to file being validated (for error messages)
+
+        Returns:
+            True if valid or validation disabled, False if invalid
+        """
+        if not self.validate_schema:
+            return True
+
+        schema = self._load_schema(schema_name)
+        if schema is None:
+            return True  # Skip validation if schema not available
+
+        try:
+            jsonschema.validate(instance=data, schema=schema)
+            return True
+        except jsonschema.ValidationError as e:
+            print(f"Validation error in {file_path}:")
+            print(f"  Path: {' -> '.join(str(p) for p in e.path)}")
+            print(f"  Error: {e.message}")
+            return False
+        except jsonschema.SchemaError as e:
+            print(f"Schema error in {schema_name}: {e.message}")
+            return False
 
     def load_all_patterns(self) -> Tuple[Dict, Dict, Dict]:
         """
@@ -47,6 +118,10 @@ class PatternLoader:
         try:
             with open(catalog_path, 'r', encoding='utf-8') as f:
                 catalog = json.load(f)
+
+            # Validate against schema
+            if not self._validate_json(catalog, "warning_catalog_schema", catalog_path):
+                print(f"Warning: Validation failed for {catalog_path}. Using patterns anyway.")
 
             patterns = {}
             for name, data in catalog.get('warnings', {}).items():
@@ -123,6 +198,10 @@ class PatternLoader:
             with open(catalog_path, 'r', encoding='utf-8') as f:
                 catalog = json.load(f)
 
+            # Validate against schema
+            if not self._validate_json(catalog, "caution_catalog_schema", catalog_path):
+                print(f"Warning: Validation failed for {catalog_path}. Using patterns anyway.")
+
             patterns = {}
             for name, data in catalog.get('cautions', {}).items():
                 if 'pattern' in data:
@@ -149,6 +228,10 @@ class PatternLoader:
         try:
             with open(typo_path, 'r', encoding='utf-8') as f:
                 typo_data = json.load(f)
+
+            # Validate against schema
+            if not self._validate_json(typo_data, "typo_messages_schema", typo_path):
+                print(f"Warning: Validation failed for {typo_path}. Using patterns anyway.")
 
             patterns = {}
             for name, data in typo_data.get('typos', {}).items():

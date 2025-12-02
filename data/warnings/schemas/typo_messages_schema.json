@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Typo Messages Schema",
+  "description": "Schema for typo pattern definitions",
+  "type": "object",
+  "required": ["version", "typos"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "typos": {
+      "type": "object",
+      "description": "Dictionary of typo patterns",
+      "patternProperties": {
+        "^[a-z0-9_]+$": {
+          "type": "object",
+          "required": ["pattern", "correct", "message"],
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Regular expression pattern for matching typos",
+              "minLength": 1
+            },
+            "correct": {
+              "type": "string",
+              "description": "Correct command or suggestion"
+            },
+            "message": {
+              "type": "string",
+              "description": "Friendly message to display"
+            },
+            "ascii_art": {
+              "type": ["string", "null"],
+              "description": "Optional ASCII art filename"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
