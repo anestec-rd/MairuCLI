@@ -270,7 +270,7 @@ def _offer_educational_breakdown(pattern_name: str) -> None:
 
     print()
     print(colorize("📚 Want to learn more about this command?", "orange"))
-    print("Type 'breakdown' to see a detailed explanation, or press Enter to continue.")
+    print("Type 'b' (or 'breakdown') for detailed explanation, or press Enter to continue.")
 
     try:
         response = input("> ").strip().lower()
