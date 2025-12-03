@@ -21,8 +21,10 @@ class HelpGenerator:
             data_dir: Directory containing pattern JSON files
             builtins_dir: Directory containing builtin commands JSON
         """
-        self.data_dir = Path(data_dir)
-        self.builtins_dir = Path(builtins_dir)
+        # Get the project root directory (parent of src/)
+        project_root = Path(__file__).parent.parent.parent
+        self.data_dir = project_root / data_dir
+        self.builtins_dir = project_root / builtins_dir
 
     def _load_patterns(self, filename: str, key: str) -> Dict:
         """
@@ -458,7 +460,9 @@ def _load_opposites() -> Dict[str, str]:
     Returns:
         Dictionary of word opposites
     """
-    opposites_path = Path("data/builtins/lie_opposites.json")
+    # Get the project root directory (parent of src/)
+    project_root = Path(__file__).parent.parent.parent
+    opposites_path = project_root / "data/builtins/lie_opposites.json"
 
     try:
         with open(opposites_path, 'r', encoding='utf-8') as f:

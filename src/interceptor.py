@@ -28,7 +28,10 @@ class PatternLoader:
             data_dir: Directory containing pattern JSON files
             validate_schema: Whether to validate JSON against schemas (default: True)
         """
-        self.data_dir = data_dir
+        # Convert to absolute path to handle cd command changes
+        from pathlib import Path
+        project_root = Path(__file__).parent.parent
+        self.data_dir = str(project_root / data_dir)
         self.validate_schema = validate_schema and JSONSCHEMA_AVAILABLE
         self._schemas = {}
 
@@ -326,7 +329,9 @@ PROTECTED_DIRECTORIES = {
 def _load_common_commands() -> list:
     """Load common command names from builtin_commands.json."""
     try:
-        builtin_path = os.path.join("data", "builtins", "builtin_commands.json")
+        from pathlib import Path
+        project_root = Path(__file__).parent.parent
+        builtin_path = project_root / "data" / "builtins" / "builtin_commands.json"
         with open(builtin_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
