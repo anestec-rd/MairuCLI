@@ -246,9 +246,11 @@ def cmd_stats(args: List[str]) -> bool:
 
     total_saves = stats["dangerous_blocked"] + stats["typos_caught"]
 
+    # Display disaster prevention stats
     if total_saves == 0:
         print(colorize("No disasters prevented yet!", "green"))
         print("(But I'm ready when you need me!)")
+        print()
     else:
         print(f"{EMOJI['fire']} {colorize('Times I saved you:', 'red')} "
               f"{colorize(str(total_saves), 'orange')}")
@@ -259,46 +261,51 @@ def cmd_stats(args: List[str]) -> bool:
               f"{colorize(str(stats['typos_caught']), 'purple')}")
         print()
 
-        # Display unlocked achievements by category
-        from src.display import get_achievements_by_category
+    # Display unlocked achievements by category (always show if any exist)
+    from src.display import get_achievements_by_category
 
-        # Category display configuration
-        category_config = {
-            "danger": {
-                "title": "💀 Your Troublemaking History:",
-                "color": "red"
-            },
-            "safe": {
-                "title": "🏆 Safe Explorer Achievements:",
-                "color": "green"
-            },
-            "exploration": {
-                "title": "🚂 Exploration Achievements:",
-                "color": "purple"
-            },
-            "system_protection": {
-                "title": "🛡️ System Protection Achievements:",
-                "color": "orange"
-            }
+    # Category display configuration
+    category_config = {
+        "danger": {
+            "title": "💀 Your Troublemaking History:",
+            "color": "red"
+        },
+        "safe": {
+            "title": "🏆 Safe Explorer Achievements:",
+            "color": "green"
+        },
+        "exploration": {
+            "title": "🚂 Exploration Achievements:",
+            "color": "purple"
+        },
+        "system_protection": {
+            "title": "🛡️ System Protection Achievements:",
+            "color": "orange"
         }
+    }
 
-        # Display achievements by category
-        for category, config in category_config.items():
-            achievements = get_achievements_by_category(category)
-            if achievements:
-                print(colorize(config["title"], config["color"]))
-                print()
-                for achievement in achievements:
-                    print(f"  {colorize('✓', 'green')} {achievement}")
-                print()
+    # Display achievements by category
+    has_achievements = False
+    for category, config in category_config.items():
+        achievements = get_achievements_by_category(category)
+        if achievements:
+            has_achievements = True
+            print(colorize(config["title"], config["color"]))
+            print()
+            for achievement in achievements:
+                print(f"  {colorize('✓', 'green')} {achievement}")
+            print()
 
-        if total_saves >= 10:
-            msg = "🏆 Wow! You really like living dangerously!"
-            print(colorize(msg, "orange"))
-        elif total_saves >= 5:
-            print(colorize("😅 Maybe slow down a bit?", "chocolate"))
-        else:
-            print(colorize("👍 Keep being careful out there!", "green"))
+    # Show encouraging message based on activity
+    if total_saves >= 10:
+        msg = "🏆 Wow! You really like living dangerously!"
+        print(colorize(msg, "orange"))
+    elif total_saves >= 5:
+        print(colorize("😅 Maybe slow down a bit?", "chocolate"))
+    elif has_achievements:
+        print(colorize("👍 Keep exploring and learning!", "green"))
+    else:
+        print(colorize("👍 Keep being careful out there!", "green"))
 
     print()
     print("=" * DISPLAY_SEPARATOR_WIDTH + "\n")
