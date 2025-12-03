@@ -385,6 +385,7 @@ mairu-cli/
 ├── src/
 │   ├── main.py                    # Entry point and REPL loop
 │   ├── config.py                  # Configuration and constants
+│   ├── project_paths.py           # Absolute path utilities
 │   ├── builtins/                  # Modular builtin commands (refactored Day 7)
 │   │   ├── __init__.py            # Main interface
 │   │   ├── navigation.py          # cd, pwd
