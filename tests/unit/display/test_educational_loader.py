@@ -14,7 +14,9 @@ class TestEducationalLoader:
     def test_init(self):
         """Test EducationalLoader initialization."""
         loader = EducationalLoader()
-        assert loader.base_path == Path("data/educational")
+        # Path is now converted to absolute, so check it ends with the expected path
+        assert str(loader.base_path).endswith("data/educational") or \
+               str(loader.base_path).endswith("data\\educational")
         assert loader.breakdowns_cache == {}
         assert loader.simulations_cache == {}
         assert loader.incidents_cache == {}

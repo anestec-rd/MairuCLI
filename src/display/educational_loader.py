@@ -20,7 +20,13 @@ class EducationalLoader:
         Args:
             base_path: Base directory for educational content
         """
-        self.base_path = Path(base_path)
+        # Convert to absolute path to handle cd command changes
+        if not Path(base_path).is_absolute():
+            # Get the project root (where src/ is located)
+            project_root = Path(__file__).parent.parent.parent
+            self.base_path = project_root / base_path
+        else:
+            self.base_path = Path(base_path)
         self.breakdowns_cache: Dict[str, Dict] = {}
         self.simulations_cache: Dict[str, Dict] = {}
         self.incidents_cache: Dict[str, Dict] = {}

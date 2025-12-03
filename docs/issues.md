@@ -580,3 +580,72 @@ When adding new issues, use this format:
 ---
 
 **This document demonstrates professional bug tracking and quality assurance practices.**
+
+
+---
+
+## After v1.5.0 release
+
+## Issue #9: Educational Breakdown Not Available After cd Command
+**Date:** 2025-12-03 (Discovered during manual testing)
+**Severity:** HIGH (Feature Broken)
+**Status:** ✅ RESOLVED (2025-12-03)
+**Platform:** All platforms
+
+**Problem:**
+Educational breakdown prompts ("📚 Want to learn more...") stopped appearing after using the `cd` command, even for patterns with available breakdowns.
+
+**Reproduction Steps:**
+1. Start MairuCLI: `python -m src.main`
+2. Execute: `help` → `ck` → `cd` → `ls` → `lm` → `ml` → `hel` → `welp`
+3. Execute dangerous command: `:(){ :|:& };:`
+4. **Expected:** Educational breakdown prompt appears
+5. **Actual:** No prompt, breakdown silently skipped
+
+**Debug Output:**
+```
+[DEBUG] Available breakdowns: []
+[DEBUG] has_breakdown('fork_bomb') = False
+[DEBUG] Direct load_breakdown('fork_bomb') = False
+```
+
+**Root Cause:**
+- `EducationalLoader.__init__()` used relative path: `base_path = "data/educational"`
+- When `cd` command changed current working directory, relative path became invalid
+- `list_available_breakdowns()` returned empty list `[]`
+- `has_breakdown()` returned `False` even though files existed
+- Other loaders (`ContentLoader`, `AsciiRenderer`) already used absolute paths via `Path(__file__).parent.parent.parent`
+
+**Impact:**
+- Educational feature completely broken after any directory change
+- Users couldn't access command breakdowns, simulations, or incident stories
+- Affected all 5 available breakdowns: `rm_dangerous`, `chmod_777`, `chmod_000`, `fork_bomb`, `dd_zero`
+- Silent failure - no error message, just missing feature
+
+**Fix:**
+Modified `EducationalLoader.__init__()` to use absolute path:
+```python
+# Convert to absolute path to handle cd command changes
+if not Path(base_path).is_absolute():
+    # Get the project root (where src/ is located)
+    project_root = Path(__file__).parent.parent.parent
+    self.base_path = project_root / base_path
+else:
+    self.base_path = Path(base_path)
+```
+
+**Testing:**
+- Verified fix with same reproduction steps
+- Educational breakdown now appears correctly after `cd` command
+- Consistent with other loaders (`ContentLoader`, `AsciiRenderer`)
+
+**Lesson Learned:**
+- Always use absolute paths for resource loading in applications that allow directory navigation
+- Relative paths break when current working directory changes
+- Consistency matters - all loaders should use the same path resolution strategy
+
+**Related Files:**
+- `src/display/educational_loader.py` - Fixed path resolution
+- `src/display/content_loader.py` - Already used absolute paths (reference)
+- `src/display/ascii_renderer.py` - Already used absolute paths (reference)
+
