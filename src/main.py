@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 from src.builtins import BuiltinCommands
+from src.project_paths import get_warnings_dir
 from src.display import (
     colorize,
     display_goodbye_message,
@@ -31,7 +32,7 @@ def _load_command_not_found_messages():
         Returns empty list if file cannot be loaded.
     """
     try:
-        json_path = Path(__file__).parent.parent / "data" / "warnings" / "command_not_found.json"
+        json_path = get_warnings_dir() / "command_not_found.json"
         with open(json_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data.get('messages', [])

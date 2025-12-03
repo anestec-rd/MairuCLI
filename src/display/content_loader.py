@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 
+from src.project_paths import get_warnings_dir
+
 
 class ContentLoader:
     """Loads and manages warning content from data files."""
@@ -20,8 +22,8 @@ class ContentLoader:
             data_dir: Path to data directory (defaults to project data/)
         """
         if data_dir is None:
-            # Default to data/ directory relative to project root
-            self.data_dir = Path(__file__).parent.parent.parent / "data"
+            # Use absolute path from project_paths utility
+            self.data_dir = get_warnings_dir().parent
         else:
             self.data_dir = Path(data_dir)
 
@@ -68,7 +70,8 @@ class ContentLoader:
             self._catalog = self.load_catalog()
 
         warnings = self._catalog.get("warnings", {})
-        return warnings.get(pattern_name, self._get_fallback_warning(pattern_name))
+        fallback = self._get_fallback_warning(pattern_name)
+        return warnings.get(pattern_name, fallback)
 
     def get_variations(
         self,
@@ -100,27 +103,41 @@ class ContentLoader:
 
         # Step 1: Get category variations (8 variations)
         if pattern_category:
-            category_vars_path = self.warnings_dir / "category_variations.json"
+            category_vars_path = (
+                self.warnings_dir / "category_variations.json"
+            )
             try:
                 with open(category_vars_path, "r", encoding="utf-8") as f:
                     category_variations = json.load(f)
 
-                if pattern_category in category_variations.get("categories", {}):
-                    variations_list = category_variations["categories"][pattern_category]["variations"]
-                    category_vars = [(v["title"], v["subtitle"]) for v in variations_list]
+                categories = category_variations.get("categories", {})
+                if pattern_category in categories:
+                    cat_data = categories[pattern_category]
+                    variations_list = cat_data["variations"]
+                    category_vars = [
+                        (v["title"], v["subtitle"])
+                        for v in variations_list
+                    ]
                     merged_variations.extend(category_vars)
             except (FileNotFoundError, json.JSONDecodeError, KeyError):
                 pass  # Continue without category variations
 
         # Step 2: Get pattern-specific variations (0-4 variations)
-        pattern_vars_path = self.warnings_dir / "pattern_variations.json"
+        pattern_vars_path = (
+            self.warnings_dir / "pattern_variations.json"
+        )
         try:
             with open(pattern_vars_path, "r", encoding="utf-8") as f:
                 pattern_variations = json.load(f)
 
-            if variation_set in pattern_variations.get("patterns", {}):
-                variations_list = pattern_variations["patterns"][variation_set]["variations"]
-                pattern_vars = [(v["title"], v["subtitle"]) for v in variations_list]
+            patterns = pattern_variations.get("patterns", {})
+            if variation_set in patterns:
+                pattern_data = patterns[variation_set]
+                variations_list = pattern_data["variations"]
+                pattern_vars = [
+                    (v["title"], v["subtitle"])
+                    for v in variations_list
+                ]
                 merged_variations.extend(pattern_vars)
         except (FileNotFoundError, json.JSONDecodeError, KeyError):
             pass  # Continue without pattern-specific variations
@@ -138,7 +155,10 @@ class ContentLoader:
 
             if variation_set in legacy_variations:
                 variations_list = legacy_variations[variation_set]
-                result = [(v["title"], v["subtitle"]) for v in variations_list]
+                result = [
+                    (v["title"], v["subtitle"])
+                    for v in variations_list
+                ]
                 self._variations[cache_key] = result
                 return result
         except (FileNotFoundError, json.JSONDecodeError, KeyError):
@@ -211,4 +231,5 @@ class ContentLoader:
                 ("DISK ANNIHILATOR!", "(Say goodbye to your data)")
             ]
         }
-        return fallbacks.get(category, [("DANGER!", "(This command is risky)")])
+        default = [("DANGER!", "(This command is risky)")]
+        return fallbacks.get(category, default)

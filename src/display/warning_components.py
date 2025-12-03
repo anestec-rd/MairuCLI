@@ -10,6 +10,7 @@ from abc import ABC, abstractmethod
 from src.display.ascii_renderer import AsciiRenderer
 from src.display.message_formatter import MessageFormatter
 from src.display.content_loader import ContentLoader
+from src.project_paths import get_warnings_dir
 from src.config import (
     TIMING_ASCII_CHAR_DELAY,
     TIMING_PAUSE_SHORT,
@@ -228,9 +229,8 @@ class RepeatWarning(WarningComponent):
         """
         # Load repeat warnings from content
         import json
-        from pathlib import Path
 
-        warnings_path = Path(__file__).parent.parent.parent / "data" / "warnings" / "repeat_warnings.json"
+        warnings_path = get_warnings_dir() / "repeat_warnings.json"
 
         try:
             with open(warnings_path, "r", encoding="utf-8") as f:

@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import List, Dict
 from src.config import DISPLAY_SEPARATOR_WIDTH
+from src.project_paths import get_data_dir, get_builtins_dir
 
 
 class HelpGenerator:
@@ -21,10 +22,9 @@ class HelpGenerator:
             data_dir: Directory containing pattern JSON files
             builtins_dir: Directory containing builtin commands JSON
         """
-        # Get the project root directory (parent of src/)
-        project_root = Path(__file__).parent.parent.parent
-        self.data_dir = project_root / data_dir
-        self.builtins_dir = project_root / builtins_dir
+        # Use absolute paths from project_paths utility
+        self.data_dir = get_data_dir() / data_dir.split('/')[-1]
+        self.builtins_dir = get_builtins_dir()
 
     def _load_patterns(self, filename: str, key: str) -> Dict:
         """
@@ -460,9 +460,8 @@ def _load_opposites() -> Dict[str, str]:
     Returns:
         Dictionary of word opposites
     """
-    # Get the project root directory (parent of src/)
-    project_root = Path(__file__).parent.parent.parent
-    opposites_path = project_root / "data/builtins/lie_opposites.json"
+    # Use absolute path from project_paths utility
+    opposites_path = get_builtins_dir() / "lie_opposites.json"
 
     try:
         with open(opposites_path, 'r', encoding='utf-8') as f:

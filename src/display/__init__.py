@@ -11,6 +11,7 @@ from src.display.content_loader import ContentLoader
 from src.display.message_formatter import MessageFormatter
 from src.display.statistics import Statistics
 from src.display.achievements import AchievementTracker
+from src.project_paths import get_ascii_art_dir
 from src.display.warning_components import (
     DangerWarning,
     TypoWarning,
@@ -56,9 +57,7 @@ def display_welcome_banner() -> None:
     Display Halloween-themed welcome banner on startup.
     """
     # Load ASCII art banner
-    from pathlib import Path
-    project_root = Path(__file__).parent.parent.parent
-    banner_path = project_root / "data" / "ascii_art" / "welcome_mairu_banner.txt"
+    banner_path = get_ascii_art_dir() / "welcome_mairu_banner.txt"
 
     try:
         with open(banner_path, 'r', encoding='utf-8') as f:

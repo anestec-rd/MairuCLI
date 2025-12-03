@@ -5,26 +5,26 @@ Loads command breakdowns, simulations, and incident stories from JSON files.
 """
 
 import json
-import os
 from pathlib import Path
 from typing import Dict, Optional, List
+
+from src.project_paths import get_educational_dir
 
 
 class EducationalLoader:
     """Load educational content from JSON files."""
 
-    def __init__(self, base_path: str = "data/educational"):
+    def __init__(self, base_path: Optional[Path] = None):
         """
         Initialize educational content loader.
 
         Args:
             base_path: Base directory for educational content
+                      (defaults to project data/educational/)
         """
-        # Convert to absolute path to handle cd command changes
-        if not Path(base_path).is_absolute():
-            # Get the project root (where src/ is located)
-            project_root = Path(__file__).parent.parent.parent
-            self.base_path = project_root / base_path
+        if base_path is None:
+            # Use absolute path from project_paths utility
+            self.base_path = get_educational_dir()
         else:
             self.base_path = Path(base_path)
         self.breakdowns_cache: Dict[str, Dict] = {}
@@ -46,7 +46,9 @@ class EducationalLoader:
             return self.breakdowns_cache[pattern_name]
 
         # Load from file
-        breakdown_path = self.base_path / "command_breakdowns" / f"{pattern_name}.json"
+        breakdown_path = (
+            self.base_path / "command_breakdowns" / f"{pattern_name}.json"
+        )
 
         try:
             with open(breakdown_path, 'r', encoding='utf-8') as f:
@@ -74,7 +76,9 @@ class EducationalLoader:
             return self.simulations_cache[pattern_name]
 
         # Load from file
-        simulation_path = self.base_path / "simulations" / f"{pattern_name}.json"
+        simulation_path = (
+            self.base_path / "simulations" / f"{pattern_name}.json"
+        )
 
         try:
             with open(simulation_path, 'r', encoding='utf-8') as f:

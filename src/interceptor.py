@@ -8,7 +8,10 @@ import json
 import os
 import re
 import sys
+from pathlib import Path
 from typing import Dict, Tuple, Optional
+
+from src.project_paths import get_data_dir, get_builtins_dir
 
 try:
     import jsonschema
@@ -28,10 +31,8 @@ class PatternLoader:
             data_dir: Directory containing pattern JSON files
             validate_schema: Whether to validate JSON against schemas (default: True)
         """
-        # Convert to absolute path to handle cd command changes
-        from pathlib import Path
-        project_root = Path(__file__).parent.parent
-        self.data_dir = str(project_root / data_dir)
+        # Use absolute path from project_paths utility
+        self.data_dir = str(get_data_dir() / data_dir.split('/')[-1])
         self.validate_schema = validate_schema and JSONSCHEMA_AVAILABLE
         self._schemas = {}
 
@@ -329,9 +330,7 @@ PROTECTED_DIRECTORIES = {
 def _load_common_commands() -> list:
     """Load common command names from builtin_commands.json."""
     try:
-        from pathlib import Path
-        project_root = Path(__file__).parent.parent
-        builtin_path = project_root / "data" / "builtins" / "builtin_commands.json"
+        builtin_path = get_builtins_dir() / "builtin_commands.json"
         with open(builtin_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
 

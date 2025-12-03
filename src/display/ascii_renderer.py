@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Optional
 
 from src.config import TIMING_ASCII_CHAR_DELAY
+from src.project_paths import get_ascii_art_dir
 
 
 # Halloween color palette (ANSI 256-color codes)
@@ -30,11 +31,12 @@ class AsciiRenderer:
         Initialize ASCII renderer.
 
         Args:
-            art_dir: Path to ASCII art directory (defaults to project data/ascii_art/)
+            art_dir: Path to ASCII art directory
+                    (defaults to project data/ascii_art/)
         """
         if art_dir is None:
-            # Default to data/ascii_art/ directory relative to project root
-            self.art_dir = Path(__file__).parent.parent.parent / "data" / "ascii_art"
+            # Use absolute path from project_paths utility
+            self.art_dir = get_ascii_art_dir()
         else:
             self.art_dir = Path(art_dir)
 
