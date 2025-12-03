@@ -199,7 +199,7 @@ Each pattern includes real-world incidents, why it's dangerous, and safe alterna
 git clone https://github.com/anestec-rd/MairuCLI.git
 cd MairuCLI
 
-# Run MairuCLI
+# Run MairuCLI (no installation needed!)
 python -m src.main
 
 # Or make it executable (Linux/macOS)
@@ -207,7 +207,27 @@ chmod +x run.sh
 ./run.sh
 ```
 
-No external dependencies required - uses Python standard library only!
+**No external dependencies required** - uses Python standard library only!
+
+**For Development/Testing:**
+
+If you want to run the test suite or contribute to development:
+
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run all tests
+pytest tests/unit tests/integration -v
+
+# Run with coverage
+pytest tests/ --cov=src --cov-report=html
+```
+
+**Development dependencies:**
+- `pytest` - Testing framework
+- `jsonschema` - JSON schema validation (for schema tests)
+- `pytest-cov` - Code coverage reporting (optional)
 
 **Want a guided tour?** See [QUICKSTART.md](QUICKSTART.md) for a fun walkthrough! 🎃
 

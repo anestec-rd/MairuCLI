@@ -1,0 +1,11 @@
+# Development and Testing Dependencies
+# These are NOT required to run MairuCLI, only for development and testing
+
+# Testing framework
+pytest>=7.0.0
+
+# JSON Schema validation (for schema validation tests)
+jsonschema>=4.0.0
+
+# Code coverage (optional)
+pytest-cov>=4.0.0

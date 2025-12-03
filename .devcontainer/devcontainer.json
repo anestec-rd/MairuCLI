@@ -1,7 +1,7 @@
 {
   "name": "MairuCLI Development Environment",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
-  "postCreateCommand": "pip install pytest && echo '🎃 MairuCLI is ready! Run: python -m src.main'",
+  "postCreateCommand": "pip install -r requirements-dev.txt && echo '🎃 MairuCLI is ready! Run: python -m src.main'",
   "customizations": {
     "vscode": {
       "extensions": [
