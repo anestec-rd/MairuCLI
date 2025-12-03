@@ -31,8 +31,12 @@ class PatternLoader:
             data_dir: Directory containing pattern JSON files
             validate_schema: Whether to validate JSON against schemas (default: True)
         """
-        # Use absolute path from project_paths utility
-        self.data_dir = str(get_data_dir() / data_dir.split('/')[-1])
+        # Use absolute path from project_paths utility if default
+        if data_dir == "data/warnings":
+            self.data_dir = str(get_data_dir() / "warnings")
+        else:
+            # Allow tests to override with custom path
+            self.data_dir = data_dir
         self.validate_schema = validate_schema and JSONSCHEMA_AVAILABLE
         self._schemas = {}
 

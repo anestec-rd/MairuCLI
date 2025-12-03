@@ -22,9 +22,17 @@ class HelpGenerator:
             data_dir: Directory containing pattern JSON files
             builtins_dir: Directory containing builtin commands JSON
         """
-        # Use absolute paths from project_paths utility
-        self.data_dir = get_data_dir() / data_dir.split('/')[-1]
-        self.builtins_dir = get_builtins_dir()
+        # Use absolute paths from project_paths utility if default
+        if data_dir == "data/warnings":
+            self.data_dir = get_data_dir() / "warnings"
+        else:
+            # Allow tests to override with custom path
+            self.data_dir = Path(data_dir)
+
+        if builtins_dir == "data/builtins":
+            self.builtins_dir = get_builtins_dir()
+        else:
+            self.builtins_dir = Path(builtins_dir)
 
     def _load_patterns(self, filename: str, key: str) -> Dict:
         """
