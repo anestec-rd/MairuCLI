@@ -7,7 +7,7 @@
 [![Hackathon](https://img.shields.io/badge/Hackathon-Kiroween%202025-orange)](https://kiroween.devpost.com/)
 [![Built with Kiro](https://img.shields.io/badge/Built%20100%25%20with-Kiro%20AI-blue)](https://kiro.dev/)
 ![Version](https://img.shields.io/badge/Version-1.5.0-green)
-![Tests](https://img.shields.io/badge/Tests-322%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/Tests-300+%20passing-brightgreen)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
 ## 🎥 Demonstration
@@ -122,7 +122,7 @@ Available commands:
 - **Statistics Tracking:** Dangerous blocks, typos, caution warnings, safe commands, system protection
 - **Repeat Detection:** Escalating sarcasm for repeated dangerous commands
 - **IT Wordplay:** Technical humor with terms like SATA, RAM, HTTP 403, Ctrl+C
-- **Modular Architecture:** Clean separation with 15+ modules, 322 passing tests
+- **Modular Architecture:** Clean separation with 15+ modules, 300+ passing tests
 
 ### Display System (Refactored Architecture)
 - **Modular Components:** Separated concerns for maintainability
@@ -217,11 +217,14 @@ If you want to run the test suite or contribute to development:
 # Install development dependencies
 pip install -r requirements-dev.txt
 
-# Run all tests
-pytest tests/unit tests/integration -v
+# Run all automated tests (unit + integration)
+python -m pytest tests/unit tests/integration -v
 
-# Run with coverage
-pytest tests/ --cov=src --cov-report=html
+# Run with coverage (excludes manual tests)
+python -m pytest tests/unit tests/integration --cov=src --cov-report=html
+
+# Manual tests are in tests/manual/ and should be run separately
+# Example: python tests/manual/test_dramatic_timing.py
 ```
 
 **Development dependencies:**
@@ -246,7 +249,7 @@ MairuCLI has been **verified and tested** on:
   - Windows: `C:\Windows`, `C:\Program Files`, etc.
   - Linux/macOS: `/bin`, `/usr`, `/etc`, etc.
 - ✅ **All dangerous patterns** detected consistently
-- ✅ **All tests pass** on all platforms (322 tests)
+- ✅ **All tests pass** on all platforms (300+ tests)
 - ✅ **ASCII art** renders correctly on all terminals
 
 ### Quick Verification
@@ -257,7 +260,7 @@ Verify MairuCLI works on your system:
 # 1. Run the test suite
 python -m pytest tests/unit tests/integration -v
 
-# Expected: 322 passed, 8 skipped
+# Expected: 300+ passed
 
 # 2. Try a safe command
 python -m src.main
@@ -284,11 +287,11 @@ MairuCLI has **comprehensive test coverage** to ensure reliability:
 
 | Test Type | Count | Status |
 |-----------|-------|--------|
-| **Unit Tests** | ~275 | ✅ All Passing |
-| **Integration Tests** | ~47 | ✅ All Passing |
-| **Total** | **322** | ✅ **All Passing** |
+| **Unit Tests** | 260+ | ✅ All Passing |
+| **Integration Tests** | 40+ | ✅ All Passing |
+| **Total** | **300+** | ✅ **All Passing** |
 
-**Note:** Test counts are approximate. Run `pytest tests/unit tests/integration -v` for exact count.
+**Note:** Test counts use approximate "300+" notation to avoid frequent updates with each new test addition. Run `pytest tests/unit tests/integration -v` for exact current count.
 
 ### Test Categories
 
@@ -321,7 +324,7 @@ python -m pytest tests/unit/ -v
 python -m pytest tests/integration/ -v
 
 # Run with coverage report
-python -m pytest tests/ --cov=src --cov-report=html
+python -m pytest tests/unit tests/integration --cov=src --cov-report=html
 ```
 
 **Test Philosophy:**
@@ -521,12 +524,12 @@ This comprehensive guide covers:
 ### Automated Testing
 
 ```bash
-# Run all tests (322 tests)
+# Run all tests 300+ tests)
 python -m pytest tests/unit tests/integration -v
 
 # Run specific test suites
-python -m pytest tests/unit/ -v           # 275 unit tests
-python -m pytest tests/integration/ -v    # 47 integration tests
+python -m pytest tests/unit/ -v           # 260+ unit tests
+python -m pytest tests/integration/ -v    # 40+ integration tests
 
 # Run with coverage report
 python -m pytest tests/ --cov=src --cov-report=html
@@ -546,7 +549,7 @@ python tests/manual/test_system_protection_manual.py
 
 ### Quality Metrics
 
-- ✅ **322 automated tests** (unit + integration)
+- ✅ **300+ automated tests** (unit + integration)
 - ✅ **All tests passing** on all platforms
 - ✅ **Zero breaking changes** during refactoring
 - ✅ **Backward compatibility** maintained
