@@ -14,6 +14,10 @@
 
 https://github.com/user-attachments/assets/2578294a-a23b-4034-a822-ec51f59dbd97
 
+- Detailed explanation demo(Youtube)
+
+[![MairuCLIExplain](http://img.youtube.com/vi/OkKqJ8Shgxc/sddefault.jpg)](https://www.youtube.com/watch?v=OkKqJ8Shgxc)
+
 ## 🎉 What is MairuCLI?
 
 MairuCLI (参る = "to be troubled" + wordplay on "Kiro") is an educational CLI wrapper that combines **security education** with **Halloween entertainment**:
@@ -616,16 +620,6 @@ This is intentional! Learning includes seeing what happens with invalid commands
 - **[.kiro/steering/test-organization.md](.kiro/steering/test-organization.md)** - Test structure standards
 - **[.kiro/steering/data-driven-content.md](.kiro/steering/data-driven-content.md)** - Content management approach
 
-## 🎬 Demo
-
-**Demo Video:** [Coming Soon]
-
-**Live Demo:** Run `python -m src.main` and try these commands:
-1. `help` - See available commands
-2. `rm -rf /` - See a danger warning
-3. `sl` - See typo entertainment
-4. `stats` - Check your statistics
-
 ## 🏆 Hackathon Submission
 
 **Event:** Kiroween Hackathon 2025
@@ -755,8 +749,8 @@ For now:
 
 ## 📞 Contact
 
-- **Devpost:** [Submission Link - Coming Soon]
-- **Demo Video:** [YouTube Link - Coming Soon]
+- **Devpost:** [MairuCLI](https://devpost.com/software/mairucli)
+- **DEV Community:** [Devto Link - Coming Soon]
 
 ---
 
