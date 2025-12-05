@@ -750,7 +750,7 @@ For now:
 ## 📞 Contact
 
 - **Devpost:** [MairuCLI](https://devpost.com/software/mairucli)
-- **DEV Community:** [Devto Link - Coming Soon]
+- **DEV Community:** [Fumbling in the Dark: A Journey with My Reliable Colleague](https://dev.to/ansdsj/fumbling-in-the-dark-a-journey-with-my-reliable-colleague-5120)
 
 ---
 
@@ -787,5 +787,5 @@ See [IT Wordplay Guidelines](.kiro/steering/it-wordplay.md) for more examples.
 
 **Built with ❤️ and 🎃 using Kiro AI**
 
-*Version 1.5.0 - November 30, 2025*
+*Version 1.5.0 - December 05, 2025*
 
